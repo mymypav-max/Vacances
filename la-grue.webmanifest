@@ -1,9 +1,10 @@
 {
+  "id": "la-grue",
   "name": "La Grue",
   "short_name": "La Grue",
   "description": "Jeu d'empilage a la grue, deux modes : decouverte et chantier.",
   "start_url": "./la-grue.html",
-  "scope": "./",
+  "scope": "./la-grue",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#15130F",

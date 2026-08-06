@@ -1,5 +1,5 @@
 /* Service worker commun : accueil, La Grue et Cap au Sud */
-const CACHE = 'vacances-v9';
+const CACHE = 'vacances-v10';
 const FICHIERS = [
   './',
   './index.html',
