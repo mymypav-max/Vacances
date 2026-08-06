@@ -1,8 +1,8 @@
 {
   "id": "cap-au-sud",
-  "name": "Cap au Sud",
-  "short_name": "Cap au Sud",
-  "description": "Le jeu du trajet Lievin - Les Arcs : reperage, quiz et bingo du voyage.",
+  "name": "Le Grand Trajet",
+  "short_name": "Grand Trajet",
+  "description": "Le jeu du voyage en voiture : choisis ton depart et ton arrivee en France, puis avance en jouant.",
   "start_url": "./cap-au-sud.html",
   "scope": "./",
   "display": "standalone",

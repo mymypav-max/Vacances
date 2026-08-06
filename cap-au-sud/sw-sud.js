@@ -1,5 +1,5 @@
 /* Service worker de Cap au Sud, portee limitee a son dossier */
-const CACHE = 'sud-v1';
+const CACHE = 'sud-v2';
 const FICHIERS = ['./', './cap-au-sud.html', './cap-au-sud.webmanifest', './icon-trajet.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(FICHIERS.map(f => c.add(f).catch(()=>{})))).then(() => self.skipWaiting()));
