@@ -192,12 +192,12 @@
   <div class="home-inner">
     <p class="eyebrow">Chantier privé · Pavy &amp; Fils</p>
     <h1>La<br>Grue</h1>
-    <p class="sub">Deux postes de commande. Choisis le tien.</p>
+    <p class="sub">Deux postes de commande. Choisis le tien. <span style="font-family:var(--mono); font-size:11px; opacity:.6;">v1.6</span></p>
 
     <button class="card" id="btn-decouverte">
       <span class="card-mode">Mode découverte</span>
       <span class="card-who">Valentin · 4 ans</span>
-      <span class="card-desc">La grue avance doucement, les caisses s'aimantent. On compte à voix haute et on ne perd jamais.</span>
+      <span class="card-desc">Vise le milieu pour gagner des étoiles. Rien n'est coupé, mais si la tour penche trop, elle s'écroule. Deux ratés du même côté suffisent.</span>
       <span class="card-stat" id="stat-d">Meilleure tour : 0 caisses</span>
     </button>
 
@@ -306,6 +306,8 @@ let BH = 34, SOL = 0;
 
 function resize(){
   const r = $('stage').getBoundingClientRect();
+  /* la zone de jeu est encore masquée : mesure inutilisable, on ne touche à rien */
+  if(r.width < 2 || r.height < 2) return false;
   W = Math.round(r.width); H = Math.round(r.height);
   DPR = Math.min(window.devicePixelRatio || 1, 2.5);
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
@@ -323,6 +325,12 @@ function resize(){
 }
 window.addEventListener('resize', resize);
 window.addEventListener('orientationchange', () => setTimeout(resize, 300));
+/* filet supplémentaire : dès que la zone de jeu prend ses dimensions réelles */
+try{
+  new ResizeObserver(() => {
+    if($('game').classList.contains('on')) ajusterDepart();
+  }).observe($('stage'));
+}catch(e){}
 
 function couleur(i){
   if(G.mode === 'decouverte'){
@@ -333,19 +341,37 @@ function couleur(i){
   return 'hsl(' + h + ',72%,' + (52 - (i % 5) * 3) + '%)';
 }
 
+/* Met le chantier à l'échelle dès que la zone de jeu a de vraies dimensions.
+   Rejouée tant que la mesure échoue, car certains navigateurs ne recalculent
+   pas la mise en page immédiatement après l'affichage de l'écran. */
+function ajusterDepart(){
+  if(resize() === false) return false;
+  if(G.n === 0 && G.blocks.length === 1){
+    const l = Math.min(PW * (G.mode === 'decouverte' ? 0.34 : 0.46), 280);
+    G.blocks[0].x = (PW - l) / 2;
+    G.blocks[0].w = l;
+    nouvelleCaisse();
+  }
+  return true;
+}
+
 function demarrer(mode){
-  resize();
   G.mode = mode;
   G.blocks = []; G.debris = []; G.dust = [];
   G.cam = 0; G.camCible = 0; G.n = 0; G.combo = 0;
-  G.over = false; G.phase = 'roule'; G.secousse = 0;
+  G.over = false; G.phase = 'roule'; G.secousse = 0; G.aPenche = false;
 
-  const largeur = Math.min(PW * (mode === 'decouverte' ? 0.56 : 0.46), 280);
+  /* on affiche d'abord la zone de jeu, sinon elle mesure zéro */
+  $('home').classList.remove('on');
+  $('game').classList.add('on');
+  resize();
+
+  const largeur = Math.min(PW * (mode === 'decouverte' ? 0.34 : 0.46), 280);
   G.blocks.push({ x:(PW - largeur) / 2, w:largeur, c:couleur(0) });
 
   elLabel.textContent = mode === 'decouverte' ? 'CAISSES' : 'MÈTRES';
   elBest.textContent = mode === 'decouverte'
-    ? 'Record ' + (+store.get('grue.best.d') || 0) + ' caisses'
+    ? 'Record ' + (+store.get('grue.best.d') || 0) + ' caisses · ★ ' + (+store.get('grue.best.etoiles') || 0)
     : 'Record ' + (+store.get('grue.best.c') || 0) + ' m';
   elScore.textContent = '0';
   elCombo.classList.remove('on');
@@ -353,16 +379,15 @@ function demarrer(mode){
   elHint.style.display = 'block';
 
   nouvelleCaisse();
-  $('home').classList.remove('on');
-  $('game').classList.add('on');
   try{ history.pushState({jeu:1}, ''); }catch(e){}
+  requestAnimationFrame(ajusterDepart);   /* seconde mesure une fois la mise en page faite */
   G.tPrec = performance.now();
   cancelAnimationFrame(G.raf);
   G.raf = requestAnimationFrame(boucle);
 }
 
 function vitesse(){
-  if(G.mode === 'decouverte') return 130;
+  if(G.mode === 'decouverte') return Math.min(300, 128 + G.n * 7);
   return Math.min(620, 210 + G.n * 11);
 }
 
@@ -387,28 +412,84 @@ function lacher(){
   G.chuteY = -BH * 2.7;
 }
 
+/* La tour s'écroule : les caisses du haut partent en vrac du côté du penchant */
+function ecrouler(sens){
+  const nb = Math.min(G.blocks.length - 1, 6);
+  for(let i = 0; i < nb; i++){
+    const idx = G.blocks.length - 1 - i;
+    const b = G.blocks[idx];
+    G.debris.push({
+      x:b.x, y:hauteurEcran(idx), w:b.w, c:b.c,
+      vx:sens * (90 + Math.random() * 110),
+      vy:-110 - Math.random() * 90,
+      rot:0, vr:sens * (Math.random() * 4 + 1.5)
+    });
+  }
+  G.blocks.splice(G.blocks.length - nb, nb);
+  G.secousse = 16;
+  sRate();
+  setTimeout(() => dire('Oh non, la tour est tombée !'), 250);
+  finPartie();
+}
+
 function resoudre(){
   const prec = G.blocks[G.blocks.length - 1];
   const cur = G.cur;
   const dx = cur.x - prec.x;
 
   if(G.mode === 'decouverte'){
-    const limite = prec.w * 0.42;
-    const nx = Math.abs(dx) <= prec.w * 0.62 ? prec.x
-             : prec.x + Math.max(-limite, Math.min(limite, dx));
+    /* fenêtre de visée serrée : la caisse n'est jamais coupée, mais la tour dérive */
+    const base = G.blocks[0];
+    const tol = Math.max(6, prec.w * 0.11);
+    const derive = (PW - prec.w) / 2;   /* dérive maximale physiquement atteignable */
+    const parfait = Math.abs(dx) <= tol;
+    const limite = prec.w * 0.5;
+    let nx;
+    if(parfait){
+      /* une pose au milieu redresse un peu la tour vers son aplomb */
+      nx = prec.x + (base.x - prec.x) * 0.2;
+    } else {
+      nx = prec.x + Math.max(-limite, Math.min(limite, dx));
+    }
     G.blocks.push({ x:nx, w:prec.w, c:cur.c });
     G.n++;
     poussiere(nx + prec.w / 2, prec.w);
-    G.secousse = 6;
-    sPose();
+    G.secousse = parfait ? 4 : 10;
     elScore.textContent = G.n;
-    dire(String(G.n));
+
+    if(parfait){
+      G.combo++;
+      sParfait();
+      elCombo.textContent = '★ ' + G.combo;
+      elCombo.classList.add('on');
+      dire('Pile poil ! ' + G.n);
+      majRecord('grue.best.etoiles', G.combo);
+      if(G.combo % 3 === 0) toast('★ ' + G.combo);
+    } else {
+      sPose();
+      dire(String(G.n));
+    }
+    majRecord('grue.best.d', G.n);
+
+    /* aplomb : il faut trois mauvaises poses du même côté pour faire tomber la tour */
+    const ecart = nx - base.x;
+    if(Math.abs(ecart) >= derive * 0.64){
+      ecrouler(ecart > 0 ? 1 : -1);
+      return;
+    }
+    if(Math.abs(ecart) > derive * 0.34 && !G.aPenche){
+      G.aPenche = true;
+      toast('Ça penche !');
+      setTimeout(() => dire('Attention, ça penche !'), 900);
+    } else if(Math.abs(ecart) < derive * 0.18){
+      G.aPenche = false;
+    }
+
     if(G.n % 5 === 0){
       const m = ['Bravo !','Super !','Génial !','Champion !','Trop fort !'];
       toast(m[Math.floor(G.n / 5 - 1) % m.length]);
       setTimeout(sBravo, 260);
     }
-    majRecord('grue.best.d', G.n);
     nouvelleCaisse();
     return;
   }
@@ -468,7 +549,9 @@ function finPartie(){
   elOverScore.textContent = G.mode === 'decouverte' ? G.n : G.n + ' m';
   elOverMsg.textContent = G.n >= rec && G.n > 0
     ? 'Nouveau record du chantier.'
-    : 'Record à battre : ' + rec + (G.mode === 'decouverte' ? ' caisses.' : ' m.');
+    : (G.mode === 'decouverte'
+        ? 'Record à battre : ' + rec + ' caisses. Vise le milieu pour redresser la tour.'
+        : 'Record à battre : ' + rec + ' m.');
   setTimeout(() => elOver.classList.add('on'), 420);
 }
 
@@ -497,6 +580,11 @@ function hauteurEcran(i){ return SOL - (i + 1) * BH + G.cam; }
 function boucle(t){
   const dt = Math.min(0.05, (t - G.tPrec) / 1000);
   G.tPrec = t;
+  if(W < 2 || H < 2){                 /* mesure ratée : on retente à chaque frame */
+    ajusterDepart();
+    G.raf = requestAnimationFrame(boucle);
+    return;
+  }
   maj(dt);
   dessiner();
   G.raf = requestAnimationFrame(boucle);
@@ -705,7 +793,7 @@ $('sound').addEventListener('click', e => {
 });
 
 function majStats(){
-  $('stat-d').textContent = 'Meilleure tour : ' + (+store.get('grue.best.d') || 0) + ' caisses';
+  $('stat-d').textContent = 'Meilleure tour : ' + (+store.get('grue.best.d') || 0) + ' caisses · ★ ' + (+store.get('grue.best.etoiles') || 0);
   $('stat-c').textContent = 'Record : ' + (+store.get('grue.best.c') || 0) + ' m';
   $('sound').textContent = 'Son : ' + (soundOn ? 'on' : 'off');
   $('sound').setAttribute('aria-pressed', soundOn);
