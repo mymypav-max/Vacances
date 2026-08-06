@@ -1,0 +1,16 @@
+{
+  "name": "Cap au Sud",
+  "short_name": "Cap au Sud",
+  "description": "Le jeu du trajet Lievin - Les Arcs : reperage, quiz et bingo du voyage.",
+  "start_url": "./cap-au-sud.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16181C",
+  "theme_color": "#12448F",
+  "lang": "fr",
+  "icons": [
+    { "src": "icon-trajet.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-trajet.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
