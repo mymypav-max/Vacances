@@ -1,5 +1,5 @@
 /* Service worker de Duel, portee limitee a son dossier */
-const CACHE = 'duel-v2';
+const CACHE = 'duel-v3';
 const FICHIERS = ['./', './duel.html', './duel.webmanifest', './icon-duel.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(FICHIERS.map(f => c.add(f).catch(()=>{})))).then(() => self.skipWaiting()));

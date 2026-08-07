@@ -40,6 +40,7 @@
   .panneau.perdant{background:#2A1A18 !important;}
   .panneau.pret{background:var(--rouge) !important;}
   .panneau.top{background:var(--vert) !important;}
+  .panneau.piege{background:#8A5A16 !important;}
 
   /* ligne médiane, comme un terrain */
   .ligne{
@@ -114,11 +115,11 @@
   .lig input:focus{border-color:var(--blanc); outline:none;}
   .reglage{display:flex; gap:8px; margin-bottom:20px; align-items:center; flex-wrap:wrap; justify-content:center;}
   .reglage span{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gris); font-weight:700;}
-  .opt{
+  .opt, .niv{
     background:none; border:2px solid #33363F; color:var(--gris); border-radius:8px;
     font-family:var(--mono); font-size:15px; font-weight:700; padding:9px 15px; cursor:pointer;
   }
-  .opt.on{border-color:var(--blanc); color:var(--blanc);}
+  .opt.on, .niv.on{border-color:var(--blanc); color:var(--blanc);}
   .btn{
     border:0; border-radius:9px; padding:17px 40px; background:var(--blanc); color:var(--noir);
     font-family:var(--ui); font-weight:900; font-size:17px; text-transform:uppercase;
@@ -160,6 +161,13 @@
     </div>
   </div>
   <div class="reglage">
+    <span>Niveau</span>
+    <button class="niv" data-niv="0">Facile</button>
+    <button class="niv on" data-niv="1">Moyen</button>
+    <button class="niv" data-niv="2">Difficile</button>
+  </div>
+  <p class="astuce" style="margin:-12px 0 18px">Facile : 4 à 6 ans · Moyen : 7 à 11 ans · Difficile : adultes</p>
+  <div class="reglage">
     <span>Manche en</span>
     <button class="opt" data-pts="3">3 pts</button>
     <button class="opt on" data-pts="5">5 pts</button>
@@ -168,7 +176,7 @@
   <button class="btn" id="jouer">Commencer</button>
   <button class="btn sec" id="son">Son : on</button>
   <button class="btn sec" id="install" style="display:none">Installer l'app</button>
-  <p class="astuce">Cinq épreuves : réflexe, intrus, comptage, quantités, paire.</p>
+  <p class="astuce">Réflexe, intrus, comptage, quantités, paire — plus calcul et mémoire dès le niveau moyen.</p>
 </div>
 
 <div class="voile off" id="fin">
@@ -203,6 +211,7 @@ function lireNoms(){
   $('nom2').textContent = noms[1];
 }
 let butPts = +store.get('duel.pts') || 5;
+let niveau = store.get('duel.niv') === undefined || store.get('duel.niv') === null ? 1 : +store.get('duel.niv');
 
 /* ---------- son ---------- */
 let actx = null;
@@ -250,81 +259,158 @@ function etat(j, cls){
 }
 
 /* ---------- fabrication des manches ---------- */
+
+/* paires volontairement proches, pour les niveaux élevés */
+const PROCHES = [
+  ["🍎","🍅"],["🐟","🐠"],["⭐","🌟"],["🐝","🐞"],["🌻","🌼"],["🚗","🚙"],
+  ["🐰","🐹"],["🍐","🍏"],["🌙","🌛"],["🐬","🐋"],["🍋","🍌"],["🚚","🚛"],
+  ["😀","😄"],["🔔","🔕"],["🎈","🎀"],["🐤","🐣"]
+];
+
+/* réglages par niveau : 0 facile, 1 moyen, 2 difficile */
+const REGLAGES = [
+  { tuiles:6,  compte:[2,7],   ecartCompte:1, tas:[2,8],   ecartTas:2, memoire:0,    proches:false, epreuves:['reflexe','intrus','compte','quantite','paire'] },
+  { tuiles:12, compte:[7,16],  ecartCompte:1, tas:[6,14],  ecartTas:2, memoire:1700, proches:true,  epreuves:['reflexe','intrus','compte','quantite','paire','calcul','memoire'] },
+  { tuiles:20, compte:[14,30], ecartCompte:1, tas:[11,20], ecartTas:1, memoire:1100, proches:true,  epreuves:['reflexe','intrus','compte','quantite','paire','calcul','memoire'] }
+];
+const R = () => REGLAGES[niveau];
+const entre = ([a,b]) => a + Math.floor(Math.random() * (b - a + 1));
+
+function duoSymboles(){
+  if(R().proches && Math.random() < .75){
+    const p = hasard(PROCHES);
+    return Math.random() < .5 ? p : [p[1], p[0]];
+  }
+  const a = hasard(SYMBOLES);
+  let b = hasard(SYMBOLES); while(b === a) b = hasard(SYMBOLES);
+  return [a, b];
+}
+
+function calculPour(){
+  if(niveau === 1){
+    const t = hasard(['+','-','x']);
+    if(t === '+'){ const a = entre([6,29]), b = entre([4,19]); return [a+' + '+b, a+b]; }
+    if(t === '-'){ const a = entre([12,40]), b = entre([3,11]); return [a+' − '+b, a-b]; }
+    const a = entre([2,6]), b = entre([2,9]); return [a+' × '+b, a*b];
+  }
+  const t = hasard(['+','x','xx','mixte']);
+  if(t === '+'){ const a = entre([48,199]), b = entre([37,159]); return [a+' + '+b, a+b]; }
+  if(t === 'x'){ const a = entre([6,14]), b = entre([6,19]); return [a+' × '+b, a*b]; }
+  if(t === 'xx'){ const a = entre([12,29]), b = entre([11,19]); return [a+' × '+b, a*b]; }
+  const a = entre([5,13]), b = entre([4,9]);
+  const c = entre([7, Math.max(8, a*b - 6)]);   /* le résultat reste positif */
+  return [a+' × '+b+' − '+c, a*b-c];
+}
+
+function propositions(n, ecart){
+  const set = new Set([n]);
+  const decalages = [1,-1,2,-2,3,-3,10,-10];
+  let garde = 0;
+  while(set.size < 4 && garde++ < 200){
+    const d = hasard(decalages) * (Math.random() < .5 ? 1 : ecart);
+    const v = n + d;
+    if(v >= 0 && v !== n) set.add(v);
+  }
+  /* filet de sécurité : jamais de boucle sans fin, même sur une valeur extrême */
+  let k = 1;
+  while(set.size < 4){ set.add(n + k); k++; }
+  return melange([...set]).slice(0,4);
+}
+
 function nouvelleManche(){
   clearTimeout(minuteur);
   verrouille = [false,false];
   [1,2].forEach(j => etat(j, null));
-  const type = hasard(['reflexe','intrus','compte','quantite','paire']);
+  const type = hasard(R().epreuves);
 
+  /* ----- réflexe : signal vert, avec pièges orange aux niveaux élevés ----- */
   if(type === 'reflexe'){
     manche = { type, phase:'attente', fini:false };
-    peindre((s) => {
-      s.innerHTML = '<p class="titre-manche">Réflexe</p><p class="attente">Attends…</p>';
-    });
-    [1,2].forEach(j => etat(j, 'pret'));
-    minuteur = setTimeout(() => {
+    const attendre = () => {
+      manche.phase = 'attente';
+      [1,2].forEach(j => etat(j, 'pret'));
+      peindre(s => { s.innerHTML = '<p class="titre-manche">Réflexe</p><p class="attente">Attends…</p>'; });
+    };
+    const piege = () => {
+      if(!manche || manche.fini) return;
+      manche.phase = 'piege';
+      [1,2].forEach(j => etat(j, 'piege'));
+      peindre(s => { s.innerHTML = '<p class="eclair">⚠️</p><p class="consigne">NE TAPE PAS</p>'; });
+      minuteur = setTimeout(() => {
+        if(!manche || manche.fini) return;
+        attendre();
+        minuteur = setTimeout(vert, 900 + Math.random() * 2600);
+      }, niveau === 2 ? 420 : 560);
+    };
+    const vert = () => {
       if(!manche || manche.fini) return;
       manche.phase = 'go';
-      manche.t0 = performance.now();
       [1,2].forEach(j => etat(j, 'top'));
-      peindre((s) => { s.innerHTML = '<p class="eclair">⚡</p><p class="consigne">TAPE !</p>'; });
+      peindre(s => { s.innerHTML = '<p class="eclair">⚡</p><p class="consigne">TAPE !</p>'; });
       sTop();
-    }, 1300 + Math.random() * 3400);
+    };
+    attendre();
+    const proba = [0, .45, .65][niveau];
+    minuteur = setTimeout(Math.random() < proba ? piege : vert, 1200 + Math.random() * 3200);
     return;
   }
 
+  /* ----- intrus ----- */
   if(type === 'intrus'){
-    const a = hasard(SYMBOLES);
-    let b = hasard(SYMBOLES); while(b === a) b = hasard(SYMBOLES);
-    const n = 6, pos = Math.floor(Math.random() * n);
+    const [a, b] = duoSymboles();
+    const n = R().tuiles, pos = Math.floor(Math.random() * n);
     manche = { type, fini:false };
-    peindre((s) => {
+    peindre(s => {
       s.innerHTML = '<p class="titre-manche">Intrus</p><p class="consigne">Trouve celui qui est différent</p>';
       const r = document.createElement('div'); r.className = 'rangee';
       for(let i = 0; i < n; i++){
-        const b2 = document.createElement('button');
-        b2.className = 'tuile'; b2.textContent = i === pos ? b : a;
-        b2.dataset.ok = i === pos ? '1' : '';
-        r.appendChild(b2);
+        const t = document.createElement('button');
+        t.className = 'tuile'; t.textContent = i === pos ? b : a;
+        t.dataset.ok = i === pos ? '1' : '';
+        r.appendChild(t);
       }
       s.appendChild(r);
     });
     return;
   }
 
+  /* ----- compte ----- */
   if(type === 'compte'){
     const sym = hasard(SYMBOLES);
-    const n = 2 + Math.floor(Math.random() * 6);
-    const props = melange([...new Set([n, n+1, Math.max(1,n-1), n+2])].slice(0,4));
+    const n = entre(R().compte);
+    const props = propositions(n, R().ecartCompte);
     manche = { type, fini:false };
-    peindre((s) => {
+    peindre(s => {
       s.innerHTML = '<p class="titre-manche">Compte</p><p class="consigne">Combien y en a-t-il ?</p>';
       const g = document.createElement('div'); g.className = 'rangee';
-      g.style.fontSize = 'clamp(22px,6.5vw,34px)';
+      g.style.fontSize = niveau === 0 ? 'clamp(22px,6.5vw,34px)' : 'clamp(15px,4.4vw,24px)';
       g.innerHTML = new Array(n).fill('<span>' + sym + '</span>').join('');
       s.appendChild(g);
       const r = document.createElement('div'); r.className = 'rangee';
       props.forEach(p => {
-        const b = document.createElement('button');
-        b.className = 'tuile'; b.textContent = p; b.dataset.ok = p === n ? '1' : '';
-        r.appendChild(b);
+        const t = document.createElement('button');
+        t.className = 'tuile'; t.textContent = p; t.dataset.ok = p === n ? '1' : '';
+        r.appendChild(t);
       });
       s.appendChild(r);
     });
     return;
   }
 
+  /* ----- quantités ----- */
   if(type === 'quantite'){
     const sym = hasard(SYMBOLES);
-    let a = 2 + Math.floor(Math.random() * 7), b = 2 + Math.floor(Math.random() * 7);
-    while(b === a) b = 2 + Math.floor(Math.random() * 7);
+    const a = entre(R().tas);
+    let b = a + (Math.random() < .5 ? -1 : 1) * entre([1, R().ecartTas]);
+    if(b < 1) b = a + entre([1, R().ecartTas]);
     manche = { type, fini:false };
-    peindre((s) => {
+    peindre(s => {
       s.innerHTML = '<p class="titre-manche">Quantités</p><p class="consigne">Touche le plus grand tas</p>';
       const r = document.createElement('div'); r.className = 'rangee';
       [a,b].forEach(n => {
         const g = document.createElement('button');
         g.className = 'groupe tuile'; g.style.width = '';
+        g.style.fontSize = niveau === 0 ? '' : 'clamp(13px,3.6vw,20px)';
         g.innerHTML = new Array(n).fill('<span>' + sym + '</span>').join('');
         g.dataset.ok = n === Math.max(a,b) ? '1' : '';
         r.appendChild(g);
@@ -334,18 +420,67 @@ function nouvelleManche(){
     return;
   }
 
-  /* paire : retrouver le symbole montré */
-  const cible = hasard(SYMBOLES);
-  const autres = melange(SYMBOLES.filter(x => x !== cible)).slice(0,5);
-  const tout = melange([cible, ...autres]);
+  /* ----- calcul ----- */
+  if(type === 'calcul'){
+    const [texte, val] = calculPour();
+    const props = propositions(val, 1);
+    manche = { type, fini:false };
+    peindre(s => {
+      s.innerHTML = '<p class="titre-manche">Calcul</p><p class="consigne" style="font-size:clamp(24px,7vw,40px)">' + texte + '</p>';
+      const r = document.createElement('div'); r.className = 'rangee';
+      props.forEach(p => {
+        const t = document.createElement('button');
+        t.className = 'tuile large'; t.textContent = p; t.dataset.ok = p === val ? '1' : '';
+        r.appendChild(t);
+      });
+      s.appendChild(r);
+    });
+    return;
+  }
+
+  /* ----- mémoire ----- */
+  if(type === 'memoire'){
+    const n = niveau === 1 ? 6 : 9;
+    const tirage = melange(SYMBOLES).slice(0, n);
+    const pos = Math.floor(Math.random() * n);
+    const cible = tirage[pos];
+    manche = { type, fini:false, attente:true };
+    peindre(s => {
+      s.innerHTML = '<p class="titre-manche">Mémoire</p><p class="consigne">Mémorise !</p>';
+      const r = document.createElement('div'); r.className = 'rangee';
+      tirage.forEach((x, i) => {
+        const t = document.createElement('button');
+        t.className = 'tuile'; t.textContent = x; t.dataset.ok = i === pos ? '1' : '';
+        r.appendChild(t);
+      });
+      s.appendChild(r);
+    });
+    minuteur = setTimeout(() => {
+      if(!manche || manche.fini) return;
+      manche.attente = false;
+      [1,2].forEach(j => {
+        const sc = $('scene' + j);
+        sc.querySelector('.consigne').innerHTML = 'Où était <span style="font-size:1.4em">' + cible + '</span> ?';
+        sc.querySelectorAll('.tuile').forEach(t => { t.textContent = '❓'; });
+      });
+      sTic();
+    }, R().memoire);
+    return;
+  }
+
+  /* ----- paire ----- */
+  const [cible, jumeau] = duoSymboles();
+  const pool = SYMBOLES.filter(x => x !== cible && x !== jumeau);
+  const autres = melange(pool).slice(0, R().tuiles - (R().proches ? 2 : 1));
+  const tout = melange(R().proches ? [cible, jumeau, ...autres] : [cible, ...autres]);
   manche = { type:'paire', fini:false };
-  peindre((s) => {
+  peindre(s => {
     s.innerHTML = '<p class="titre-manche">Paire</p><p class="consigne">Retrouve <span style="font-size:1.5em">' + cible + '</span></p>';
     const r = document.createElement('div'); r.className = 'rangee';
     tout.forEach(x => {
-      const b = document.createElement('button');
-      b.className = 'tuile'; b.textContent = x; b.dataset.ok = x === cible ? '1' : '';
-      r.appendChild(b);
+      const t = document.createElement('button');
+      t.className = 'tuile'; t.textContent = x; t.dataset.ok = x === cible ? '1' : '';
+      r.appendChild(t);
     });
     s.appendChild(r);
   });
@@ -391,10 +526,11 @@ function mauvais(j, cible){
     audio();
     if(manche.type === 'reflexe'){
       e.preventDefault();
-      if(manche.phase === 'attente'){ gagnePoint(j === 1 ? 2 : 1, 'Faux départ adverse'); }
+      if(manche.phase !== 'go'){ gagnePoint(j === 1 ? 2 : 1, 'Faux départ adverse'); }
       else { gagnePoint(j, 'Gagné !'); }
       return;
     }
+    if(manche.attente) return;
     const t = e.target.closest('.tuile');
     if(!t) return;
     e.preventDefault();
@@ -438,6 +574,15 @@ $('rejouer').addEventListener('click', demarrer);
 $('menu').addEventListener('click', () => {
   enCours = false; manche = null; clearTimeout(minuteur);
   $('fin').classList.add('off'); $('accueil').classList.remove('off');
+});
+
+document.querySelectorAll('.niv').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.niv').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    niveau = +b.dataset.niv;
+    store.set('duel.niv', niveau);
+  });
 });
 
 document.querySelectorAll('.opt').forEach(b => {
@@ -488,6 +633,7 @@ $('saisie1').value = store.get('duel.n1') || '';
 $('saisie2').value = store.get('duel.n2') || '';
 lireNoms();
 document.querySelectorAll('.opt').forEach(b => b.classList.toggle('on', +b.dataset.pts === butPts));
+document.querySelectorAll('.niv').forEach(b => b.classList.toggle('on', +b.dataset.niv === niveau));
 $('son').textContent = 'Son : ' + (sonOn ? 'on' : 'off');
 pips();
 </script>
