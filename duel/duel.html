@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Duel</title>
+<link rel="manifest" href="duel.webmanifest">
+<meta name="theme-color" content="#15161A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Duel">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="icon-duel.png">
+<style>
+  :root{
+    --noir:#15161A; --sombre:#1E2026; --blanc:#F3F4F6; --gris:#8B909B;
+    --orange:#E8622A; --bleu:#1E9BB0; --vert:#3E9B5F; --rouge:#C33B2C;
+    --ui:"Roboto","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:"Roboto Mono",ui-monospace,"Noto Sans Mono",monospace;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0;}
+  html,body{height:100%; overflow:hidden;}
+  body{
+    background:var(--noir); color:var(--blanc); font-family:var(--ui);
+    user-select:none; -webkit-user-select:none; touch-action:manipulation;
+  }
+
+  /* ---------- table de jeu ---------- */
+  #table{position:fixed; inset:0; display:flex; flex-direction:column;}
+  .panneau{
+    flex:1; position:relative; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:10px;
+    padding:10px 12px; overflow:hidden; transition:background .18s;
+  }
+  .panneau.haut{transform:rotate(180deg);}
+  .panneau[data-j="1"]{background:#241812;}
+  .panneau[data-j="2"]{background:#10222A;}
+  .panneau.gagnant{background:var(--vert) !important;}
+  .panneau.perdant{background:#2A1A18 !important;}
+  .panneau.pret{background:var(--rouge) !important;}
+  .panneau.top{background:var(--vert) !important;}
+
+  /* ligne médiane, comme un terrain */
+  .ligne{
+    flex:0 0 10px; position:relative;
+    background:repeating-linear-gradient(90deg,var(--blanc) 0 22px,transparent 22px 40px);
+    opacity:.5;
+  }
+
+  .entete{
+    position:absolute; top:8px; left:0; right:0; display:flex;
+    align-items:center; justify-content:center; gap:10px; padding:0 10px;
+  }
+  .nom-j{
+    font-size:12px; font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+    max-width:42%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .panneau[data-j="1"] .nom-j{color:var(--orange);}
+  .panneau[data-j="2"] .nom-j{color:var(--bleu);}
+  .pips{display:flex; gap:6px;}
+  .pip{width:13px; height:13px; border-radius:50%; border:2px solid rgba(255,255,255,.35);}
+  .panneau[data-j="1"] .pip.on{background:var(--orange); border-color:var(--orange);}
+  .panneau[data-j="2"] .pip.on{background:var(--bleu); border-color:var(--bleu);}
+
+  .titre-manche{
+    font-size:12px; letter-spacing:.2em; text-transform:uppercase; font-weight:700;
+    color:rgba(255,255,255,.6);
+  }
+  .consigne{font-size:clamp(17px,4.4vw,26px); font-weight:900; text-align:center; letter-spacing:-.02em; line-height:1.1;}
+  .scene{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; width:100%;}
+  .rangee{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:96%;}
+  .tuile{
+    background:rgba(255,255,255,.09); border:2px solid rgba(255,255,255,.16); border-radius:12px;
+    width:clamp(46px,13.5vw,72px); height:clamp(46px,13.5vw,72px);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(24px,7.5vw,40px); line-height:1; cursor:pointer; color:var(--blanc);
+    font-family:var(--mono); font-weight:700; padding:0;
+  }
+  .tuile.large{width:auto; min-width:clamp(66px,20vw,110px); padding:0 14px;}
+  .tuile:active{transform:scale(.95);}
+  .tuile.rate{background:var(--rouge); border-color:var(--rouge);}
+  .groupe{
+    background:rgba(255,255,255,.07); border:2px solid rgba(255,255,255,.16); border-radius:14px;
+    padding:12px; display:flex; flex-wrap:wrap; gap:5px; justify-content:center;
+    width:clamp(120px,38vw,190px); min-height:96px; align-items:center;
+    font-size:clamp(17px,5vw,26px); line-height:1; cursor:pointer;
+  }
+  .eclair{font-size:clamp(52px,17vw,96px); line-height:1;}
+  .attente{font-size:clamp(30px,9vw,52px); font-weight:900; letter-spacing:-.03em;}
+  .verrou{opacity:.35; pointer-events:none;}
+
+  /* ---------- accueil et fin ---------- */
+  .voile{
+    position:fixed; inset:0; background:var(--noir); z-index:20;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:26px; text-align:center; gap:6px;
+  }
+  .voile.off{display:none;}
+  h1{
+    font-size:clamp(56px,19vw,104px); font-weight:900; letter-spacing:-.05em;
+    text-transform:uppercase; line-height:.85;
+    background:linear-gradient(100deg,var(--orange) 0 46%,var(--bleu) 54% 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sous{font-size:15px; color:var(--gris); max-width:340px; line-height:1.45; margin:10px 0 22px;}
+  .joueurs{display:flex; flex-direction:column; gap:9px; width:100%; max-width:330px; margin-bottom:20px;}
+  .lig{display:flex; align-items:center; gap:10px;}
+  .puce{width:14px; height:14px; border-radius:50%; flex:0 0 auto;}
+  .lig input{
+    flex:1; min-width:0; background:#1E2026; border:2px solid #33363F; border-radius:8px;
+    color:var(--blanc); font-family:var(--ui); font-size:16px; font-weight:700; padding:12px 13px;
+  }
+  .lig input:focus{border-color:var(--blanc); outline:none;}
+  .reglage{display:flex; gap:8px; margin-bottom:20px; align-items:center; flex-wrap:wrap; justify-content:center;}
+  .reglage span{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gris); font-weight:700;}
+  .opt{
+    background:none; border:2px solid #33363F; color:var(--gris); border-radius:8px;
+    font-family:var(--mono); font-size:15px; font-weight:700; padding:9px 15px; cursor:pointer;
+  }
+  .opt.on{border-color:var(--blanc); color:var(--blanc);}
+  .btn{
+    border:0; border-radius:9px; padding:17px 40px; background:var(--blanc); color:var(--noir);
+    font-family:var(--ui); font-weight:900; font-size:17px; text-transform:uppercase;
+    letter-spacing:.05em; cursor:pointer; min-width:250px;
+  }
+  .btn.sec{background:none; color:var(--gris); border:1px solid #33363F; margin-top:10px; font-weight:700;}
+  .vainqueur{font-size:clamp(38px,12vw,66px); font-weight:900; text-transform:uppercase; letter-spacing:-.03em; line-height:1;}
+  .final{font-family:var(--mono); font-size:17px; color:var(--gris); margin:12px 0 24px;}
+  .astuce{font-size:12px; color:#55596180; margin-top:16px;}
+  :focus-visible{outline:3px solid var(--blanc); outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;}}
+</style>
+</head>
+<body>
+
+<div id="table">
+  <section class="panneau haut" data-j="1">
+    <div class="entete"><span class="nom-j" id="nom1">Orange</span><div class="pips" id="pips1"></div></div>
+    <div class="scene" id="scene1"></div>
+  </section>
+  <div class="ligne"></div>
+  <section class="panneau" data-j="2">
+    <div class="entete"><span class="nom-j" id="nom2">Bleu</span><div class="pips" id="pips2"></div></div>
+    <div class="scene" id="scene2"></div>
+  </section>
+</div>
+
+<div class="voile" id="accueil">
+  <h1>Duel</h1>
+  <p class="sous">Posez l'appareil à plat entre vous, un joueur de chaque côté. Orange en haut, bleu en bas.</p>
+  <div class="joueurs">
+    <div class="lig">
+      <span class="puce" style="background:#E8622A"></span>
+      <input id="saisie1" type="text" maxlength="14" placeholder="Joueur du haut" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="lig">
+      <span class="puce" style="background:#1E9BB0"></span>
+      <input id="saisie2" type="text" maxlength="14" placeholder="Joueur du bas" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+  <div class="reglage">
+    <span>Manche en</span>
+    <button class="opt" data-pts="3">3 pts</button>
+    <button class="opt on" data-pts="5">5 pts</button>
+    <button class="opt" data-pts="7">7 pts</button>
+  </div>
+  <button class="btn" id="jouer">Commencer</button>
+  <button class="btn sec" id="son">Son : on</button>
+  <button class="btn sec" id="install" style="display:none">Installer l'app</button>
+  <p class="astuce">Cinq épreuves : réflexe, intrus, comptage, quantités, paire.</p>
+</div>
+
+<div class="voile off" id="fin">
+  <p class="vainqueur" id="v-nom">Bleu gagne</p>
+  <p class="final" id="v-score"></p>
+  <button class="btn" id="rejouer">Rejouer</button>
+  <button class="btn sec" id="menu">Menu</button>
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const melange = t => t.map(v => [Math.random(), v]).sort((a,b) => a[0]-b[0]).map(v => v[1]);
+const hasard = t => t[Math.floor(Math.random() * t.length)];
+
+/* ---------- stockage tolérant ---------- */
+const mem = {};
+const store = {
+  get(k){ try{ const v = localStorage.getItem(k); return v===null?mem[k]:v; }catch(e){ return mem[k]; } },
+  set(k,v){ mem[k]=String(v); try{ localStorage.setItem(k,v); }catch(e){} }
+};
+let sonOn = store.get('duel.son') !== '0';
+let noms = ['Orange','Bleu'];
+function lireNoms(){
+  const a = ($('saisie1').value || '').trim();
+  const b = ($('saisie2').value || '').trim();
+  noms = [a || 'Orange', b || 'Bleu'];
+  store.set('duel.n1', noms[0] === 'Orange' ? '' : noms[0]);
+  store.set('duel.n2', noms[1] === 'Bleu' ? '' : noms[1]);
+  $('nom1').textContent = noms[0];
+  $('nom2').textContent = noms[1];
+}
+let butPts = +store.get('duel.pts') || 5;
+
+/* ---------- son ---------- */
+let actx = null;
+function audio(){
+  if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(actx && actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function blip(f,d,t,v){
+  if(!sonOn) return;
+  const a = audio(); if(!a) return;
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = t||'triangle'; o.frequency.value = f;
+  g.gain.setValueAtTime(v||.1, a.currentTime);
+  g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + d);
+  o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime + d);
+}
+function vibre(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
+const sTop    = () => { blip(880,.12,'square',.12); vibre(20); };
+const sPoint  = () => { [660,990].forEach((f,i)=>setTimeout(()=>blip(f,.14,'triangle',.11), i*95)); vibre([12,40,16]); };
+const sRate   = () => { blip(150,.3,'sawtooth',.09); vibre(150); };
+const sVictoire = () => { [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>blip(f,.2,'triangle',.1), i*105)); vibre([20,60,20,60,30]); };
+const sTic    = () => blip(440,.07,'square',.07);
+
+/* ---------- état ---------- */
+const SYMBOLES = ["🚗","🚚","🐄","🐸","🍎","⚽","🌻","🐟","🎈","🍒","🦋","⭐","🐝","🍋","🚀","🐧","🌵","🎩","🐬","🍄"];
+let score = [0,0], manche = null, verrouille = [false,false], minuteur = null, enCours = false;
+
+function pips(){
+  [1,2].forEach(j => {
+    const z = $('pips' + j);
+    z.innerHTML = '';
+    for(let i = 0; i < butPts; i++){
+      const p = document.createElement('div');
+      p.className = 'pip' + (i < score[j-1] ? ' on' : '');
+      z.appendChild(p);
+    }
+  });
+}
+function panneau(j){ return document.querySelector('.panneau[data-j="' + j + '"]'); }
+function etat(j, cls){
+  const p = panneau(j);
+  p.classList.remove('gagnant','perdant','pret','top');
+  if(cls) p.classList.add(cls);
+}
+
+/* ---------- fabrication des manches ---------- */
+function nouvelleManche(){
+  clearTimeout(minuteur);
+  verrouille = [false,false];
+  [1,2].forEach(j => etat(j, null));
+  const type = hasard(['reflexe','intrus','compte','quantite','paire']);
+
+  if(type === 'reflexe'){
+    manche = { type, phase:'attente', fini:false };
+    peindre((s) => {
+      s.innerHTML = '<p class="titre-manche">Réflexe</p><p class="attente">Attends…</p>';
+    });
+    [1,2].forEach(j => etat(j, 'pret'));
+    minuteur = setTimeout(() => {
+      if(!manche || manche.fini) return;
+      manche.phase = 'go';
+      manche.t0 = performance.now();
+      [1,2].forEach(j => etat(j, 'top'));
+      peindre((s) => { s.innerHTML = '<p class="eclair">⚡</p><p class="consigne">TAPE !</p>'; });
+      sTop();
+    }, 1300 + Math.random() * 3400);
+    return;
+  }
+
+  if(type === 'intrus'){
+    const a = hasard(SYMBOLES);
+    let b = hasard(SYMBOLES); while(b === a) b = hasard(SYMBOLES);
+    const n = 6, pos = Math.floor(Math.random() * n);
+    manche = { type, fini:false };
+    peindre((s) => {
+      s.innerHTML = '<p class="titre-manche">Intrus</p><p class="consigne">Trouve celui qui est différent</p>';
+      const r = document.createElement('div'); r.className = 'rangee';
+      for(let i = 0; i < n; i++){
+        const b2 = document.createElement('button');
+        b2.className = 'tuile'; b2.textContent = i === pos ? b : a;
+        b2.dataset.ok = i === pos ? '1' : '';
+        r.appendChild(b2);
+      }
+      s.appendChild(r);
+    });
+    return;
+  }
+
+  if(type === 'compte'){
+    const sym = hasard(SYMBOLES);
+    const n = 2 + Math.floor(Math.random() * 6);
+    const props = melange([...new Set([n, n+1, Math.max(1,n-1), n+2])].slice(0,4));
+    manche = { type, fini:false };
+    peindre((s) => {
+      s.innerHTML = '<p class="titre-manche">Compte</p><p class="consigne">Combien y en a-t-il ?</p>';
+      const g = document.createElement('div'); g.className = 'rangee';
+      g.style.fontSize = 'clamp(22px,6.5vw,34px)';
+      g.innerHTML = new Array(n).fill('<span>' + sym + '</span>').join('');
+      s.appendChild(g);
+      const r = document.createElement('div'); r.className = 'rangee';
+      props.forEach(p => {
+        const b = document.createElement('button');
+        b.className = 'tuile'; b.textContent = p; b.dataset.ok = p === n ? '1' : '';
+        r.appendChild(b);
+      });
+      s.appendChild(r);
+    });
+    return;
+  }
+
+  if(type === 'quantite'){
+    const sym = hasard(SYMBOLES);
+    let a = 2 + Math.floor(Math.random() * 7), b = 2 + Math.floor(Math.random() * 7);
+    while(b === a) b = 2 + Math.floor(Math.random() * 7);
+    manche = { type, fini:false };
+    peindre((s) => {
+      s.innerHTML = '<p class="titre-manche">Quantités</p><p class="consigne">Touche le plus grand tas</p>';
+      const r = document.createElement('div'); r.className = 'rangee';
+      [a,b].forEach(n => {
+        const g = document.createElement('button');
+        g.className = 'groupe tuile'; g.style.width = '';
+        g.innerHTML = new Array(n).fill('<span>' + sym + '</span>').join('');
+        g.dataset.ok = n === Math.max(a,b) ? '1' : '';
+        r.appendChild(g);
+      });
+      s.appendChild(r);
+    });
+    return;
+  }
+
+  /* paire : retrouver le symbole montré */
+  const cible = hasard(SYMBOLES);
+  const autres = melange(SYMBOLES.filter(x => x !== cible)).slice(0,5);
+  const tout = melange([cible, ...autres]);
+  manche = { type:'paire', fini:false };
+  peindre((s) => {
+    s.innerHTML = '<p class="titre-manche">Paire</p><p class="consigne">Retrouve <span style="font-size:1.5em">' + cible + '</span></p>';
+    const r = document.createElement('div'); r.className = 'rangee';
+    tout.forEach(x => {
+      const b = document.createElement('button');
+      b.className = 'tuile'; b.textContent = x; b.dataset.ok = x === cible ? '1' : '';
+      r.appendChild(b);
+    });
+    s.appendChild(r);
+  });
+}
+
+/* le même contenu est peint dans les deux moitiés */
+function peindre(f){ [1,2].forEach(j => f($('scene' + j), j)); }
+
+/* ---------- résolution ---------- */
+function gagnePoint(j, raison){
+  if(!manche || manche.fini) return;
+  manche.fini = true;
+  clearTimeout(minuteur);
+  score[j-1]++;
+  pips();
+  etat(j, 'gagnant');
+  etat(j === 1 ? 2 : 1, 'perdant');
+  peindre((s, k) => {
+    s.innerHTML = '<p class="consigne">' + (k === j ? (raison || 'Gagné !') : 'Perdu') + '</p>'
+      + '<p class="titre-manche">Point pour ' + noms[j-1] + '</p>';
+  });
+  sPoint();
+  if(score[j-1] >= butPts){ setTimeout(() => finir(j), 1100); return; }
+  minuteur = setTimeout(nouvelleManche, 1500);
+}
+
+function mauvais(j, cible){
+  if(cible){ cible.classList.add('rate'); }
+  verrouille[j-1] = true;
+  sRate();
+  const p = panneau(j);
+  p.querySelector('.scene').classList.add('verrou');
+  setTimeout(() => {
+    verrouille[j-1] = false;
+    p.querySelector('.scene').classList.remove('verrou');
+    if(cible) cible.classList.remove('rate');
+  }, 900);
+}
+
+[1,2].forEach(j => {
+  panneau(j).addEventListener('pointerdown', e => {
+    if(!enCours || !manche || manche.fini || verrouille[j-1]) return;
+    audio();
+    if(manche.type === 'reflexe'){
+      e.preventDefault();
+      if(manche.phase === 'attente'){ gagnePoint(j === 1 ? 2 : 1, 'Faux départ adverse'); }
+      else { gagnePoint(j, 'Gagné !'); }
+      return;
+    }
+    const t = e.target.closest('.tuile');
+    if(!t) return;
+    e.preventDefault();
+    if(t.dataset.ok === '1') gagnePoint(j, 'Gagné !');
+    else mauvais(j, t);
+  }, { passive:false });
+});
+
+/* ---------- déroulé d'une partie ---------- */
+function compteARebours(n, apres){
+  if(n === 0){ apres(); return; }
+  peindre((s) => { s.innerHTML = '<p class="attente">' + n + '</p>'; });
+  sTic();
+  minuteur = setTimeout(() => compteARebours(n - 1, apres), 700);
+}
+
+function demarrer(){
+  audio();
+  lireNoms();
+  score = [0,0]; enCours = true;
+  pips();
+  [1,2].forEach(j => etat(j, null));
+  $('accueil').classList.add('off');
+  $('fin').classList.add('off');
+  compteARebours(3, nouvelleManche);
+}
+
+function finir(j){
+  enCours = false;
+  manche = null;
+  clearTimeout(minuteur);
+  $('v-nom').textContent = noms[j-1] + ' gagne';
+  $('v-nom').style.color = j === 1 ? 'var(--orange)' : 'var(--bleu)';
+  $('v-score').textContent = noms[0] + ' ' + score[0] + ' — ' + score[1] + ' ' + noms[1];
+  $('fin').classList.remove('off');
+  sVictoire();
+}
+
+$('jouer').addEventListener('click', demarrer);
+$('rejouer').addEventListener('click', demarrer);
+$('menu').addEventListener('click', () => {
+  enCours = false; manche = null; clearTimeout(minuteur);
+  $('fin').classList.add('off'); $('accueil').classList.remove('off');
+});
+
+document.querySelectorAll('.opt').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.opt').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    butPts = +b.dataset.pts;
+    store.set('duel.pts', butPts);
+    pips();
+  });
+});
+
+$('son').addEventListener('click', () => {
+  sonOn = !sonOn;
+  store.set('duel.son', sonOn ? '1' : '0');
+  $('son').textContent = 'Son : ' + (sonOn ? 'on' : 'off');
+  if(sonOn) sTop();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden && enCours){
+    clearTimeout(minuteur);
+    enCours = false; manche = null;
+    $('accueil').classList.remove('off');
+  }
+});
+
+let promptInstall = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); promptInstall = e; $('install').style.display = 'inline-block';
+});
+$('install').addEventListener('click', async () => {
+  if(!promptInstall){
+    alert("Sur iPhone : bouton Partager, puis « Sur l'écran d'accueil ».\nSur Android : menu ⋮ de Chrome, puis « Installer l'application ».");
+    return;
+  }
+  promptInstall.prompt(); await promptInstall.userChoice;
+  promptInstall = null; $('install').style.display = 'none';
+});
+window.addEventListener('appinstalled', () => { $('install').style.display = 'none'; });
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw-duel.js').catch(()=>{}));
+}
+
+/* ---------- démarrage ---------- */
+$('saisie1').value = store.get('duel.n1') || '';
+$('saisie2').value = store.get('duel.n2') || '';
+lireNoms();
+document.querySelectorAll('.opt').forEach(b => b.classList.toggle('on', +b.dataset.pts === butPts));
+$('son').textContent = 'Son : ' + (sonOn ? 'on' : 'off');
+pips();
+</script>
+</body>
+</html>

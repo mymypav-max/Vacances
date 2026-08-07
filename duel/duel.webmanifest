@@ -1,0 +1,27 @@
+{
+  "id": "duel",
+  "name": "Duel",
+  "short_name": "Duel",
+  "description": "Jeu a deux sur un meme ecran : reflexe, intrus, comptage, quantites.",
+  "start_url": "./duel.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15161A",
+  "theme_color": "#15161A",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon-duel.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-duel.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
