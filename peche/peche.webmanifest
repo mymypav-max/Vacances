@@ -1,0 +1,27 @@
+{
+  "id": "peche",
+  "name": "Grande Pêche",
+  "short_name": "Grande Pêche",
+  "description": "Descends au fond de l'eau, evite les obstacles et remonte charge de poissons.",
+  "start_url": "./peche.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#04101C",
+  "theme_color": "#0B2438",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon-peche.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-peche.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Grande Pêche</title>
+<link rel="manifest" href="peche.webmanifest">
+<meta name="theme-color" content="#0B2438">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grande Pêche">
+<link rel="apple-touch-icon" href="data:image/png;base64,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2edJDpSKxS1btq/f8D8dpXAsVCiiOEnPOvXkpf1L6ml2OPV0pVScZq88ccmZS/vjJNUHdoN65ijAA488kaUmN/V6NHv2+awsvIHYOaXpwUce94zxn2DrfFdHcOnr1ty/8SFVLnrfWIcxrdEEgVlpldXrl164plIO9w5mYyVZEIHp/oceYe9mZUmyybdElf5V036NDqlQZmtm21ObicgYO6en685///qcni5jbUMRZg60qifJRe/88OYt28qlYhMpiFaqHscnHLd4w7/dVCmVrXMHf3gQDAzuf83b3//83sEwnH1T5qTYWZhpb7TPW0JaLEQ7tj+7/pafdZQP9ixElBk7t6frC9d+VDX+Pc3MgIhARIwvXPvRvt7uzJixn+C87yyH6396+/ZnduRjeiO3Q1nPHETRj267cyQ+JL3QWu8bql3ymnOvu+aDQ9t3NmrrLz3V0EoNbd/5V9d88E0XrNo3VNNjHQqglRqJzY9uvVNHkc+RGQB01Lto+lFKUxDCe9BsDB6FQvTEU1vPOO3Us5f11+rpmARaqTiz55yxDFH483sfsM7+zkluIgrDoB7HmbHXfOTKj131rji1462y1vV2lf/zZ/f84z9/s9pRnaXFFCKwh7dHrxxj48pGrvnoE0+te/NFxULorCUwwAAzPLO/9MLzTupfct/Gh3ft2KnCMAwCrVRjqTAREVEjVBBRZu3IwNDihQu+8tlPXHPlulpqwQfXFDNzFAW1enLVX14/ODgchLO1QH/UykGAViCgnlGgESgArMPCti3P7tlff/2Fr/Yqgo5IH/x7f4KVpx1/6dq10Gr79h179u1LajXHDMA5771Ps6w+UsusW9A3593r3vLVz1973orTdg+MaKXG5yre+2q5+InP33DLhruqnR2ztwbbrBxtPFpRBEUwDrVEkebTF5qte4OhYQWFzrKf38XPD9bW//0Vrzpt0Ug9O7idhBm6YKpnFQtRuWPezkHcfd8Dd9278VcPbHruue1hoIyxfX3zVi5f+vurV55/zlkL+rrrsY3Tg2uJGxhrj+2pfmP9re+/+rquOT2zela02dFK+8nROMOIGSMpeUPdHf51S5N3nFNfuyz59E+6ShGfsShb0On651vrdYGHNLlDt7EApFGY6531UV/YdWKpu1/3nrHXzK+HJ6qg4p0thaa3s2w96onJsmzyolFjbV9P9eYN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">
+<link rel="icon" href="icon-peche.png">
+<style>
+  :root{
+    --nuit:#04101C; --fond:#0B2438; --ardoise:#12354F; --blanc:#EAF2F7;
+    --gris:#7C93A5; --or:#F0B429; --vert:#3E9B5F; --rouge:#C33B2C; --ciel:#2E8FBE;
+    --ui:"Roboto","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:"Roboto Mono",ui-monospace,"Noto Sans Mono",monospace;
+  }
+  *{box-sizing:border-box; margin:0; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%; overflow:hidden;}
+  body{
+    background:var(--nuit); color:var(--blanc); font-family:var(--ui);
+    user-select:none; -webkit-user-select:none; touch-action:none;
+    display:flex; flex-direction:column;
+    padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
+  }
+  #jeu{flex:1; position:relative; overflow:hidden;}
+  canvas{display:block; width:100%; height:100%;}
+
+  /* ---------- bandeaux ---------- */
+  .hud{position:absolute; top:0; left:0; right:0; padding:10px 12px; pointer-events:none;
+       display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .bloc-hud{background:rgba(4,16,28,.55); border-radius:8px; padding:7px 11px; backdrop-filter:blur(3px);}
+  .prof{font-family:var(--mono); font-size:23px; font-weight:700; line-height:1;}
+  .prof small{display:block; font-size:9px; letter-spacing:.18em; color:var(--gris); margin-top:4px;}
+  .zone-nom{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ciel); font-weight:700;}
+  .sous-hud{font-family:var(--mono); font-size:12px; color:var(--gris); margin-top:3px;}
+  .or{color:var(--or); font-family:var(--mono); font-weight:700; font-size:17px;}
+  .coeurs{font-size:14px; letter-spacing:2px; margin-top:4px;}
+  .panier-jauge{margin-top:5px; height:6px; width:76px; background:rgba(255,255,255,.15); border-radius:99px; overflow:hidden;}
+  .panier-jauge div{height:100%; background:var(--or); width:0%;}
+
+  /* ---------- commandes ---------- */
+  .barre{flex:0 0 auto; display:flex; gap:8px; padding:8px 12px 10px; background:var(--nuit);}
+  .cmd{
+    flex:1; border:0; border-radius:10px; padding:16px 8px; cursor:pointer;
+    background:var(--ardoise); color:var(--blanc); font-family:var(--ui);
+    font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:.04em;
+  }
+  .cmd:active{transform:scale(.97);}
+  .cmd.large{flex:2; background:var(--or); color:var(--nuit);}
+  .cmd:disabled{opacity:.3;}
+  .cmd .fl{font-size:26px; line-height:1;}
+
+  /* ---------- écrans ---------- */
+  .ecran{
+    position:absolute; inset:0; background:rgba(4,16,28,.95); z-index:10;
+    display:flex; flex-direction:column; padding:16px; overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .ecran.off{display:none;}
+  .ecran h2{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--or); font-weight:700; margin-bottom:3px;}
+  .ecran h3{font-size:26px; font-weight:900; letter-spacing:-.03em; margin-bottom:14px;}
+  .centre{justify-content:center; align-items:center; text-align:center;}
+  h1{
+    font-size:clamp(44px,14vw,76px); font-weight:900; letter-spacing:-.045em;
+    text-transform:uppercase; line-height:.86; color:var(--or); margin-bottom:8px;
+  }
+  .sous{font-size:14px; color:var(--gris); max-width:330px; line-height:1.5; margin-bottom:22px;}
+  .btn{
+    border:0; border-radius:9px; padding:16px 34px; background:var(--or); color:var(--nuit);
+    font-family:var(--ui); font-weight:900; font-size:16px; text-transform:uppercase;
+    letter-spacing:.05em; cursor:pointer; min-width:240px; margin-top:8px;
+  }
+  .btn.sec{background:none; color:var(--gris); border:1px solid #23405A; font-weight:700;}
+
+  /* ---------- prises ---------- */
+  .prise{
+    display:flex; align-items:center; gap:11px; background:var(--fond);
+    border-radius:9px; padding:11px 13px; margin-bottom:7px;
+  }
+  .prise .em{font-size:27px; flex:0 0 auto;}
+  .prise .nom{flex:1; font-weight:700; font-size:15px;}
+  .prise .nom small{display:block; font-weight:400; font-size:11px; color:var(--gris); margin-top:2px;}
+  .prise .val{font-family:var(--mono); color:var(--or); font-weight:700; font-size:15px;}
+  .total{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-top:2px solid #23405A; margin-top:10px; padding-top:12px;
+    font-family:var(--mono); font-size:21px; font-weight:700;
+  }
+  .total b{color:var(--or);}
+  .vide{color:var(--gris); font-size:14px; text-align:center; padding:26px 0; line-height:1.5;}
+
+  /* ---------- boutique ---------- */
+  .amel{
+    display:flex; align-items:center; gap:12px; background:var(--fond);
+    border-radius:10px; padding:13px; margin-bottom:9px;
+  }
+  .amel .ic{font-size:27px; flex:0 0 auto;}
+  .amel .txt{flex:1; min-width:0;}
+  .amel .t1{font-weight:900; font-size:15px;}
+  .amel .t2{font-size:11px; color:var(--gris); margin-top:2px; line-height:1.3;}
+  .amel .t3{font-family:var(--mono); font-size:12px; color:var(--ciel); margin-top:4px;}
+  .achat{
+    border:0; border-radius:8px; padding:11px 13px; background:var(--or); color:var(--nuit);
+    font-family:var(--mono); font-weight:700; font-size:13px; cursor:pointer; flex:0 0 auto;
+    min-width:74px;
+  }
+  .achat:disabled{background:#23405A; color:var(--gris);}
+  .achat.max{background:var(--vert); color:#fff;}
+
+  /* ---------- collection ---------- */
+  .grille-col{display:grid; grid-template-columns:repeat(auto-fill,minmax(78px,1fr)); gap:8px;}
+  .fiche{
+    background:var(--fond); border-radius:9px; padding:9px 5px; text-align:center; cursor:pointer;
+    border:2px solid transparent;
+  }
+  .fiche.pris{border-color:var(--or);}
+  .fiche .em{font-size:25px; line-height:1.2;}
+  .fiche .n{font-size:10px; margin-top:3px; line-height:1.15; word-break:break-word;}
+  .fiche.inconnu{opacity:.32;}
+  .fiche.inconnu .n{color:var(--gris);}
+  .nb{font-family:var(--mono); font-size:9px; color:var(--or); margin-top:2px;}
+
+  .voile{
+    position:fixed; inset:0; background:rgba(4,16,28,.9); z-index:30;
+    display:none; align-items:center; justify-content:center; padding:22px;
+  }
+  .voile.on{display:flex;}
+  .carte{background:var(--ardoise); border:2px solid var(--or); border-radius:12px; padding:20px; max-width:380px; width:100%; text-align:center;}
+  .carte .em{font-size:54px; line-height:1;}
+  .carte h4{font-size:23px; margin:8px 0 3px; letter-spacing:-.02em;}
+  .carte .meta{font-family:var(--mono); font-size:12px; color:var(--or); margin-bottom:12px;}
+  .carte p{font-size:14px; line-height:1.5; color:var(--blanc); margin-bottom:18px;}
+  .onglets{display:flex; gap:7px; margin-bottom:14px;}
+  .onglets button{
+    flex:1; border:1px solid #23405A; background:none; color:var(--gris); border-radius:7px;
+    padding:9px 4px; font-family:var(--ui); font-size:11px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+  }
+  .onglets button.on{background:var(--ardoise); color:var(--blanc); border-color:var(--blanc);}
+  #install{display:none;}
+  :focus-visible{outline:3px solid var(--or); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div id="jeu">
+  <canvas id="cv"></canvas>
+  <div class="hud">
+    <div class="bloc-hud">
+      <div class="prof"><span id="prof">0</span> m<small id="zone">LE LAC</small></div>
+    </div>
+    <div class="bloc-hud" style="text-align:right">
+      <div class="or" id="argent">0 ₣</div>
+      <div class="coeurs" id="coeurs"></div>
+      <div class="panier-jauge"><div id="jauge"></div></div>
+      <div class="sous-hud" id="charge"></div>
+    </div>
+  </div>
+
+  <!-- accueil -->
+  <section class="ecran centre" id="e-accueil">
+    <h1>Grande<br>Pêche</h1>
+    <p class="sous">Lance la ligne et descends le plus profond possible. Évite tout ce qui traîne : au bout de quelques chocs, l'hameçon remonte. C'est en remontant qu'on attrape les poissons.</p>
+    <button class="btn" id="b-jouer">Pêcher</button>
+    <button class="btn sec" id="b-boutique">Atelier</button>
+    <button class="btn sec" id="b-collection">Collection</button>
+    <button class="btn sec" id="b-son">Son : on</button>
+    <button class="btn sec" id="install">Installer l'app</button>
+  </section>
+
+  <!-- bilan -->
+  <section class="ecran off" id="e-bilan">
+    <h2 id="bilan-titre">Retour au bateau</h2>
+    <h3 id="bilan-prof">0 m atteints</h3>
+    <div id="bilan-liste"></div>
+    <div class="total"><span>Total</span><b id="bilan-total">0 ₣</b></div>
+    <button class="btn" id="b-encore">Relancer</button>
+    <button class="btn sec" id="b-atelier2">Atelier</button>
+  </section>
+
+  <!-- atelier -->
+  <section class="ecran off" id="e-boutique">
+    <h2>Atelier</h2>
+    <h3>Améliore ton matériel</h3>
+    <div class="onglets">
+      <button class="on" data-ong="amel">Matériel</button>
+      <button data-ong="col">Collection</button>
+    </div>
+    <div id="liste-amel"></div>
+    <div id="liste-col" style="display:none"></div>
+    <button class="btn" id="b-retour">Retour</button>
+  </section>
+</div>
+
+<div class="barre" id="barre">
+  <button class="cmd" id="b-gauche"><span class="fl">◀</span></button>
+  <button class="cmd large" id="b-action">Lancer</button>
+  <button class="cmd" id="b-droite"><span class="fl">▶</span></button>
+</div>
+
+<div class="voile" id="voile">
+  <div class="carte">
+    <div class="em" id="c-em"></div>
+    <h4 id="c-nom"></h4>
+    <p class="meta" id="c-meta"></p>
+    <p id="c-txt"></p>
+    <button class="btn" id="c-ok">Fermer</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+// -------- ZONES --------
+// [nom, profondeur de debut, couleur haute, couleur basse]
+const ZONES = [
+  ["Le lac",       0,   "#2E8FBE", "#1B6E96"],
+  ["L'estuaire",   40,  "#1B6E96", "#134F73"],
+  ["La mer",       110, "#134F73", "#0A2E4A"],
+  ["Les abysses",  230, "#0A2E4A", "#04101C"]
+];
+
+// -------- ESPECES --------
+// n: nom, e: emoji, min/max: profondeur, p: poids relatif (rarete), v: valeur, kg: masse, f: fiche
+const POISSONS = [
+  // ---- lac (eau douce) ----
+  {n:"Gardon",       e:"🐟", min:0,   max:45,  p:100, v:2,    kg:1, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
+  {n:"Perche",       e:"🐠", min:5,   max:55,  p:70,  v:5,    kg:1, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
+  {n:"Truite",       e:"🐟", min:8,   max:60,  p:45,  v:12,   kg:2, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
+  {n:"Carpe",        e:"🐡", min:12,  max:70,  p:30,  v:22,   kg:3, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
+  {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
+  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
+  // ---- estuaire ----
+  {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
+  {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
+  {n:"Bar",          e:"🐠", min:55,  max:150, p:32,  v:55,   kg:3, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
+  {n:"Saumon",       e:"🐟", min:60,  max:160, p:20,  v:95,   kg:4, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
+  {n:"Sole",         e:"🐟", min:70,  max:170, p:24,  v:70,   kg:2, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
+  // ---- mer ----
+  {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
+  {n:"Dorade",       e:"🐠", min:110, max:215, p:28,  v:110,  kg:3, f:"Elle porte un croissant doré entre les yeux."},
+  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
+  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
+  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
+  {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, f:"Elle nage en ondulant ses nageoires comme des ailes."},
+  {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, f:"Il possède trois cœurs et un sang bleu."},
+  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
+  // ---- abysses ----
+  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
+  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10,f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
+  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
+  {n:"Poisson-lune", e:"🌝", min:260, max:450, p:5,   v:1400, kg:12,f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
+  {n:"Cœlacanthe",   e:"🦴", min:300, max:520, p:2,   v:3000, kg:9, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
+  {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
+  {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
+  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
+];
+
+// -------- OBSTACLES --------
+// d: degats (chocs), plus le fond est profond, plus ils sont denses
+const OBSTACLES = [
+  {n:"Bouteille",  e:"🍾", min:0,   max:200, p:40, d:1},
+  {n:"Botte",      e:"🥾", min:0,   max:160, p:32, d:1},
+  {n:"Boîte",      e:"🥫", min:0,   max:220, p:34, d:1},
+  {n:"Pneu",       e:"🛞", min:10,  max:260, p:26, d:1},
+  {n:"Bois flotté",e:"🪵", min:0,   max:180, p:28, d:1},
+  {n:"Algues",     e:"🌿", min:5,   max:300, p:36, d:1},
+  {n:"Filet",      e:"🕸️", min:60,  max:520, p:22, d:2},
+  {n:"Ancre",      e:"⚓", min:90,  max:520, p:18, d:2},
+  {n:"Épave",      e:"🚢", min:150, max:520, p:12, d:2},
+  {n:"Mine",       e:"💣", min:200, max:520, p:9,  d:3}
+];
+
+// -------- AMELIORATIONS --------
+// prix[i] : cout pour passer au palier i+1
+const AMELIORATIONS = [
+  { id:"place",  n:"Panier",     ic:"🧺", desc:"Nombre de prises transportables",
+    paliers:[2,3,4,5,6,8,10], prix:[60,180,420,900,1800,3600] },
+  { id:"solide", n:"Hameçon",    ic:"🪝", desc:"Chocs encaissés avant de remonter",
+    paliers:[2,3,4,5,6],      prix:[120,400,1100,2600] },
+  { id:"depart", n:"Canne",      ic:"🎣", desc:"Profondeur de départ",
+    paliers:[0,25,60,110,170,240], prix:[150,450,1000,2200,4500] },
+  { id:"treuil", n:"Treuil",     ic:"⚙️", desc:"Vitesse de remontée",
+    paliers:[1,1.25,1.5,1.8,2.2], prix:[100,320,850,2000] },
+  { id:"appat",  n:"Appât",      ic:"🪱", desc:"Attire les poissons proches",
+    paliers:[0,26,46,68],     prix:[220,700,1900] }
+];
+
+
+/* ================= stockage ================= */
+const mem = {};
+const store = {
+  get(k){ try{ const v = localStorage.getItem(k); return v===null?mem[k]:v; }catch(e){ return mem[k]; } },
+  set(k,v){ mem[k]=String(v); try{ localStorage.setItem(k,v); }catch(e){} }
+};
+const $ = id => document.getElementById(id);
+const hasard = t => t[Math.floor(Math.random()*t.length)];
+
+let argent = +store.get('pk.argent') || 0;
+let niveaux = {};
+let collection = {};
+let record = +store.get('pk.record') || 0;
+let sonOn = store.get('pk.son') !== '0';
+try{ niveaux = JSON.parse(store.get('pk.niv') || '{}'); }catch(e){ niveaux = {}; }
+try{ collection = JSON.parse(store.get('pk.col') || '{}'); }catch(e){ collection = {}; }
+AMELIORATIONS.forEach(a => { if(typeof niveaux[a.id] !== 'number') niveaux[a.id] = 0; });
+
+const palier = id => {
+  const a = AMELIORATIONS.find(x => x.id === id);
+  return a.paliers[Math.min(niveaux[id], a.paliers.length - 1)];
+};
+function sauver(){
+  store.set('pk.argent', argent);
+  store.set('pk.niv', JSON.stringify(niveaux));
+  store.set('pk.col', JSON.stringify(collection));
+  store.set('pk.record', record);
+}
+
+/* ================= son ================= */
+let actx = null;
+function audio(){
+  if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(actx && actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function blip(f,d,t,v){
+  if(!sonOn) return;
+  const a = audio(); if(!a) return;
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = t||'triangle'; o.frequency.value = f;
+  g.gain.setValueAtTime(v||.08, a.currentTime);
+  g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + d);
+  o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime + d);
+}
+function vibre(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
+const sPlouf  = () => { blip(320,.16,'sine',.09); setTimeout(()=>blip(180,.2,'sine',.07),70); };
+const sChoc   = () => { blip(140,.26,'sawtooth',.09); vibre(110); };
+const sPrise  = () => { [700,980].forEach((f,i)=>setTimeout(()=>blip(f,.13,'triangle',.1), i*85)); vibre([10,35,14]); };
+const sNouveau= () => { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>blip(f,.18,'triangle',.1), i*95)); vibre([16,50,20]); };
+const sVente  = () => { [880,1170].forEach((f,i)=>setTimeout(()=>blip(f,.15,'sine',.09), i*100)); };
+
+/* ================= état ================= */
+const G = {
+  phase:'menu',          /* menu | descente | remontee | bilan */
+  x:0.5,                 /* position horizontale, 0 à 1 */
+  prof:0,                /* profondeur en mètres */
+  chocs:0,
+  prises:[],
+  masse:0,
+  entites:[],            /* poissons et obstacles à l'écran */
+  bulles:[],
+  flottants:[],          /* textes qui montent */
+  raf:0, tPrec:0, invuln:0, plusBas:0
+};
+let W=0, H=0, DPR=1, dirig=0;
+
+const cv = $('cv'), ctx = cv.getContext('2d');
+function resize(){
+  const r = $('jeu').getBoundingClientRect();
+  if(r.width < 2 || r.height < 2) return false;
+  W = Math.round(r.width); H = Math.round(r.height);
+  DPR = Math.min(window.devicePixelRatio || 1, 2.5);
+  cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  return true;
+}
+window.addEventListener('resize', resize);
+window.addEventListener('orientationchange', () => setTimeout(resize, 300));
+try{ new ResizeObserver(() => resize()).observe($('jeu')); }catch(e){}
+
+/* ================= géométrie ================= */
+const PX_M = 6;                       /* pixels par mètre */
+const FOND = 520;                     /* profondeur maximale de la fosse */
+const yHame = () => H * 0.42;         /* l'hameçon reste à hauteur fixe, le décor défile */
+const xHame = () => G.x * (W - 60) + 30;
+
+function zoneDe(p){
+  let z = ZONES[0];
+  for(const x of ZONES) if(p >= x[1]) z = x;
+  return z;
+}
+function melangeCouleur(a, b, t){
+  const p = s => [parseInt(s.slice(1,3),16), parseInt(s.slice(3,5),16), parseInt(s.slice(5,7),16)];
+  const A = p(a), B = p(b);
+  return 'rgb(' + A.map((v,i) => Math.round(v + (B[i]-v)*t)).join(',') + ')';
+}
+
+/* ================= apparition ================= */
+function tirageParPoids(liste){
+  const tot = liste.reduce((s,x) => s + x.p, 0);
+  let r = Math.random() * tot;
+  for(const x of liste){ r -= x.p; if(r <= 0) return x; }
+  return liste[liste.length-1];
+}
+
+function engendrer(profBas){
+  const dispoP = POISSONS.filter(p => profBas >= p.min && profBas <= p.max);
+  const dispoO = OBSTACLES.filter(o => profBas >= o.min && profBas <= o.max);
+  /* plus on descend, plus c'est encombré */
+  const densite = Math.min(.62, .2 + profBas / 900);
+  if(Math.random() > densite) return;
+  const poisson = Math.random() < .58 && dispoP.length;
+  const src = poisson ? dispoP : dispoO;
+  if(!src.length) return;
+  const modele = tirageParPoids(src);
+  const taille = poisson ? 26 + modele.kg * 2.4 : 28;
+  G.entites.push({
+    poisson, m:modele,
+    x: 20 + Math.random() * (W - 40),
+    prof: profBas + 4 + Math.random() * 14,
+    vx: (Math.random() < .5 ? -1 : 1) * (poisson ? 14 + Math.random()*30 : 5 + Math.random()*10),
+    taille, pris:false, phase: Math.random()*6.28
+  });
+}
+
+/* ================= partie ================= */
+function lancer(){
+  audio();
+  G.phase = 'descente';
+  G.x = 0.5; G.chocs = 0; G.prises = []; G.masse = 0;
+  G.entites = []; G.bulles = []; G.flottants = [];
+  G.prof = palier('depart');
+  G.plusBas = G.prof;
+  G.invuln = 0.6;
+  ecran(null);
+  $('barre').style.display = 'flex';
+  majHud();
+  sPlouf();
+  /* on peuple la colonne d'eau sous l'hameçon */
+  for(let d = G.prof; d < G.prof + 120; d += 6) engendrer(d);
+  G.tPrec = performance.now();
+  cancelAnimationFrame(G.raf);
+  G.raf = requestAnimationFrame(boucle);
+}
+
+function passerEnRemontee(){
+  G.phase = 'remontee';
+  $('b-action').textContent = 'Remonte…';
+  $('b-action').disabled = true;
+  flottant('Ça remonte !', '#F0B429');
+}
+
+function attraper(e){
+  const place = palier('place');
+  if(G.prises.length >= place) return;
+  e.pris = true;
+  G.prises.push(e.m);
+  G.masse += e.m.kg;
+  collection[e.m.n] = (collection[e.m.n] || 0) + 1;
+  const premier = collection[e.m.n] === 1;
+  flottant((premier ? '★ ' : '') + e.m.n + (e.m.v ? ' +' + e.m.v : ''), premier ? '#F0B429' : '#EAF2F7');
+  if(premier) sNouveau(); else sPrise();
+  majHud();
+}
+
+function choc(){
+  if(G.invuln > 0) return;
+  G.invuln = 0.9;
+  G.chocs++;
+  sChoc();
+  flottant('Aïe !', '#C33B2C');
+  majHud();
+  if(G.chocs >= palier('solide')) passerEnRemontee();
+}
+
+function terminer(){
+  G.phase = 'bilan';
+  cancelAnimationFrame(G.raf);
+  $('barre').style.display = 'none';
+  const gain = G.prises.reduce((s,p) => s + p.v, 0);
+  argent += gain;
+  if(G.plusBas > record) record = Math.round(G.plusBas);
+  sauver();
+  $('bilan-prof').textContent = Math.round(G.plusBas) + ' m atteints';
+  $('bilan-titre').textContent = G.prises.length ? 'Retour au bateau' : 'Bredouille';
+  const z = $('bilan-liste');
+  z.innerHTML = '';
+  if(!G.prises.length){
+    z.innerHTML = '<p class="vide">Rien dans le panier cette fois.<br>Les poissons ne s\'attrapent qu\'en remontant.</p>';
+  } else {
+    const compte = {};
+    G.prises.forEach(p => { compte[p.n] = compte[p.n] || { p, n:0 }; compte[p.n].n++; });
+    Object.values(compte).forEach(({p, n}) => {
+      const d = document.createElement('div');
+      d.className = 'prise';
+      d.innerHTML = '<span class="em">' + p.e + '</span>'
+        + '<span class="nom">' + p.n + (n > 1 ? ' ×' + n : '')
+        + '<small>' + p.kg + ' kg' + (p.v ? '' : ' · protégé, relâché') + '</small></span>'
+        + '<span class="val">' + (p.v * n) + ' ₣</span>';
+      z.appendChild(d);
+    });
+  }
+  $('bilan-total').textContent = gain + ' ₣';
+  majHud();
+  ecran('e-bilan');
+  if(gain) sVente();
+}
+
+function flottant(txt, couleur){
+  G.flottants.push({ txt, couleur, x:xHame(), y:yHame() - 26, vie:1.5 });
+}
+
+/* ================= boucle ================= */
+function boucle(t){
+  const dt = Math.min(0.05, (t - G.tPrec)/1000);
+  G.tPrec = t;
+  if(W < 2 || H < 2){ resize(); G.raf = requestAnimationFrame(boucle); return; }
+  maj(dt);
+  dessiner();
+  if(G.phase === 'descente' || G.phase === 'remontee') G.raf = requestAnimationFrame(boucle);
+}
+
+function maj(dt){
+  if(G.invuln > 0) G.invuln -= dt;
+
+  /* déplacement latéral */
+  if(dirig) G.x = Math.max(0, Math.min(1, G.x + dirig * dt * 0.85));
+
+  if(G.phase === 'descente'){
+    G.prof += 26 * dt;
+    G.plusBas = Math.max(G.plusBas, G.prof);
+    if(G.prof >= FOND){        /* on touche le fond : la ligne repart vers le haut */
+      G.prof = FOND;
+      flottant('Le fond !', '#F0B429');
+      passerEnRemontee();
+    }
+    /* on peuple devant */
+    if(Math.random() < dt * 9) engendrer(G.prof + H/PX_M * 0.7);
+  } else if(G.phase === 'remontee'){
+    if(Math.random() < dt * 5) engendrer(G.prof - H/PX_M * 0.45);   /* bancs à traverser */
+    const lourd = 1 + G.masse * 0.055;
+    const v = 30 * palier('treuil') / lourd;
+    G.prof -= v * dt;
+    if(G.prof <= 0){ G.prof = 0; terminer(); return; }
+  }
+
+  /* entités */
+  const hx = xHame(), hy = yHame();
+  const attire = palier('appat');
+  for(let i = G.entites.length - 1; i >= 0; i--){
+    const e = G.entites[i];
+    if(e.pris) continue;
+    e.phase += dt * 2;
+    e.x += e.vx * dt;
+    if(e.x < 16){ e.x = 16; e.vx = Math.abs(e.vx); }
+    if(e.x > W - 16){ e.x = W - 16; e.vx = -Math.abs(e.vx); }
+
+    const ey = hy + (e.prof - G.prof) * PX_M;
+    if(ey < -120 || ey > H + 220){ G.entites.splice(i,1); continue; }
+
+    /* appât : les poissons proches sont attirés pendant la remontée */
+    if(attire && e.poisson && G.phase === 'remontee'){
+      const d = Math.hypot(e.x - hx, ey - hy);
+      if(d < attire && d > 1){
+        e.x += (hx - e.x) / d * 34 * dt;
+        e.prof += (G.prof - e.prof) / Math.max(1, Math.abs(e.prof - G.prof)) * 9 * dt;
+      }
+    }
+
+    /* collision */
+    const dx = Math.abs(e.x - hx), dy = Math.abs(ey - hy);
+    const capture = G.phase === 'remontee' && e.poisson;
+    const r = e.taille * 0.44 + (capture ? 26 : 13);
+    if(dx < r && dy < r){
+      if(G.phase === 'remontee' && e.poisson) attraper(e);
+      else if(!e.poisson) choc();
+      else if(G.phase === 'descente') choc();
+    }
+  }
+
+  /* bulles décoratives */
+  if(Math.random() < dt * 14) G.bulles.push({ x:Math.random()*W, y:H + 10, r:1.5 + Math.random()*3.5, v:20 + Math.random()*45 });
+  for(let i = G.bulles.length - 1; i >= 0; i--){
+    const b = G.bulles[i];
+    b.y -= b.v * dt;
+    if(b.y < -10) G.bulles.splice(i,1);
+  }
+  for(let i = G.flottants.length - 1; i >= 0; i--){
+    const f = G.flottants[i];
+    f.y -= 34 * dt; f.vie -= dt;
+    if(f.vie <= 0) G.flottants.splice(i,1);
+  }
+  majHud();
+}
+
+/* ================= rendu ================= */
+function dessiner(){
+  const z = zoneDe(G.prof);
+  const suivante = ZONES[ZONES.indexOf(z) + 1];
+  const etendue = (suivante ? suivante[1] : z[1] + 260) - z[1];
+  const t = Math.max(0, Math.min(1, (G.prof - z[1]) / etendue));
+  const haut = melangeCouleur(z[2], z[3], t);
+  const bas = melangeCouleur(z[2], z[3], Math.min(1, t + 0.35));
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, haut); g.addColorStop(1, bas);
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  /* surface de l'eau, visible en haut de la colonne */
+  const ySurface = yHame() - G.prof * PX_M;
+  if(ySurface > -40){
+    ctx.fillStyle = '#7FC4E8';
+    ctx.fillRect(0, ySurface - 6, W, 6);
+    ctx.fillStyle = 'rgba(255,255,255,.35)';
+    for(let x = 0; x < W; x += 26){
+      ctx.beginPath();
+      ctx.arc(x + 13, ySurface - 6, 8, Math.PI, 0);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#A9DCF5';
+    ctx.fillRect(0, 0, W, Math.max(0, ySurface - 6));
+    /* barque */
+    ctx.fillStyle = '#6E4A2B';
+    ctx.fillRect(xHame() - 34, ySurface - 22, 68, 14);
+    ctx.fillStyle = '#8A5E38';
+    ctx.fillRect(xHame() - 30, ySurface - 26, 60, 5);
+  }
+
+  /* fond de la fosse */
+  const yFond = yHame() + (FOND - G.prof) * PX_M;
+  if(yFond < H + 60){
+    ctx.fillStyle = '#1A1207';
+    ctx.fillRect(0, yFond, W, H);
+    ctx.fillStyle = '#2A1E0D';
+    for(let x = -20; x < W + 40; x += 46){
+      ctx.beginPath();
+      ctx.moveTo(x, yFond + 4);
+      ctx.quadraticCurveTo(x + 23, yFond - 16, x + 46, yFond + 4);
+      ctx.fill();
+    }
+  }
+
+  /* graduations de profondeur */
+  ctx.font = '600 10px ' + getComputedStyle(document.body).getPropertyValue('--mono');
+  ctx.textAlign = 'left';
+  const p0 = Math.floor((G.prof - yHame()/PX_M) / 10) * 10;
+  for(let p = p0; p < p0 + H/PX_M + 20; p += 10){
+    if(p < 0) continue;
+    const y = yHame() + (p - G.prof) * PX_M;
+    if(y < 0 || y > H) continue;
+    const cinq = p % 50 === 0;
+    ctx.fillStyle = cinq ? 'rgba(255,255,255,.24)' : 'rgba(255,255,255,.10)';
+    ctx.fillRect(0, y, cinq ? 22 : 11, 1);
+    if(cinq){ ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillText(p + ' m', 26, y + 4); }
+  }
+
+  /* bulles */
+  ctx.fillStyle = 'rgba(255,255,255,.18)';
+  G.bulles.forEach(b => { ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.284); ctx.fill(); });
+
+  /* entités */
+  const hy = yHame();
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  G.entites.forEach(e => {
+    if(e.pris) return;
+    const y = hy + (e.prof - G.prof) * PX_M + Math.sin(e.phase) * 3;
+    if(y < -40 || y > H + 40) return;
+    ctx.save();
+    ctx.translate(e.x, y);
+    if(e.vx > 0) ctx.scale(-1, 1);
+    ctx.font = e.taille + 'px serif';
+    ctx.fillText(e.m.e, 0, 0);
+    ctx.restore();
+  });
+
+  /* ligne et hameçon */
+  const hx = xHame();
+  ctx.strokeStyle = 'rgba(255,255,255,.65)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(hx, Math.max(-10, ySurface - 14));
+  ctx.lineTo(hx, hy);
+  ctx.stroke();
+
+  /* prises accrochées à la ligne */
+  G.prises.forEach((p, i) => {
+    ctx.save();
+    ctx.translate(hx + (i % 2 ? 15 : -15), hy - 20 - i * 15);
+    ctx.font = '17px serif';
+    ctx.globalAlpha = .92;
+    ctx.fillText(p.e, 0, 0);
+    ctx.restore();
+  });
+
+  ctx.save();
+  ctx.translate(hx, hy);
+  if(G.invuln > 0 && Math.floor(G.invuln * 14) % 2) ctx.globalAlpha = .35;
+  ctx.font = '30px serif';
+  ctx.fillText('🪝', 0, 0);
+  ctx.restore();
+  ctx.globalAlpha = 1;
+
+  /* textes flottants */
+  G.flottants.forEach(f => {
+    ctx.globalAlpha = Math.max(0, Math.min(1, f.vie));
+    ctx.fillStyle = f.couleur;
+    ctx.font = '900 16px ' + getComputedStyle(document.body).getPropertyValue('--ui');
+    ctx.fillText(f.txt, Math.max(60, Math.min(W - 60, f.x)), f.y);
+  });
+  ctx.globalAlpha = 1;
+  ctx.textBaseline = 'alphabetic';
+}
+
+/* ================= interface ================= */
+function majHud(){
+  $('prof').textContent = Math.round(G.prof);
+  $('zone').textContent = zoneDe(G.prof)[0].toUpperCase();
+  $('argent').textContent = argent + ' ₣';
+  const vies = palier('solide') - G.chocs;
+  $('coeurs').innerHTML = '<span style="color:#C33B2C">' + '●'.repeat(Math.max(0,vies)) + '</span>'
+    + '<span style="color:#33556E">' + '○'.repeat(Math.max(0, G.chocs)) + '</span>';
+  const place = palier('place');
+  $('jauge').style.width = (G.prises.length / place * 100) + '%';
+  $('charge').textContent = G.prises.length + '/' + place + (G.masse ? ' · ' + G.masse + ' kg' : '');
+}
+
+function ecran(id){
+  ['e-accueil','e-bilan','e-boutique'].forEach(x => $(x).classList.toggle('off', x !== id));
+  $('barre').style.display = id ? 'none' : 'flex';
+}
+
+function dessinerBoutique(){
+  const z = $('liste-amel');
+  z.innerHTML = '';
+  AMELIORATIONS.forEach(a => {
+    const niv = niveaux[a.id];
+    const max = niv >= a.prix.length;
+    const prix = max ? 0 : a.prix[niv];
+    const d = document.createElement('div');
+    d.className = 'amel';
+    const actuel = a.paliers[Math.min(niv, a.paliers.length-1)];
+    const suivant = max ? null : a.paliers[niv+1];
+    d.innerHTML = '<span class="ic">' + a.ic + '</span>'
+      + '<span class="txt"><span class="t1">' + a.n + '</span>'
+      + '<span class="t2">' + a.desc + '</span>'
+      + '<span class="t3">' + actuel + (suivant !== null ? ' → ' + suivant : ' (max)') + '</span></span>';
+    const b = document.createElement('button');
+    b.className = 'achat' + (max ? ' max' : '');
+    b.textContent = max ? 'Max' : prix + ' ₣';
+    b.disabled = max || argent < prix;
+    b.addEventListener('click', () => {
+      if(argent < prix) return;
+      argent -= prix; niveaux[a.id]++;
+      sauver(); sVente(); dessinerBoutique(); majHud();
+    });
+    d.appendChild(b);
+    z.appendChild(d);
+  });
+}
+
+function dessinerCollection(){
+  const z = $('liste-col');
+  z.innerHTML = '';
+  const trouves = POISSONS.filter(p => collection[p.n]).length;
+  const t = document.createElement('p');
+  t.className = 'vide';
+  t.style.padding = '0 0 12px';
+  t.innerHTML = '<b style="color:#F0B429">' + trouves + ' / ' + POISSONS.length + '</b> espèces pêchées'
+    + '<br>Record de profondeur : ' + record + ' m';
+  z.appendChild(t);
+  const g = document.createElement('div');
+  g.className = 'grille-col';
+  POISSONS.slice().sort((a,b) => a.min - b.min).forEach(p => {
+    const pris = collection[p.n];
+    const d = document.createElement('div');
+    d.className = 'fiche ' + (pris ? 'pris' : 'inconnu');
+    d.innerHTML = '<div class="em">' + (pris ? p.e : '❔') + '</div>'
+      + '<div class="n">' + (pris ? p.n : '???') + '</div>'
+      + (pris ? '<div class="nb">×' + pris + '</div>' : '');
+    if(pris) d.addEventListener('click', () => {
+      $('c-em').textContent = p.e;
+      $('c-nom').textContent = p.n;
+      $('c-meta').textContent = p.min + ' à ' + p.max + ' m · ' + p.kg + ' kg · ' + (p.v ? p.v + ' ₣' : 'protégé');
+      $('c-txt').textContent = p.f;
+      $('voile').classList.add('on');
+    });
+    g.appendChild(d);
+  });
+  z.appendChild(g);
+}
+
+/* ================= commandes ================= */
+function presser(d){ dirig = d; }
+function relacher(){ dirig = 0; }
+['b-gauche','b-droite'].forEach((id, i) => {
+  const el = $(id), d = i ? 1 : -1;
+  el.addEventListener('pointerdown', e => { e.preventDefault(); audio(); presser(d); });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev => el.addEventListener(ev, relacher));
+});
+$('cv').addEventListener('pointerdown', e => {
+  if(G.phase !== 'descente' && G.phase !== 'remontee') return;
+  e.preventDefault();
+  const r = cv.getBoundingClientRect();
+  presser(e.clientX - r.left < r.width/2 ? -1 : 1);
+});
+['pointerup','pointercancel','pointerleave'].forEach(ev => $('cv').addEventListener(ev, relacher));
+window.addEventListener('keydown', e => {
+  if(e.code === 'ArrowLeft') presser(-1);
+  if(e.code === 'ArrowRight') presser(1);
+  if(e.code === 'Space' && G.phase === 'descente'){ e.preventDefault(); passerEnRemontee(); }
+});
+window.addEventListener('keyup', relacher);
+
+$('b-action').addEventListener('click', () => {
+  if(G.phase === 'descente') passerEnRemontee();
+});
+
+$('b-jouer').addEventListener('click', () => { $('b-action').textContent = 'Remonter'; $('b-action').disabled = false; lancer(); });
+$('b-encore').addEventListener('click', () => { $('b-action').textContent = 'Remonter'; $('b-action').disabled = false; lancer(); });
+$('b-boutique').addEventListener('click', () => { dessinerBoutique(); dessinerCollection(); onglet('amel'); ecran('e-boutique'); });
+$('b-atelier2').addEventListener('click', () => { dessinerBoutique(); dessinerCollection(); onglet('amel'); ecran('e-boutique'); });
+$('b-collection').addEventListener('click', () => { dessinerBoutique(); dessinerCollection(); onglet('col'); ecran('e-boutique'); });
+$('b-retour').addEventListener('click', () => ecran('e-accueil'));
+$('c-ok').addEventListener('click', () => $('voile').classList.remove('on'));
+
+function onglet(nom){
+  document.querySelectorAll('.onglets button').forEach(b => b.classList.toggle('on', b.dataset.ong === nom));
+  $('liste-amel').style.display = nom === 'amel' ? '' : 'none';
+  $('liste-col').style.display = nom === 'col' ? '' : 'none';
+}
+document.querySelectorAll('.onglets button').forEach(b => {
+  b.addEventListener('click', () => onglet(b.dataset.ong));
+});
+
+$('b-son').addEventListener('click', () => {
+  sonOn = !sonOn;
+  store.set('pk.son', sonOn ? '1' : '0');
+  $('b-son').textContent = 'Son : ' + (sonOn ? 'on' : 'off');
+  if(sonOn) sPrise();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden && (G.phase === 'descente' || G.phase === 'remontee')){
+    cancelAnimationFrame(G.raf);
+  } else if(!document.hidden && (G.phase === 'descente' || G.phase === 'remontee')){
+    G.tPrec = performance.now();
+    G.raf = requestAnimationFrame(boucle);
+  }
+});
+
+let promptInstall = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); promptInstall = e; $('install').style.display = 'inline-block';
+});
+$('install').addEventListener('click', async () => {
+  if(!promptInstall){
+    alert("Sur iPhone : bouton Partager, puis « Sur l'écran d'accueil ».\nSur Android : menu ⋮ de Chrome, puis « Installer l'application ».");
+    return;
+  }
+  promptInstall.prompt(); await promptInstall.userChoice;
+  promptInstall = null; $('install').style.display = 'none';
+});
+window.addEventListener('appinstalled', () => { $('install').style.display = 'none'; });
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw-peche.js').catch(()=>{}));
+}
+
+/* ================= démarrage ================= */
+$('b-son').textContent = 'Son : ' + (sonOn ? 'on' : 'off');
+resize();
+ecran('e-accueil');
+majHud();
+</script>
+</body>
+</html>
