@@ -41,7 +41,8 @@
   .or{color:var(--or); font-family:var(--mono); font-weight:700; font-size:17px;}
   .coeurs{font-size:14px; letter-spacing:2px; margin-top:4px;}
   .panier-jauge{margin-top:5px; height:6px; width:76px; background:rgba(255,255,255,.15); border-radius:99px; overflow:hidden;}
-  .panier-jauge div{height:100%; background:var(--or); width:0%;}
+  .panier-jauge div{height:100%; background:var(--or); width:0%; transition:width .25s;}
+  .panier-jauge.plein{box-shadow:0 0 0 2px var(--or);}
 
   /* ---------- commandes ---------- */
   .barre{flex:0 0 auto; display:flex; gap:8px; padding:8px 12px 10px; background:var(--nuit);}
@@ -62,6 +63,16 @@
     -webkit-overflow-scrolling:touch;
   }
   .ecran.off{display:none;}
+  .tete-atelier{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    position:sticky; top:-16px; z-index:2; background:#04101C;
+    padding:4px 0 12px; margin:-4px 0 12px; border-bottom:1px solid #17334A;
+  }
+  .solde{text-align:right; flex:0 0 auto;}
+  .solde span{font-family:var(--mono); font-weight:700; font-size:22px; color:var(--or); line-height:1;}
+  .solde small{display:block; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--gris); margin-top:4px;}
+  .solde-accueil{font-family:var(--mono); font-size:14px; color:var(--gris); margin-bottom:14px;}
+  .solde-accueil span{color:var(--or); font-weight:700; font-size:19px;}
   .ecran h2{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--or); font-weight:700; margin-bottom:3px;}
   .ecran h3{font-size:26px; font-weight:900; letter-spacing:-.03em; margin-bottom:14px;}
   .centre{justify-content:center; align-items:center; text-align:center;}
@@ -165,6 +176,7 @@
   <!-- accueil -->
   <section class="ecran centre" id="e-accueil">
     <h1>Grande<br>Pêche</h1>
+    <p class="solde-accueil"><span id="solde3">0 ₣</span> en caisse</p>
     <p class="sous">Lance la ligne et descends le plus profond possible. Évite tout ce qui traîne : au bout de quelques chocs, l'hameçon remonte. C'est en remontant qu'on attrape les poissons.</p>
     <button class="btn" id="b-jouer">Pêcher</button>
     <button class="btn sec" id="b-boutique">Atelier</button>
@@ -175,8 +187,11 @@
 
   <!-- bilan -->
   <section class="ecran off" id="e-bilan">
-    <h2 id="bilan-titre">Retour au bateau</h2>
-    <h3 id="bilan-prof">0 m atteints</h3>
+    <div class="tete-atelier">
+      <div><h2 id="bilan-titre">Retour au bateau</h2></div>
+      <div class="solde"><span id="solde2">0 ₣</span><small>Cagnotte</small></div>
+    </div>
+    <h3 id="bilan-prof" style="margin-top:6px">0 m atteints</h3>
     <div id="bilan-liste"></div>
     <div class="total"><span>Total</span><b id="bilan-total">0 ₣</b></div>
     <button class="btn" id="b-encore">Relancer</button>
@@ -185,8 +200,13 @@
 
   <!-- atelier -->
   <section class="ecran off" id="e-boutique">
-    <h2>Atelier</h2>
-    <h3>Améliore ton matériel</h3>
+    <div class="tete-atelier">
+      <div>
+        <h2>Atelier</h2>
+        <h3 style="margin-bottom:0">Ton matériel</h3>
+      </div>
+      <div class="solde"><span id="solde">0 ₣</span><small>Cagnotte</small></div>
+    </div>
     <div class="onglets">
       <button class="on" data-ong="amel">Matériel</button>
       <button data-ong="col">Collection</button>
@@ -448,6 +468,7 @@ function passerEnRemontee(){
 function attraper(e){
   const place = palier('place');
   if(G.prises.length >= place) return;
+  const dernier = G.prises.length === place - 1;
   e.pris = true;
   G.prises.push(e.m);
   G.masse += e.m.kg;
@@ -455,6 +476,10 @@ function attraper(e){
   const premier = collection[e.m.n] === 1;
   flottant((premier ? '★ ' : '') + e.m.n + (e.m.v ? ' +' + e.m.v : ''), premier ? '#F0B429' : '#EAF2F7');
   if(premier) sNouveau(); else sPrise();
+  if(dernier){
+    setTimeout(() => flottant('Panier plein — on remonte !', '#F0B429'), 420);
+    setTimeout(sVente, 300);
+  }
   majHud();
 }
 
@@ -532,9 +557,11 @@ function maj(dt){
     /* on peuple devant */
     if(Math.random() < dt * 9) engendrer(G.prof + H/PX_M * 0.7);
   } else if(G.phase === 'remontee'){
-    if(Math.random() < dt * 5) engendrer(G.prof - H/PX_M * 0.45);   /* bancs à traverser */
+    /* panier plein : plus rien à pêcher, on hisse la ligne bien plus vite */
+    const plein = G.prises.length >= palier('place');
+    if(!plein && Math.random() < dt * 5) engendrer(G.prof - H/PX_M * 0.45);   /* bancs à traverser */
     const lourd = 1 + G.masse * 0.055;
-    const v = 30 * palier('treuil') / lourd;
+    const v = 30 * palier('treuil') / lourd * (plein ? 2.2 : 1);
     G.prof -= v * dt;
     if(G.prof <= 0){ G.prof = 0; terminer(); return; }
   }
@@ -706,7 +733,11 @@ function dessiner(){
 }
 
 /* ================= interface ================= */
+function majSolde(){
+  ['solde','solde2','solde3'].forEach(id => { const e = $(id); if(e) e.textContent = argent + ' ₣'; });
+}
 function majHud(){
+  majSolde();
   $('prof').textContent = Math.round(G.prof);
   $('zone').textContent = zoneDe(G.prof)[0].toUpperCase();
   $('argent').textContent = argent + ' ₣';
@@ -714,8 +745,11 @@ function majHud(){
   $('coeurs').innerHTML = '<span style="color:#C33B2C">' + '●'.repeat(Math.max(0,vies)) + '</span>'
     + '<span style="color:#33556E">' + '○'.repeat(Math.max(0, G.chocs)) + '</span>';
   const place = palier('place');
+  const plein = G.prises.length >= place;
   $('jauge').style.width = (G.prises.length / place * 100) + '%';
-  $('charge').textContent = G.prises.length + '/' + place + (G.masse ? ' · ' + G.masse + ' kg' : '');
+  $('jauge').parentNode.classList.toggle('plein', plein);
+  $('charge').textContent = G.prises.length + '/' + place
+    + (plein ? ' plein' : '') + (G.masse ? ' · ' + G.masse + ' kg' : '');
 }
 
 function ecran(id){
@@ -742,10 +776,11 @@ function dessinerBoutique(){
     b.className = 'achat' + (max ? ' max' : '');
     b.textContent = max ? 'Max' : prix + ' ₣';
     b.disabled = max || argent < prix;
+    if(!max && argent < prix) b.title = 'Il te manque ' + (prix - argent) + ' ₣';
     b.addEventListener('click', () => {
       if(argent < prix) return;
       argent -= prix; niveaux[a.id]++;
-      sauver(); sVente(); dessinerBoutique(); majHud();
+      sauver(); sVente(); dessinerBoutique(); majSolde(); majHud();
     });
     d.appendChild(b);
     z.appendChild(d);
