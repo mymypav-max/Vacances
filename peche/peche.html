@@ -93,7 +93,7 @@
     display:flex; align-items:center; gap:11px; background:var(--fond);
     border-radius:9px; padding:11px 13px; margin-bottom:7px;
   }
-  .prise .em{font-size:27px; flex:0 0 auto;}
+  .prise .em{width:38px; height:38px; flex:0 0 auto; object-fit:contain;}
   .prise .nom{flex:1; font-weight:700; font-size:15px;}
   .prise .nom small{display:block; font-weight:400; font-size:11px; color:var(--gris); margin-top:2px;}
   .prise .val{font-family:var(--mono); color:var(--or); font-weight:700; font-size:15px;}
@@ -130,7 +130,8 @@
     border:2px solid transparent;
   }
   .fiche.pris{border-color:var(--or);}
-  .fiche .em{font-size:25px; line-height:1.2;}
+  .fiche .em{width:42px; height:42px; object-fit:contain; display:block; margin:0 auto;}
+  .fiche .em.inconnue{font-size:24px; line-height:42px; color:var(--gris); font-weight:900;}
   .fiche .n{font-size:10px; margin-top:3px; line-height:1.15; word-break:break-word;}
   .fiche.inconnu{opacity:.32;}
   .fiche.inconnu .n{color:var(--gris);}
@@ -142,7 +143,7 @@
   }
   .voile.on{display:flex;}
   .carte{background:var(--ardoise); border:2px solid var(--or); border-radius:12px; padding:20px; max-width:380px; width:100%; text-align:center;}
-  .carte .em{font-size:54px; line-height:1;}
+  .carte .em{line-height:0;}
   .carte h4{font-size:23px; margin:8px 0 3px; letter-spacing:-.02em;}
   .carte .meta{font-family:var(--mono); font-size:12px; color:var(--or); margin-bottom:12px;}
   .carte p{font-size:14px; line-height:1.5; color:var(--blanc); margin-bottom:18px;}
@@ -249,68 +250,68 @@ const ZONES = [
 // n: nom, e: emoji, min/max: profondeur, p: poids relatif (rarete), v: valeur, kg: masse, f: fiche
 const POISSONS = [
   // ---- lac (eau douce) ----
-  {n:"Gardon",       e:"🐟", min:0,   max:45,  p:100, v:2,    kg:1, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
-  {n:"Écrevisse",    e:"🦞", min:2,   max:50,  p:60,  v:8,    kg:1, f:"Elle marche à reculons quand elle est surprise et repousse ses pinces perdues."},
-  {n:"Grenouille",   e:"🐸", min:0,   max:30,  p:52,  v:6,    kg:1, f:"Elle respire aussi par la peau, à condition qu'elle reste humide."},
-  {n:"Têtard",       e:"🥚", min:0,   max:22,  p:75,  v:3,    kg:1, f:"Il perd sa queue en grandissant : elle est absorbée par son propre corps."},
-  {n:"Perche",       e:"🐠", min:5,   max:55,  p:70,  v:5,    kg:1, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
-  {n:"Truite",       e:"🐟", min:8,   max:60,  p:45,  v:12,   kg:2, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
-  {n:"Carpe",        e:"🐡", min:12,  max:70,  p:30,  v:22,   kg:3, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
-  {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
-  {n:"Tanche",       e:"🐟", min:14,  max:75,  p:34,  v:26,   kg:2, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
-  {n:"Moule d\'eau douce", e:"🦪", min:6,  max:66, p:44, v:14, kg:1, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
-  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
+  {n:"Gardon",       e:"🐟", min:0,   max:45,  p:100, v:2,    kg:1, d:{f:"fuseau",dos:"#7E8C93",ventre:"#D8DEE2",creux:.36,motif:"ligne",motifC:"rgba(200,80,60,.35)"}, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
+  {n:"Écrevisse",    e:"🦞", min:2,   max:50,  p:60,  v:8,    kg:1, d:{f:"homard",dos:"#8C4B33"}, f:"Elle marche à reculons quand elle est surprise et repousse ses pinces perdues."},
+  {n:"Grenouille",   e:"🐸", min:0,   max:30,  p:52,  v:6,    kg:1, d:{f:"grenouille"}, f:"Elle respire aussi par la peau, à condition qu'elle reste humide."},
+  {n:"Têtard",       e:"🥚", min:0,   max:22,  p:75,  v:3,    kg:1, d:{f:"tetard"}, f:"Il perd sa queue en grandissant : elle est absorbée par son propre corps."},
+  {n:"Perche",       e:"🐠", min:5,   max:55,  p:70,  v:5,    kg:1, d:{f:"fuseau",dos:"#5E7A3A",ventre:"#D9C88A",creux:.38,motif:"barres",motifC:"rgba(30,45,20,.5)",dorsaleH:1.35}, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
+  {n:"Truite",       e:"🐟", min:8,   max:60,  p:45,  v:12,   kg:2, d:{f:"fuseau",dos:"#6E7A4E",ventre:"#E2D2A8",creux:.33,motif:"points",motifC:"rgba(180,60,50,.55)"}, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
+  {n:"Carpe",        e:"🐡", min:12,  max:70,  p:30,  v:22,   kg:3, d:{f:"fuseau",dos:"#8A6E3A",ventre:"#D6C48A",creux:.42,dorsaleH:1.3}, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
+  {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, d:{f:"allonge",dos:"#5A6E3E",ventre:"#CFCF96",creux:.2,machoire:"courte",motif:"points",motifC:"rgba(220,220,170,.45)"}, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
+  {n:"Tanche",       e:"🐟", min:14,  max:75,  p:34,  v:26,   kg:2, d:{f:"fuseau",dos:"#4E5E32",ventre:"#9AA45E",creux:.4}, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
+  {n:"Moule d\'eau douce", e:"🦪", min:6,  max:66, p:44, v:14, kg:1, d:{f:"coquille",forme:"moule"}, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
+  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, d:{f:"allonge",dos:"#3E3A2E",ventre:"#9A9078",creux:.24,barbillons:true}, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
   // ---- estuaire ----
-  {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
-  {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
-  {n:"Bar",          e:"🐠", min:55,  max:150, p:32,  v:55,   kg:3, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
-  {n:"Saumon",       e:"🐟", min:60,  max:160, p:20,  v:95,   kg:4, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
-  {n:"Crevette grise", e:"🦐", min:38, max:118, p:66, v:14, kg:1, f:"Transparente, elle se camoufle dans le sable en quelques secondes."},
-  {n:"Crabe vert",   e:"🦀", min:42,  max:130, p:58,  v:20,   kg:1, f:"Il marche de côté car ses pattes ne se plient que dans un sens."},
-  {n:"Étoile de mer",e:"⭐", min:50,  max:145, p:38,  v:34,   kg:1, f:"Elle n'a pas de cerveau et fait repousser un bras entier s'il est arraché."},
-  {n:"Sole",         e:"🐟", min:70,  max:170, p:24,  v:70,   kg:2, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
+  {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, d:{f:"anguille",dos:"#3A4A3E"}, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
+  {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, d:{f:"fuseau",dos:"#6E7E8A",ventre:"#DDE4E8",creux:.32,motif:"ligne",motifC:"rgba(70,90,105,.4)"}, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
+  {n:"Bar",          e:"🐠", min:55,  max:150, p:32,  v:55,   kg:3, d:{f:"fuseau",dos:"#5E7284",ventre:"#E8EEF2",creux:.31,motif:"ligne",motifC:"rgba(60,80,95,.35)"}, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
+  {n:"Saumon",       e:"🐟", min:60,  max:160, p:20,  v:95,   kg:4, d:{f:"fuseau",dos:"#5A6E7E",ventre:"#E8B49A",creux:.32,motif:"points",motifC:"rgba(40,55,65,.4)"}, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
+  {n:"Crevette grise", e:"🦐", min:38, max:118, p:66, v:14, kg:1, d:{f:"crevette",dos:"#A89880"}, f:"Transparente, elle se camoufle dans le sable en quelques secondes."},
+  {n:"Crabe vert",   e:"🦀", min:42,  max:130, p:58,  v:20,   kg:1, d:{f:"crabe",dos:"#4E6E3E"}, f:"Il marche de côté car ses pattes ne se plient que dans un sens."},
+  {n:"Étoile de mer",e:"⭐", min:50,  max:145, p:38,  v:34,   kg:1, d:{f:"etoile"}, f:"Elle n'a pas de cerveau et fait repousser un bras entier s'il est arraché."},
+  {n:"Sole",         e:"🐟", min:70,  max:170, p:24,  v:70,   kg:2, d:{f:"plat",dos:"#8A7452"}, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
   // ---- mer ----
-  {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
-  {n:"Dorade",       e:"🐠", min:110, max:215, p:28,  v:110,  kg:3, f:"Elle porte un croissant doré entre les yeux."},
-  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
-  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
-  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
-  {n:"Coquille Saint-Jacques", e:"🐚", min:96, max:195, p:36, v:75, kg:1, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
-  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
-  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
-  {n:"Oursin",       e:"🌰", min:98,  max:190, p:42,  v:48,   kg:1, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
-  {n:"Anémone",      e:"🌸", min:108, max:215, p:30,  v:64,   kg:1, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
-  {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, f:"Elle nage en ondulant ses nageoires comme des ailes."},
-  {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, f:"Il possède trois cœurs et un sang bleu."},
-  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
+  {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, d:{f:"fuseau",dos:"#2E5E7E",ventre:"#E4EAEE",creux:.28,motif:"ondes",motifC:"rgba(15,30,45,.6)",queue:1}, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
+  {n:"Dorade",       e:"🐠", min:110, max:215, p:28,  v:110,  kg:3, d:{f:"fuseau",dos:"#8A96A2",ventre:"#EAEEF0",creux:.46,dorsaleH:1.2,motif:"ligne",motifC:"rgba(215,180,70,.5)"}, f:"Elle porte un croissant doré entre les yeux."},
+  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, d:{f:"fuseau",dos:"#5E4A38",ventre:"#B49A72",creux:.42,motif:"points",motifC:"rgba(240,235,215,.4)",dorsaleH:1.1}, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
+  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, d:{f:"fuseau",dos:"#2A4A6E",ventre:"#DCE4EA",creux:.34,queue:1.15}, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
+  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, d:{f:"espadon"}, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
+  {n:"Coquille Saint-Jacques", e:"🐚", min:96, max:195, p:36, v:75, kg:1, d:{f:"coquille",forme:"stjacques"}, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
+  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, d:{f:"hippocampe"}, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
+  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, d:{f:"homard",dos:"#2E4A6E"}, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
+  {n:"Oursin",       e:"🌰", min:98,  max:190, p:42,  v:48,   kg:1, d:{f:"oursin"}, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
+  {n:"Anémone",      e:"🌸", min:108, max:215, p:30,  v:64,   kg:1, d:{f:"anemone"}, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
+  {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, d:{f:"raie"}, f:"Elle nage en ondulant ses nageoires comme des ailes."},
+  {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, d:{f:"poulpe",dos:"#A85E4A"}, f:"Il possède trois cœurs et un sang bleu."},
+  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, d:{f:"tortue"}, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
   // ---- abysses ----
-  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
-  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10,f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
-  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
-  {n:"Poisson-lune", e:"🌝", min:260, max:450, p:5,   v:1400, kg:12,f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
-  {n:"Cœlacanthe",   e:"🦴", min:300, max:520, p:2,   v:3000, kg:9, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
-  {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
-  {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
-  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
-  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
-  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
-  {n:"Crevette abyssale", e:"🦐", min:255, max:460, p:20, v:520, kg:1, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
-  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
+  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, d:{f:"calamar",dos:"#C4544A"}, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
+  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10, d:{f:"requin"}, f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
+  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, d:{f:"requin"}, d:{f:"baudroie"}, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
+  {n:"Poisson-lune", e:"🌝", min:260, max:450, p:5,   v:1400, kg:12, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
+  {n:"Cœlacanthe",   e:"🦴", min:300, max:520, p:2,   v:3000, kg:9, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, d:{f:"coelacanthe"}, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
+  {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, d:{f:"disque",dos:"#B8A05E",piquants:true,queueCourte:true,aplati:.9}, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
+  {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, d:{f:"meduse"}, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
+  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, d:{f:"crabe",dos:"#B4744A",longuesPattes:true}, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
+  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, d:{f:"corail"}, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
+  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, d:{f:"vipere"}, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
+  {n:"Crevette abyssale", e:"🦐", min:255, max:460, p:20, v:520, kg:1, d:{f:"crevette",dos:"#C4463A"}, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
+  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, d:{f:"coquille",forme:"nautile"}, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
 ];
 
 // -------- OBSTACLES --------
 // d: degats (chocs), plus le fond est profond, plus ils sont denses
 const OBSTACLES = [
-  {n:"Bouteille",  e:"🍾", min:0,   max:200, p:40, d:1},
-  {n:"Botte",      e:"🥾", min:0,   max:160, p:32, d:1},
-  {n:"Boîte",      e:"🥫", min:0,   max:220, p:34, d:1},
-  {n:"Pneu",       e:"🛞", min:10,  max:260, p:26, d:1},
-  {n:"Bois flotté",e:"🪵", min:0,   max:180, p:28, d:1},
-  {n:"Algues",     e:"🌿", min:5,   max:300, p:36, d:1},
-  {n:"Filet",      e:"🕸️", min:60,  max:520, p:22, d:2},
-  {n:"Ancre",      e:"⚓", min:90,  max:520, p:18, d:2},
-  {n:"Épave",      e:"🚢", min:150, max:520, p:12, d:2},
-  {n:"Mine",       e:"💣", min:200, max:520, p:9,  d:3}
+  {n:"Bouteille",  e:"🍾", min:0,   max:200, p:40, d:"bouteille", dg:1},
+  {n:"Botte",      e:"🥾", min:0,   max:160, p:32, d:"botte", dg:1},
+  {n:"Boîte",      e:"🥫", min:0,   max:220, p:34, d:"boite", dg:1},
+  {n:"Pneu",       e:"🛞", min:10,  max:260, p:26, d:"pneu", dg:1},
+  {n:"Bois flotté",e:"🪵", min:0,   max:180, p:28, d:"bois", dg:1},
+  {n:"Algues",     e:"🌿", min:5,   max:300, p:36, d:"algues", dg:1},
+  {n:"Filet",      e:"🕸️", min:60,  max:520, p:22, d:"filet", dg:2},
+  {n:"Ancre",      e:"⚓", min:90,  max:520, p:18, d:"ancre", dg:2},
+  {n:"Épave",      e:"🚢", min:150, max:520, p:12, d:"epave", dg:2},
+  {n:"Mine",       e:"💣", min:200, max:520, p:9,  d:"mine", dg:3}
 ];
 
 // -------- AMELIORATIONS --------
@@ -327,6 +328,990 @@ const AMELIORATIONS = [
   { id:"appat",  n:"Appât",      ic:"🪱", desc:"Attire les poissons proches",
     paliers:[0,26,46,68],     prix:[220,700,1900] }
 ];
+
+/* ============================================================
+   DESSIN DES ESPÈCES
+   Chaque espèce est tracée à partir de sa silhouette réelle,
+   dans un repère centré, pour une longueur L donnée.
+   ============================================================ */
+
+function ombre(c, f){
+  const p = s => [parseInt(s.slice(1,3),16), parseInt(s.slice(3,5),16), parseInt(s.slice(5,7),16)];
+  const v = p(c).map(x => Math.max(0, Math.min(255, Math.round(x * f))));
+  return 'rgb(' + v.join(',') + ')';
+}
+
+/* œil : pupille sombre sur iris clair */
+function oeil(g, x, y, r){
+  g.fillStyle = '#F7F9FA'; g.beginPath(); g.arc(x, y, r, 0, 6.284); g.fill();
+  g.fillStyle = '#10171C'; g.beginPath(); g.arc(x + r*0.15, y, r*0.58, 0, 6.284); g.fill();
+}
+
+/* corps en fuseau, la base de la plupart des poissons.
+   creux : hauteur relative | queue : taille de la nageoire caudale */
+function fuseau(g, L, o){
+  const h = L * (o.creux || 0.34);
+  const dos = o.dos, ventre = o.ventre || ombre(o.dos, 1.45);
+
+  /* nageoire caudale, en croissant */
+  g.fillStyle = ombre(dos, 0.82);
+  g.beginPath();
+  g.moveTo(L*0.40, 0);
+  g.lineTo(L*0.52, -h*(o.queue || 0.82));
+  g.lineTo(L*0.46, 0);
+  g.lineTo(L*0.52, h*(o.queue || 0.82));
+  g.closePath(); g.fill();
+
+  /* nageoire dorsale */
+  if(o.dorsale !== false){
+    g.fillStyle = ombre(dos, 0.86);
+    g.beginPath();
+    g.moveTo(-L*0.10, -h*0.44);
+    g.lineTo(L*0.02, -h*(o.dorsaleH || 1.15));
+    g.lineTo(L*0.18, -h*0.40);
+    g.closePath(); g.fill();
+  }
+  /* nageoires ventrales */
+  g.fillStyle = ombre(dos, 0.9);
+  g.beginPath();
+  g.moveTo(-L*0.02, h*0.36);
+  g.lineTo(L*0.06, h*0.86);
+  g.lineTo(L*0.16, h*0.34);
+  g.closePath(); g.fill();
+
+  /* corps */
+  const grad = g.createLinearGradient(0, -h*0.5, 0, h*0.5);
+  grad.addColorStop(0, dos);
+  grad.addColorStop(1, ventre);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.5, 0);
+  g.quadraticCurveTo(-L*0.22, -h*0.5, L*0.10, -h*0.40);
+  g.quadraticCurveTo(L*0.32, -h*0.28, L*0.42, 0);
+  g.quadraticCurveTo(L*0.32, h*0.28, L*0.10, h*0.40);
+  g.quadraticCurveTo(-L*0.22, h*0.5, -L*0.5, 0);
+  g.closePath(); g.fill();
+
+  /* nageoire pectorale */
+  g.fillStyle = ombre(dos, 0.78);
+  g.beginPath();
+  g.ellipse(-L*0.16, h*0.16, L*0.09, h*0.20, -0.5, 0, 6.284);
+  g.fill();
+
+  motif(g, L, h, o);
+  oeil(g, -L*0.36, -h*0.10, Math.max(1.6, L*0.045));
+}
+
+/* rayures, taches ou points selon l'espèce */
+function motif(g, L, h, o){
+  if(!o.motif) return;
+  g.save();
+  g.beginPath();
+  g.moveTo(-L*0.5, 0);
+  g.quadraticCurveTo(-L*0.22, -h*0.5, L*0.10, -h*0.40);
+  g.quadraticCurveTo(L*0.32, -h*0.28, L*0.42, 0);
+  g.quadraticCurveTo(L*0.32, h*0.28, L*0.10, h*0.40);
+  g.quadraticCurveTo(-L*0.22, h*0.5, -L*0.5, 0);
+  g.closePath(); g.clip();
+  const c = o.motifC || 'rgba(20,30,40,.45)';
+  if(o.motif === 'barres'){
+    g.fillStyle = c;
+    for(let i = -3; i <= 3; i++) g.fillRect(i*L*0.09 - L*0.012, -h*0.5, L*0.028, h);
+  } else if(o.motif === 'ondes'){
+    g.strokeStyle = c; g.lineWidth = Math.max(1, L*0.022);
+    for(let i = -3; i <= 3; i++){
+      g.beginPath();
+      g.moveTo(i*L*0.10, -h*0.5);
+      g.quadraticCurveTo(i*L*0.10 + L*0.05, -h*0.1, i*L*0.10, h*0.1);
+      g.stroke();
+    }
+  } else if(o.motif === 'points'){
+    g.fillStyle = c;
+    for(let i = 0; i < 9; i++){
+      g.beginPath();
+      g.arc(-L*0.32 + (i%5)*L*0.15, (i%2 ? -1 : 1)*h*0.18 - h*0.05, Math.max(1, L*0.026), 0, 6.284);
+      g.fill();
+    }
+  } else if(o.motif === 'ligne'){
+    g.fillStyle = c;
+    g.fillRect(-L*0.5, -h*0.06, L, Math.max(1.2, h*0.11));
+  }
+  g.restore();
+}
+
+/* corps allongé : brochet, silure, poisson-vipère */
+function allonge(g, L, o){
+  const h = L * (o.creux || 0.19);
+  const dos = o.dos, ventre = o.ventre || ombre(o.dos, 1.4);
+  g.fillStyle = ombre(dos, 0.82);
+  g.beginPath();
+  g.moveTo(L*0.42, 0); g.lineTo(L*0.5, -h*1.1); g.lineTo(L*0.46, 0); g.lineTo(L*0.5, h*1.1);
+  g.closePath(); g.fill();
+  g.fillStyle = ombre(dos, 0.86);
+  g.beginPath();
+  g.moveTo(L*0.10, -h*0.6); g.lineTo(L*0.24, -h*1.5); g.lineTo(L*0.34, -h*0.5);
+  g.closePath(); g.fill();
+  const grad = g.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, dos); grad.addColorStop(1, ventre);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.5, -h*0.30);
+  g.quadraticCurveTo(-L*0.1, -h, L*0.44, -h*0.22);
+  g.lineTo(L*0.44, h*0.22);
+  g.quadraticCurveTo(-L*0.1, h, -L*0.5, h*0.34);
+  g.closePath(); g.fill();
+  if(o.machoire){
+    g.fillStyle = '#F3F4F6';
+    for(let i = 0; i < 5; i++){
+      g.beginPath();
+      g.moveTo(-L*0.46 + i*L*0.055, -h*0.1);
+      g.lineTo(-L*0.44 + i*L*0.055, h*(o.machoire === 'longue' ? 0.55 : 0.3));
+      g.lineTo(-L*0.42 + i*L*0.055, -h*0.1);
+      g.closePath(); g.fill();
+    }
+  }
+  if(o.barbillons){
+    g.strokeStyle = ombre(dos, 0.75); g.lineWidth = Math.max(1, L*0.018);
+    [-1, 1].forEach(s => {
+      g.beginPath(); g.moveTo(-L*0.44, s*h*0.15);
+      g.quadraticCurveTo(-L*0.60, s*h*0.5, -L*0.66, s*h*1.2); g.stroke();
+    });
+  }
+  motif(g, L, h*1.6, o);
+  oeil(g, -L*0.36, -h*0.22, Math.max(1.5, L*0.038));
+}
+
+/* poisson plat couché : sole */
+function plat(g, L, o){
+  const h = L * 0.44;
+  const grad = g.createLinearGradient(0, -h*0.5, 0, h*0.5);
+  grad.addColorStop(0, o.dos); grad.addColorStop(1, ombre(o.dos, 1.3));
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, 0, L*0.48, h*0.5, 0, 0, 6.284); g.fill();
+  g.fillStyle = ombre(o.dos, 0.85);
+  g.beginPath();
+  for(let i = -8; i <= 8; i++){
+    const x = i*L*0.058;
+    const y = Math.sqrt(Math.max(0, 1 - (x/(L*0.48))**2)) * h*0.5;
+    g.moveTo(x, -y); g.lineTo(x + L*0.02, -y - h*0.12); g.lineTo(x + L*0.05, -y);
+    g.moveTo(x, y); g.lineTo(x + L*0.02, y + h*0.12); g.lineTo(x + L*0.05, y);
+  }
+  g.fill();
+  g.fillStyle = 'rgba(30,20,10,.28)';
+  for(let i = 0; i < 7; i++){
+    g.beginPath();
+    g.arc(-L*0.2 + (i%4)*L*0.13, (i%2?-1:1)*h*0.16, L*0.035, 0, 6.284); g.fill();
+  }
+  oeil(g, -L*0.30, -h*0.14, Math.max(1.5, L*0.04));
+  oeil(g, -L*0.20, -h*0.20, Math.max(1.3, L*0.034));
+}
+
+/* disque : poisson-lune, poisson-globe, dorade haute */
+function disque(g, L, o){
+  const R = L*0.42;
+  const grad = g.createRadialGradient(-R*0.3, -R*0.3, R*0.15, 0, 0, R);
+  grad.addColorStop(0, ombre(o.dos, 1.25)); grad.addColorStop(1, o.dos);
+  if(o.nageoiresHV){
+    /* mola mola : dorsale et anale immenses, presque aussi hautes que le corps */
+    g.fillStyle = ombre(o.dos, 0.8);
+    g.beginPath();
+    g.moveTo(-R*0.35, -R*0.72);
+    g.quadraticCurveTo(-R*0.25, -R*1.95, R*0.16, -R*2.05);
+    g.quadraticCurveTo(R*0.30, -R*1.2, R*0.42, -R*0.55);
+    g.closePath(); g.fill();
+    g.beginPath();
+    g.moveTo(-R*0.35, R*0.72);
+    g.quadraticCurveTo(-R*0.25, R*1.95, R*0.16, R*2.05);
+    g.quadraticCurveTo(R*0.30, R*1.2, R*0.42, R*0.55);
+    g.closePath(); g.fill();
+    /* clavus : le corps se termine net, sans vraie queue */
+    g.fillStyle = ombre(o.dos, 0.88);
+    g.beginPath();
+    g.moveTo(R*0.72, -R*0.62); g.lineTo(R*1.02, -R*0.5);
+    g.lineTo(R*1.02, R*0.5); g.lineTo(R*0.72, R*0.62);
+    g.closePath(); g.fill();
+  }
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, 0, R, R*(o.aplati || 1), 0, 0, 6.284); g.fill();
+  if(o.piquants){
+    g.strokeStyle = ombre(o.dos, 0.7); g.lineWidth = Math.max(1, L*0.02);
+    for(let i = 0; i < 16; i++){
+      const a = i/16*6.284, c = Math.cos(a), s = Math.sin(a);
+      g.beginPath(); g.moveTo(c*R*0.92, s*R*0.92); g.lineTo(c*R*1.16, s*R*1.16); g.stroke();
+    }
+  }
+  if(o.queueCourte){
+    g.fillStyle = ombre(o.dos, 0.85);
+    g.beginPath(); g.moveTo(R*0.85, -R*0.3); g.lineTo(R*1.2, -R*0.45); g.lineTo(R*1.2, R*0.45); g.lineTo(R*0.85, R*0.3); g.closePath(); g.fill();
+  }
+  g.fillStyle = ombre(o.dos, 0.8);
+  g.beginPath(); g.ellipse(-R*0.15, R*0.4, R*0.2, R*0.12, 0.4, 0, 6.284); g.fill();
+  if(o.nageoiresHV){
+    /* petite bouche ronde caractéristique */
+    g.fillStyle = ombre(o.dos, 0.62);
+    g.beginPath(); g.ellipse(-R*0.86, R*0.02, R*0.10, R*0.13, 0, 0, 6.284); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = Math.max(1, L*0.014);
+    for(let i = 0; i < 4; i++){
+      g.beginPath(); g.arc(R*0.1, 0, R*(0.35 + i*0.16), -1.1, 1.1); g.stroke();
+    }
+  }
+  oeil(g, -R*0.62, -R*0.30, Math.max(1.8, L*0.05));
+}
+
+/* losange : raie */
+function raie(g, L){
+  const l = L*0.5, h = L*0.30;
+  g.fillStyle = '#7C6A50';
+  g.beginPath();
+  g.moveTo(-l*0.15, -h);
+  g.quadraticCurveTo(l*0.55, -h*0.75, l, 0);
+  g.quadraticCurveTo(l*0.55, h*0.75, -l*0.15, h);
+  g.quadraticCurveTo(-l*0.75, h*0.35, -l*0.85, 0);
+  g.quadraticCurveTo(-l*0.75, -h*0.35, -l*0.15, -h);
+  g.closePath(); g.fill();
+  g.strokeStyle = '#5E4F3B'; g.lineWidth = Math.max(1, L*0.02);
+  g.beginPath(); g.moveTo(l*0.05, 0); g.quadraticCurveTo(l*0.9, h*0.2, l*1.35, h*0.5); g.stroke();
+  g.fillStyle = 'rgba(40,32,20,.35)';
+  for(let i = 0; i < 6; i++){
+    g.beginPath(); g.arc(-l*0.3 + (i%3)*l*0.3, (i%2?-1:1)*h*0.3, L*0.03, 0, 6.284); g.fill();
+  }
+  oeil(g, -l*0.5, -h*0.28, Math.max(1.4, L*0.035));
+  oeil(g, -l*0.5, h*0.28, Math.max(1.4, L*0.035));
+}
+
+/* requin */
+function requin(g, L){
+  const h = L*0.26;
+  g.fillStyle = '#5A6B78';
+  g.beginPath(); g.moveTo(L*0.34, 0); g.lineTo(L*0.5, -h*1.5); g.lineTo(L*0.42, 0); g.lineTo(L*0.5, h*0.9); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(-L*0.04, -h*0.7); g.lineTo(L*0.06, -h*1.9); g.lineTo(L*0.18, -h*0.6); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(-L*0.16, h*0.4); g.lineTo(-L*0.06, h*1.3); g.lineTo(L*0.06, h*0.5); g.closePath(); g.fill();
+  const grad = g.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, '#5A6B78'); grad.addColorStop(.62, '#7C8B96'); grad.addColorStop(.66, '#E8EDF0'); grad.addColorStop(1, '#F1F4F6');
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.5, -h*0.05);
+  g.quadraticCurveTo(-L*0.2, -h, L*0.16, -h*0.7);
+  g.quadraticCurveTo(L*0.3, -h*0.5, L*0.36, 0);
+  g.quadraticCurveTo(L*0.3, h*0.45, L*0.16, h*0.62);
+  g.quadraticCurveTo(-L*0.2, h*0.95, -L*0.5, h*0.2);
+  g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(30,45,55,.5)'; g.lineWidth = Math.max(.8, L*0.012);
+  for(let i = 0; i < 5; i++){
+    g.beginPath(); g.moveTo(-L*0.30 + i*L*0.035, -h*0.25); g.lineTo(-L*0.32 + i*L*0.035, h*0.35); g.stroke();
+  }
+  oeil(g, -L*0.40, -h*0.30, Math.max(1.4, L*0.032));
+}
+
+/* anguille et créatures serpentiformes */
+function anguille(g, L, o){
+  const h = L*0.11;
+  g.strokeStyle = o.dos; g.lineWidth = h*2;
+  g.lineCap = 'round';
+  g.beginPath();
+  g.moveTo(-L*0.48, 0);
+  g.quadraticCurveTo(-L*0.2, -h*2.4, 0, 0);
+  g.quadraticCurveTo(L*0.2, h*2.4, L*0.48, 0);
+  g.stroke();
+  g.strokeStyle = ombre(o.dos, 1.35); g.lineWidth = h*0.7;
+  g.beginPath();
+  g.moveTo(-L*0.44, h*0.7);
+  g.quadraticCurveTo(-L*0.2, -h*1.7, 0, h*0.7);
+  g.quadraticCurveTo(L*0.2, h*3.1, L*0.44, h*0.7);
+  g.stroke();
+  g.lineCap = 'butt';
+  oeil(g, -L*0.42, -h*0.5, Math.max(1.3, L*0.03));
+}
+
+/* céphalopodes : poulpe et calamar */
+function poulpe(g, L, o){
+  const R = L*0.26;
+  g.strokeStyle = o.dos; g.lineWidth = Math.max(1.6, L*0.05); g.lineCap = 'round';
+  for(let i = 0; i < 7; i++){
+    const a = -0.35 + i*0.42;
+    g.beginPath();
+    g.moveTo(0, R*0.5);
+    g.quadraticCurveTo(Math.cos(a)*R*1.5, R*1.6, Math.cos(a)*R*2.1, R*2.2 + Math.sin(i)*R*0.4);
+    g.stroke();
+  }
+  g.lineCap = 'butt';
+  const grad = g.createRadialGradient(-R*0.3, -R*0.4, R*0.2, 0, 0, R*1.3);
+  grad.addColorStop(0, ombre(o.dos, 1.3)); grad.addColorStop(1, o.dos);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, -R*0.15, R*0.95, R*1.15, 0, 0, 6.284); g.fill();
+  oeil(g, -R*0.42, 0, Math.max(1.8, L*0.045));
+  oeil(g, R*0.42, 0, Math.max(1.8, L*0.045));
+}
+
+function calamar(g, L, o){
+  const R = L*0.2;
+  g.strokeStyle = o.dos; g.lineWidth = Math.max(1.4, L*0.035); g.lineCap = 'round';
+  for(let i = 0; i < 8; i++){
+    const dx = (i - 3.5) * R*0.28;
+    g.beginPath(); g.moveTo(dx*0.4, R*1.1);
+    g.quadraticCurveTo(dx, R*2.2, dx*1.5, R*3.1 + (i%2)*R*0.4);
+    g.stroke();
+  }
+  g.lineCap = 'butt';
+  g.fillStyle = ombre(o.dos, 0.85);
+  g.beginPath(); g.moveTo(-R*0.75, -R*1.2); g.lineTo(0, -R*2.5); g.lineTo(R*0.75, -R*1.2); g.closePath(); g.fill();
+  const grad = g.createLinearGradient(-R, 0, R, 0);
+  grad.addColorStop(0, ombre(o.dos, 1.3)); grad.addColorStop(1, o.dos);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, -R*0.1, R*0.8, R*1.5, 0, 0, 6.284); g.fill();
+  oeil(g, -R*0.45, R*0.55, Math.max(1.8, L*0.05));
+  oeil(g, R*0.45, R*0.55, Math.max(1.8, L*0.05));
+}
+
+/* crustacés à pinces : homard, écrevisse */
+function homard(g, L, o){
+  const c = o.dos;
+  g.strokeStyle = ombre(c, 0.8); g.lineWidth = Math.max(1, L*0.022);
+  for(let i = 0; i < 3; i++){
+    [-1,1].forEach(s => {
+      g.beginPath();
+      g.moveTo(-L*0.02 + i*L*0.11, s*L*0.06);
+      g.lineTo(-L*0.06 + i*L*0.11, s*L*0.26);
+      g.stroke();
+    });
+  }
+  /* pinces */
+  [-1,1].forEach(s => {
+    g.fillStyle = ombre(c, 0.92);
+    g.save(); g.translate(-L*0.34, s*L*0.17); g.rotate(s*0.5);
+    g.beginPath(); g.ellipse(0, 0, L*0.14, L*0.08, 0, 0, 6.284); g.fill();
+    g.fillStyle = ombre(c, 0.78);
+    g.beginPath(); g.moveTo(-L*0.10, -L*0.05); g.lineTo(-L*0.22, -L*0.03); g.lineTo(-L*0.10, L*0.02); g.closePath(); g.fill();
+    g.restore();
+  });
+  /* corps segmenté */
+  const grad = g.createLinearGradient(0, -L*0.12, 0, L*0.12);
+  grad.addColorStop(0, ombre(c, 1.2)); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(-L*0.14, 0, L*0.18, L*0.12, 0, 0, 6.284); g.fill();
+  for(let i = 0; i < 4; i++){
+    g.fillStyle = i%2 ? c : ombre(c, 1.12);
+    g.beginPath(); g.ellipse(L*0.04 + i*L*0.09, 0, L*0.06, L*0.105 - i*L*0.012, 0, 0, 6.284); g.fill();
+  }
+  g.fillStyle = ombre(c, 0.88);
+  g.beginPath(); g.moveTo(L*0.38, 0); g.lineTo(L*0.5, -L*0.12); g.lineTo(L*0.48, 0); g.lineTo(L*0.5, L*0.12); g.closePath(); g.fill();
+  g.strokeStyle = ombre(c, 0.75); g.lineWidth = Math.max(.8, L*0.014);
+  [-1,1].forEach(s => { g.beginPath(); g.moveTo(-L*0.30, s*L*0.04); g.quadraticCurveTo(-L*0.46, s*L*0.16, -L*0.5, s*L*0.3); g.stroke(); });
+  oeil(g, -L*0.27, -L*0.05, Math.max(1.1, L*0.022));
+}
+
+/* crabe */
+function crabe(g, L, o){
+  const c = o.dos, R = L*0.26;
+  g.strokeStyle = ombre(c, 0.78); g.lineWidth = Math.max(1, L*0.026);
+  for(let i = 0; i < 3; i++){
+    [-1,1].forEach(s => {
+      const x = s*(R*0.5 + i*R*0.28);
+      g.beginPath(); g.moveTo(x*0.7, R*0.2);
+      g.quadraticCurveTo(x*1.4, R*0.55, x*1.5, R*(o.longuesPattes ? 1.5 : 1.0));
+      g.stroke();
+    });
+  }
+  [-1,1].forEach(s => {
+    g.fillStyle = ombre(c, 0.9);
+    g.save(); g.translate(s*R*1.15, -R*0.35); g.rotate(s*-0.4);
+    g.beginPath(); g.ellipse(0, 0, R*0.42, R*0.26, 0, 0, 6.284); g.fill();
+    g.beginPath(); g.moveTo(s*R*0.3, -R*0.16); g.lineTo(s*R*0.72, -R*0.28); g.lineTo(s*R*0.3, R*0.02); g.closePath(); g.fill();
+    g.restore();
+  });
+  const grad = g.createRadialGradient(-R*0.3, -R*0.3, R*0.1, 0, 0, R);
+  grad.addColorStop(0, ombre(c, 1.22)); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, 0, R, R*0.7, 0, 0, 6.284); g.fill();
+  oeil(g, -R*0.3, -R*0.34, Math.max(1.2, L*0.024));
+  oeil(g, R*0.3, -R*0.34, Math.max(1.2, L*0.024));
+}
+
+/* crevette */
+function crevette(g, L, o){
+  const c = o.dos;
+  g.strokeStyle = ombre(c, 0.85); g.lineWidth = Math.max(.8, L*0.016);
+  for(let i = 0; i < 4; i++){
+    g.beginPath(); g.moveTo(-L*0.1 + i*L*0.1, L*0.06);
+    g.lineTo(-L*0.14 + i*L*0.1, L*0.2); g.stroke();
+  }
+  const grad = g.createLinearGradient(0, -L*0.1, 0, L*0.1);
+  grad.addColorStop(0, ombre(c, 1.25)); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.42, -L*0.02);
+  g.quadraticCurveTo(-L*0.1, -L*0.15, L*0.22, -L*0.05);
+  g.quadraticCurveTo(L*0.40, L*0.04, L*0.32, L*0.18);
+  g.quadraticCurveTo(L*0.05, L*0.12, -L*0.36, L*0.09);
+  g.closePath(); g.fill();
+  g.fillStyle = ombre(c, 0.9);
+  g.beginPath(); g.moveTo(L*0.30, L*0.14); g.lineTo(L*0.46, L*0.06); g.lineTo(L*0.46, L*0.3); g.closePath(); g.fill();
+  g.strokeStyle = ombre(c, 0.8); g.lineWidth = Math.max(.7, L*0.012);
+  [-1, -0.4].forEach(s => {
+    g.beginPath(); g.moveTo(-L*0.4, -L*0.02);
+    g.quadraticCurveTo(-L*0.5, s*L*0.16, -L*0.56, s*L*0.3); g.stroke();
+  });
+  oeil(g, -L*0.34, -L*0.04, Math.max(1, L*0.02));
+}
+
+/* coquillages */
+function coquille(g, L, o){
+  const R = L*0.42;
+  if(o.forme === 'moule'){
+    const grad = g.createLinearGradient(-R, -R*0.5, R, R*0.5);
+    grad.addColorStop(0, '#2B2436'); grad.addColorStop(.6, '#1C1826'); grad.addColorStop(1, '#3D3450');
+    g.fillStyle = grad;
+    g.beginPath();
+    g.moveTo(-R, R*0.1);
+    g.quadraticCurveTo(-R*0.3, -R*0.75, R, -R*0.15);
+    g.quadraticCurveTo(R*0.3, R*0.7, -R, R*0.1);
+    g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.16)'; g.lineWidth = Math.max(.7, L*0.012);
+    for(let i = 1; i < 4; i++){
+      g.beginPath(); g.moveTo(-R*0.9 + i*R*0.1, R*0.06);
+      g.quadraticCurveTo(-R*0.2 + i*R*0.35, -R*0.5, R*0.9, -R*0.1); g.stroke();
+    }
+    return;
+  }
+  if(o.forme === 'nautile'){
+    g.fillStyle = '#F2E8D5';
+    g.beginPath(); g.arc(0, 0, R, 0, 6.284); g.fill();
+    g.fillStyle = '#C4432C';
+    for(let i = 0; i < 13; i++){
+      const a0 = i/13*6.284, a1 = a0 + 0.14;
+      g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, R, a0, a1); g.closePath(); g.fill();
+    }
+    g.fillStyle = '#F7F0E2';
+    g.beginPath(); g.arc(R*0.12, R*0.05, R*0.42, 0, 6.284); g.fill();
+    g.strokeStyle = '#8A6A45'; g.lineWidth = Math.max(1, L*0.018);
+    g.beginPath(); g.arc(0, 0, R, 0, 6.284); g.stroke();
+    g.strokeStyle = '#E8DCC4'; g.lineWidth = Math.max(1.4, L*0.03);
+    for(let i = 0; i < 5; i++){
+      const a = 0.4 + i*0.24;
+      g.beginPath(); g.moveTo(Math.cos(a)*R*0.9, Math.sin(a)*R*0.9);
+      g.lineTo(Math.cos(a)*R*1.35, Math.sin(a)*R*1.35); g.stroke();
+    }
+    return;
+  }
+  /* coquille Saint-Jacques : éventail strié */
+  const grad = g.createLinearGradient(0, -R*0.7, 0, R*0.8);
+  grad.addColorStop(0, '#E8A65C'); grad.addColorStop(1, '#C2763A');
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(0, R*0.72);
+  g.lineTo(-R*0.22, R*0.5);
+  g.arc(0, R*0.5, R*0.98, Math.PI*1.06, Math.PI*1.94);
+  g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(120,60,20,.4)'; g.lineWidth = Math.max(.8, L*0.014);
+  for(let i = -4; i <= 4; i++){
+    const a = Math.PI*1.5 + i*0.12;
+    g.beginPath(); g.moveTo(0, R*0.62);
+    g.lineTo(Math.cos(a)*R*0.95, R*0.5 + Math.sin(a)*R*0.95); g.stroke();
+  }
+  g.fillStyle = '#D89250';
+  g.beginPath(); g.moveTo(-R*0.3, R*0.62); g.lineTo(R*0.3, R*0.62); g.lineTo(R*0.2, R*0.78); g.lineTo(-R*0.2, R*0.78); g.closePath(); g.fill();
+}
+
+/* étoile de mer */
+function etoile(g, L){
+  const R = L*0.46;
+  const grad = g.createRadialGradient(0, 0, R*0.15, 0, 0, R);
+  grad.addColorStop(0, '#F0A03C'); grad.addColorStop(1, '#C9541F');
+  g.fillStyle = grad;
+  g.beginPath();
+  for(let i = 0; i < 10; i++){
+    const a = -Math.PI/2 + i*Math.PI/5;
+    const r = i%2 ? R*0.36 : R;
+    const x = Math.cos(a)*r, y = Math.sin(a)*r;
+    i ? g.lineTo(x, y) : g.moveTo(x, y);
+  }
+  g.closePath(); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.3)';
+  for(let i = 0; i < 5; i++){
+    const a = -Math.PI/2 + i*2*Math.PI/5;
+    for(let k = 1; k <= 3; k++){
+      g.beginPath(); g.arc(Math.cos(a)*R*0.28*k, Math.sin(a)*R*0.28*k, R*0.05, 0, 6.284); g.fill();
+    }
+  }
+}
+
+/* oursin */
+function oursin(g, L){
+  const R = L*0.28;
+  g.strokeStyle = '#241832'; g.lineWidth = Math.max(1, L*0.022);
+  for(let i = 0; i < 22; i++){
+    const a = i/22*6.284;
+    g.beginPath(); g.moveTo(Math.cos(a)*R*0.85, Math.sin(a)*R*0.85);
+    g.lineTo(Math.cos(a)*R*1.75, Math.sin(a)*R*1.75); g.stroke();
+  }
+  const grad = g.createRadialGradient(-R*0.3, -R*0.3, R*0.1, 0, 0, R);
+  grad.addColorStop(0, '#4A335E'); grad.addColorStop(1, '#241832');
+  g.fillStyle = grad;
+  g.beginPath(); g.arc(0, 0, R, 0, 6.284); g.fill();
+}
+
+/* méduse */
+function meduse(g, L){
+  const R = L*0.32;
+  g.strokeStyle = 'rgba(190,220,240,.6)'; g.lineWidth = Math.max(1, L*0.018);
+  for(let i = 0; i < 6; i++){
+    const x = -R*0.7 + i*R*0.28;
+    g.beginPath(); g.moveTo(x, R*0.5);
+    g.quadraticCurveTo(x + (i%2?R*0.3:-R*0.3), R*1.4, x + (i%2?-R*0.2:R*0.2), R*2.2);
+    g.stroke();
+  }
+  const grad = g.createRadialGradient(0, -R*0.2, R*0.1, 0, 0, R);
+  grad.addColorStop(0, 'rgba(232,244,252,.92)'); grad.addColorStop(1, 'rgba(150,196,228,.62)');
+  g.fillStyle = grad;
+  g.beginPath(); g.arc(0, 0, R, Math.PI, 0); g.quadraticCurveTo(R*0.6, R*0.55, 0, R*0.5);
+  g.quadraticCurveTo(-R*0.6, R*0.55, -R, 0); g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = Math.max(.8, L*0.012);
+  for(let i = -1; i <= 1; i++){
+    g.beginPath(); g.arc(i*R*0.35, R*0.05, R*0.22, Math.PI, 0); g.stroke();
+  }
+}
+
+/* anémone */
+function anemone(g, L){
+  const R = L*0.3;
+  g.strokeStyle = '#E0668A'; g.lineWidth = Math.max(1.2, L*0.028); g.lineCap = 'round';
+  for(let i = 0; i < 14; i++){
+    const a = -Math.PI + i/13*Math.PI;
+    g.beginPath(); g.moveTo(Math.cos(a)*R*0.5, R*0.3);
+    g.quadraticCurveTo(Math.cos(a)*R*1.2, -R*0.4, Math.cos(a)*R*1.45, -R*1.1 + Math.abs(Math.cos(a))*R*0.5);
+    g.stroke();
+  }
+  g.lineCap = 'butt';
+  g.fillStyle = '#B8405F';
+  g.beginPath(); g.ellipse(0, R*0.55, R*0.62, R*0.42, 0, 0, 6.284); g.fill();
+}
+
+/* corail */
+function corail(g, L){
+  const c = '#E06A4A';
+  g.strokeStyle = c; g.lineWidth = Math.max(1.6, L*0.05); g.lineCap = 'round';
+  const branche = (x, y, a, l, p) => {
+    if(p > 3 || l < L*0.05) return;
+    const x2 = x + Math.cos(a)*l, y2 = y + Math.sin(a)*l;
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x2, y2); g.stroke();
+    branche(x2, y2, a - 0.5, l*0.66, p+1);
+    branche(x2, y2, a + 0.45, l*0.62, p+1);
+  };
+  g.lineWidth = Math.max(1.6, L*0.05);
+  branche(0, L*0.42, -Math.PI/2, L*0.3, 0);
+  g.lineCap = 'butt';
+  g.fillStyle = '#F2A088';
+  for(let i = 0; i < 6; i++){
+    g.beginPath(); g.arc(-L*0.2 + i*L*0.08, L*0.1 - (i%3)*L*0.1, L*0.028, 0, 6.284); g.fill();
+  }
+}
+
+/* hippocampe */
+function hippocampe(g, L){
+  const c = '#D9A441';
+  g.strokeStyle = c; g.lineWidth = Math.max(2, L*0.13); g.lineCap = 'round';
+  g.beginPath();
+  g.moveTo(-L*0.02, -L*0.28);
+  g.quadraticCurveTo(L*0.16, -L*0.05, L*0.02, L*0.16);
+  g.quadraticCurveTo(-L*0.14, L*0.3, L*0.0, L*0.4);
+  g.stroke();
+  g.lineCap = 'butt';
+  g.fillStyle = c;
+  g.beginPath(); g.ellipse(-L*0.08, -L*0.34, L*0.11, L*0.08, -0.5, 0, 6.284); g.fill();
+  g.beginPath(); g.moveTo(-L*0.16, -L*0.36); g.lineTo(-L*0.30, -L*0.30); g.lineTo(-L*0.15, -L*0.27); g.closePath(); g.fill();
+  g.fillStyle = ombre(c, 0.85);
+  g.beginPath(); g.moveTo(-L*0.02, -L*0.4); g.lineTo(L*0.06, -L*0.5); g.lineTo(L*0.08, -L*0.36); g.closePath(); g.fill();
+  g.strokeStyle = ombre(c, 0.8); g.lineWidth = Math.max(.7, L*0.014);
+  for(let i = 0; i < 5; i++){
+    g.beginPath(); g.moveTo(L*0.06 - i*L*0.02, -L*0.2 + i*L*0.1);
+    g.lineTo(L*0.14 - i*L*0.03, -L*0.19 + i*L*0.1); g.stroke();
+  }
+  oeil(g, -L*0.12, -L*0.35, Math.max(1.1, L*0.026));
+}
+
+/* tortue marine */
+function tortue(g, L){
+  const R = L*0.3;
+  g.fillStyle = '#4E7A4A';
+  [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([sx, sy]) => {
+    g.save(); g.translate(sx*R*0.85, sy*R*0.5); g.rotate(sx*sy*0.6);
+    g.beginPath(); g.ellipse(0, 0, R*0.44, R*0.2, 0, 0, 6.284); g.fill();
+    g.restore();
+  });
+  g.beginPath(); g.ellipse(-R*1.15, 0, R*0.3, R*0.24, 0, 0, 6.284); g.fill();
+  const grad = g.createRadialGradient(-R*0.3, -R*0.3, R*0.15, 0, 0, R);
+  grad.addColorStop(0, '#7A6035'); grad.addColorStop(1, '#4C3A1E');
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, 0, R, R*0.82, 0, 0, 6.284); g.fill();
+  g.strokeStyle = 'rgba(20,14,6,.5)'; g.lineWidth = Math.max(.8, L*0.014);
+  for(let i = 0; i < 6; i++){
+    const a = i/6*6.284;
+    g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a)*R, Math.sin(a)*R*0.82); g.stroke();
+  }
+  g.beginPath(); g.ellipse(0, 0, R*0.5, R*0.42, 0, 0, 6.284); g.stroke();
+  oeil(g, -R*1.22, -R*0.06, Math.max(1, L*0.022));
+}
+
+/* grenouille */
+function grenouille(g, L){
+  const c = '#5E9B3E';
+  g.fillStyle = ombre(c, 0.85);
+  [[-1,1],[1,1]].forEach(([sx]) => {
+    g.beginPath(); g.ellipse(sx*L*0.26, L*0.16, L*0.13, L*0.07, sx*0.5, 0, 6.284); g.fill();
+  });
+  const grad = g.createLinearGradient(0, -L*0.2, 0, L*0.2);
+  grad.addColorStop(0, c); grad.addColorStop(1, '#C7D68A');
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(0, 0, L*0.32, L*0.22, 0, 0, 6.284); g.fill();
+  g.fillStyle = c;
+  [-1,1].forEach(s => { g.beginPath(); g.arc(s*L*0.13, -L*0.2, L*0.09, 0, 6.284); g.fill(); });
+  [-1,1].forEach(s => oeil(g, s*L*0.13, -L*0.21, Math.max(1.4, L*0.045)));
+  g.fillStyle = 'rgba(30,60,20,.35)';
+  for(let i = 0; i < 5; i++){
+    g.beginPath(); g.arc(-L*0.14 + i*L*0.08, (i%2?-1:1)*L*0.07, L*0.025, 0, 6.284); g.fill();
+  }
+}
+
+/* têtard */
+function tetard(g, L){
+  const c = '#3E4A52';
+  g.strokeStyle = c; g.lineWidth = Math.max(1.4, L*0.05); g.lineCap = 'round';
+  g.beginPath(); g.moveTo(L*0.02, 0);
+  g.quadraticCurveTo(L*0.22, -L*0.14, L*0.4, L*0.04); g.stroke();
+  g.lineCap = 'butt';
+  g.fillStyle = 'rgba(62,74,82,.5)';
+  g.beginPath(); g.moveTo(L*0.1, -L*0.02); g.quadraticCurveTo(L*0.3, -L*0.2, L*0.42, L*0.02);
+  g.quadraticCurveTo(L*0.3, L*0.14, L*0.1, L*0.04); g.closePath(); g.fill();
+  const grad = g.createRadialGradient(-L*0.12, -L*0.06, L*0.03, -L*0.08, 0, L*0.2);
+  grad.addColorStop(0, '#5D6E78'); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(-L*0.1, 0, L*0.19, L*0.15, 0, 0, 6.284); g.fill();
+  oeil(g, -L*0.18, -L*0.04, Math.max(1.2, L*0.032));
+}
+
+/* espadon : rostre en épée */
+function espadon(g, L){
+  const h = L*0.2;
+  g.fillStyle = '#3A4A5A';
+  g.beginPath(); g.moveTo(-L*0.36, -h*0.06); g.lineTo(-L*0.72, -h*0.03);
+  g.lineTo(-L*0.72, h*0.03); g.lineTo(-L*0.36, h*0.1); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(L*0.3, 0); g.lineTo(L*0.46, -h*1.5); g.lineTo(L*0.38, 0); g.lineTo(L*0.46, h*1.4); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(-L*0.14, -h*0.7); g.lineTo(-L*0.02, -h*2.1); g.lineTo(L*0.10, -h*0.6); g.closePath(); g.fill();
+  const grad = g.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, '#2E3E4E'); grad.addColorStop(.6, '#5A6E7E'); grad.addColorStop(1, '#C8D4DC');
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.36, 0);
+  g.quadraticCurveTo(-L*0.1, -h, L*0.14, -h*0.6);
+  g.quadraticCurveTo(L*0.28, -h*0.4, L*0.32, 0);
+  g.quadraticCurveTo(L*0.28, h*0.4, L*0.14, h*0.6);
+  g.quadraticCurveTo(-L*0.1, h, -L*0.36, 0);
+  g.closePath(); g.fill();
+  g.fillStyle = '#3A4A5A';
+  g.beginPath(); g.moveTo(-L*0.08, h*0.5); g.lineTo(-L*0.0, h*1.3); g.lineTo(L*0.1, h*0.5); g.closePath(); g.fill();
+  oeil(g, -L*0.28, -h*0.2, Math.max(1.5, L*0.035));
+}
+
+/* cœlacanthe : nageoires lobées, taches blanches */
+function coelacanthe(g, L){
+  const h = L*0.34, c = '#2B4A66';
+
+  /* caudale à trois lobes : le petit lobe médian est la signature de l'espèce */
+  g.fillStyle = ombre(c, 0.72);
+  g.beginPath();
+  g.moveTo(L*0.30, -h*0.34);
+  g.lineTo(L*0.54, -h*0.62); g.lineTo(L*0.44, -h*0.06);
+  g.lineTo(L*0.62, 0);
+  g.lineTo(L*0.44, h*0.06); g.lineTo(L*0.54, h*0.62);
+  g.lineTo(L*0.30, h*0.34);
+  g.closePath(); g.fill();
+
+  /* nageoires charnues, larges à la base et collées au corps */
+  g.fillStyle = ombre(c, 0.74);
+  const aile = (x, sens, l) => {
+    g.beginPath();
+    g.moveTo(x - L*0.07, sens*h*0.30);
+    g.quadraticCurveTo(x + L*0.02, sens*h*(0.30 + l), x + L*0.11, sens*h*(0.28 + l*0.55));
+    g.lineTo(x + L*0.09, sens*h*0.28);
+    g.closePath(); g.fill();
+  };
+  aile(-L*0.06, -1, 0.48);   /* pectorale */
+  aile( L*0.17, -1, 0.40);   /* seconde dorsale */
+  aile(-L*0.02,  1, 0.46);   /* pelvienne */
+  aile( L*0.19,  1, 0.38);   /* anale */
+
+  /* corps trapu */
+  const grad = g.createLinearGradient(0, -h*0.5, 0, h*0.5);
+  grad.addColorStop(0, ombre(c, 1.35)); grad.addColorStop(1, ombre(c, 0.62));
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.44, 0);
+  g.quadraticCurveTo(-L*0.24, -h*0.52, L*0.06, -h*0.44);
+  g.quadraticCurveTo(L*0.24, -h*0.36, L*0.32, 0);
+  g.quadraticCurveTo(L*0.24, h*0.36, L*0.06, h*0.44);
+  g.quadraticCurveTo(-L*0.24, h*0.52, -L*0.44, 0);
+  g.closePath(); g.fill();
+
+  /* écailles cosmoïdes claires */
+  g.save();
+  g.beginPath();
+  g.moveTo(-L*0.44, 0);
+  g.quadraticCurveTo(-L*0.24, -h*0.52, L*0.06, -h*0.44);
+  g.quadraticCurveTo(L*0.24, -h*0.36, L*0.32, 0);
+  g.quadraticCurveTo(L*0.24, h*0.36, L*0.06, h*0.44);
+  g.quadraticCurveTo(-L*0.24, h*0.52, -L*0.44, 0);
+  g.closePath(); g.clip();
+  g.fillStyle = 'rgba(238,247,252,.55)';
+  for(let i = 0; i < 12; i++){
+    const x = -L*0.34 + (i % 4) * L*0.17;
+    const y = (Math.floor(i / 4) - 1) * h*0.24;
+    g.beginPath(); g.arc(x + (Math.floor(i/4) % 2 ? L*0.07 : 0), y, L*0.030, 0, 6.284); g.fill();
+  }
+  g.restore();
+
+  oeil(g, -L*0.32, -h*0.14, Math.max(1.6, L*0.042));
+}
+
+/* baudroie : lanterne lumineuse et grande gueule */
+function baudroie(g, L){
+  const h = L*0.36, c = '#2E2A33';
+  g.strokeStyle = '#4A4652'; g.lineWidth = Math.max(1.2, L*0.022);
+  g.beginPath(); g.moveTo(-L*0.16, -h*0.5);
+  g.quadraticCurveTo(-L*0.34, -h*1.3, -L*0.46, -h*1.05); g.stroke();
+  const lum = g.createRadialGradient(-L*0.47, -h*1.05, 0, -L*0.47, -h*1.05, L*0.12);
+  lum.addColorStop(0, 'rgba(190,240,255,.95)'); lum.addColorStop(1, 'rgba(120,200,240,0)');
+  g.fillStyle = lum;
+  g.beginPath(); g.arc(-L*0.47, -h*1.05, L*0.12, 0, 6.284); g.fill();
+  g.fillStyle = '#CFF2FF';
+  g.beginPath(); g.arc(-L*0.47, -h*1.05, L*0.035, 0, 6.284); g.fill();
+  g.fillStyle = ombre(c, 1.2);
+  g.beginPath(); g.moveTo(L*0.3, 0); g.lineTo(L*0.46, -h*0.5); g.lineTo(L*0.42, 0); g.lineTo(L*0.46, h*0.5); g.closePath(); g.fill();
+  const grad = g.createRadialGradient(-L*0.1, -h*0.1, L*0.05, 0, 0, L*0.45);
+  grad.addColorStop(0, '#454050'); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.44, h*0.1);
+  g.quadraticCurveTo(-L*0.3, -h*0.75, L*0.06, -h*0.5);
+  g.quadraticCurveTo(L*0.3, -h*0.3, L*0.32, 0);
+  g.quadraticCurveTo(L*0.28, h*0.5, -L*0.06, h*0.6);
+  g.closePath(); g.fill();
+  /* dents */
+  g.fillStyle = '#EFF3F5';
+  for(let i = 0; i < 6; i++){
+    const x = -L*0.42 + i*L*0.075;
+    g.beginPath(); g.moveTo(x, h*0.14); g.lineTo(x + L*0.02, h*0.42); g.lineTo(x + L*0.045, h*0.14); g.closePath(); g.fill();
+  }
+  oeil(g, -L*0.3, -h*0.24, Math.max(1.5, L*0.04));
+}
+
+/* poisson-vipère : maigre, dents démesurées, photophores */
+function vipere(g, L){
+  const h = L*0.16, c = '#1E2A38';
+  g.fillStyle = ombre(c, 1.5);
+  g.beginPath(); g.moveTo(L*0.4, 0); g.lineTo(L*0.5, -h*1.3); g.lineTo(L*0.46, 0); g.lineTo(L*0.5, h*1.3); g.closePath(); g.fill();
+  g.strokeStyle = ombre(c, 1.6); g.lineWidth = Math.max(1, L*0.018);
+  g.beginPath(); g.moveTo(L*0.04, -h*0.8);
+  g.quadraticCurveTo(L*0.2, -h*2.6, L*0.34, -h*1.6); g.stroke();
+  const grad = g.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, ombre(c, 1.4)); grad.addColorStop(1, c);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-L*0.42, -h*0.2);
+  g.quadraticCurveTo(-L*0.15, -h*1.05, L*0.16, -h*0.6);
+  g.quadraticCurveTo(L*0.34, -h*0.35, L*0.42, 0);
+  g.quadraticCurveTo(L*0.34, h*0.35, L*0.16, h*0.6);
+  g.quadraticCurveTo(-L*0.15, h*1.05, -L*0.42, h*0.5);
+  g.closePath(); g.fill();
+  /* mâchoire et crocs */
+  g.fillStyle = '#F0F4F6';
+  for(let i = 0; i < 5; i++){
+    const x = -L*0.42 + i*L*0.06;
+    g.beginPath(); g.moveTo(x, h*0.2); g.lineTo(x + L*0.012, h*1.5 - i*h*0.2); g.lineTo(x + L*0.035, h*0.2); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(x, -h*0.1); g.lineTo(x + L*0.012, -h*1.2 + i*h*0.15); g.lineTo(x + L*0.035, -h*0.1); g.closePath(); g.fill();
+  }
+  g.fillStyle = 'rgba(150,240,255,.8)';
+  for(let i = 0; i < 7; i++){
+    g.beginPath(); g.arc(-L*0.3 + i*L*0.1, h*0.55, Math.max(.9, L*0.016), 0, 6.284); g.fill();
+  }
+  oeil(g, -L*0.32, -h*0.4, Math.max(1.3, L*0.032));
+}
+
+/* ---------- aiguillage ---------- */
+function dessinEspece(g, esp, L){
+  const d = esp.d || {};
+  const f = d.f || 'fuseau';
+  switch(f){
+    case 'allonge':     allonge(g, L, d); break;
+    case 'plat':        plat(g, L, d); break;
+    case 'disque':      disque(g, L, d); break;
+    case 'raie':        raie(g, L); break;
+    case 'requin':      requin(g, L); break;
+    case 'anguille':    anguille(g, L, d); break;
+    case 'poulpe':      poulpe(g, L, d); break;
+    case 'calamar':     calamar(g, L, d); break;
+    case 'homard':      homard(g, L, d); break;
+    case 'crabe':       crabe(g, L, d); break;
+    case 'crevette':    crevette(g, L, d); break;
+    case 'coquille':    coquille(g, L, d); break;
+    case 'etoile':      etoile(g, L); break;
+    case 'oursin':      oursin(g, L); break;
+    case 'meduse':      meduse(g, L); break;
+    case 'anemone':     anemone(g, L); break;
+    case 'corail':      corail(g, L); break;
+    case 'hippocampe':  hippocampe(g, L); break;
+    case 'tortue':      tortue(g, L); break;
+    case 'grenouille':  grenouille(g, L); break;
+    case 'tetard':      tetard(g, L); break;
+    case 'espadon':     espadon(g, L); break;
+    case 'coelacanthe': coelacanthe(g, L); break;
+    case 'baudroie':    baudroie(g, L); break;
+    case 'vipere':      vipere(g, L); break;
+    default:            fuseau(g, L, d);
+  }
+}
+
+/* ---------- obstacles ---------- */
+function dessinObstacle(g, obs, L){
+  switch(obs.d){
+    case 'bouteille': {
+      g.fillStyle = 'rgba(90,150,110,.85)';
+      g.beginPath();
+      g.moveTo(-L*0.12, -L*0.4); g.lineTo(L*0.12, -L*0.4); g.lineTo(L*0.12, -L*0.2);
+      g.quadraticCurveTo(L*0.28, -L*0.05, L*0.28, L*0.4);
+      g.lineTo(-L*0.28, L*0.4);
+      g.quadraticCurveTo(-L*0.28, -L*0.05, -L*0.12, -L*0.2);
+      g.closePath(); g.fill();
+      g.fillStyle = 'rgba(255,255,255,.28)';
+      g.fillRect(-L*0.16, L*0.02, L*0.08, L*0.3);
+      g.fillStyle = '#8A6A3A'; g.fillRect(-L*0.13, -L*0.48, L*0.26, L*0.1);
+      break; }
+    case 'botte': {
+      g.fillStyle = '#4A3A2E';
+      g.beginPath();
+      g.moveTo(-L*0.1, -L*0.42); g.lineTo(L*0.14, -L*0.42); g.lineTo(L*0.16, L*0.16);
+      g.lineTo(L*0.42, L*0.2); g.lineTo(L*0.42, L*0.42); g.lineTo(-L*0.14, L*0.42);
+      g.closePath(); g.fill();
+      g.fillStyle = '#2E241C'; g.fillRect(-L*0.14, L*0.34, L*0.56, L*0.1);
+      break; }
+    case 'boite': {
+      g.fillStyle = '#9AA5AC';
+      g.fillRect(-L*0.22, -L*0.3, L*0.44, L*0.6);
+      g.fillStyle = '#C0CAD0'; g.fillRect(-L*0.22, -L*0.3, L*0.44, L*0.08);
+      g.fillStyle = '#B0393A'; g.fillRect(-L*0.22, -L*0.1, L*0.44, L*0.2);
+      g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(-L*0.18, -L*0.26, L*0.06, L*0.52);
+      break; }
+    case 'pneu': {
+      g.fillStyle = '#22262A';
+      g.beginPath(); g.arc(0, 0, L*0.42, 0, 6.284); g.fill();
+      g.fillStyle = '#0E1114';
+      g.beginPath(); g.arc(0, 0, L*0.2, 0, 6.284); g.fill();
+      g.strokeStyle = '#3A4046'; g.lineWidth = Math.max(1, L*0.03);
+      for(let i = 0; i < 10; i++){
+        const a = i/10*6.284;
+        g.beginPath(); g.moveTo(Math.cos(a)*L*0.26, Math.sin(a)*L*0.26);
+        g.lineTo(Math.cos(a)*L*0.4, Math.sin(a)*L*0.4); g.stroke();
+      }
+      break; }
+    case 'bois': {
+      g.fillStyle = '#6E5334';
+      g.beginPath(); g.ellipse(0, 0, L*0.46, L*0.14, 0.12, 0, 6.284); g.fill();
+      g.fillStyle = '#8A6B44';
+      g.beginPath(); g.ellipse(L*0.42, L*0.05, L*0.07, L*0.13, 0.12, 0, 6.284); g.fill();
+      g.strokeStyle = '#54402A'; g.lineWidth = Math.max(.8, L*0.012);
+      for(let i = -2; i <= 2; i++){
+        g.beginPath(); g.moveTo(i*L*0.16, -L*0.1); g.lineTo(i*L*0.16 + L*0.05, L*0.1); g.stroke();
+      }
+      break; }
+    case 'algues': {
+      g.strokeStyle = '#3E7A3E'; g.lineWidth = Math.max(1.4, L*0.06); g.lineCap = 'round';
+      for(let i = -2; i <= 2; i++){
+        g.beginPath(); g.moveTo(i*L*0.12, L*0.45);
+        g.quadraticCurveTo(i*L*0.12 + L*0.16, 0, i*L*0.12 - L*0.06, -L*0.45);
+        g.stroke();
+      }
+      g.lineCap = 'butt';
+      break; }
+    case 'filet': {
+      g.strokeStyle = 'rgba(210,220,225,.75)'; g.lineWidth = Math.max(.8, L*0.014);
+      for(let i = -3; i <= 3; i++){
+        g.beginPath(); g.moveTo(i*L*0.13, -L*0.42); g.lineTo(i*L*0.13 + L*0.1, L*0.42); g.stroke();
+        g.beginPath(); g.moveTo(-L*0.42, i*L*0.13); g.lineTo(L*0.42, i*L*0.13 + L*0.06); g.stroke();
+      }
+      break; }
+    case 'ancre': {
+      g.strokeStyle = '#5E6E78'; g.lineWidth = Math.max(1.6, L*0.07);
+      g.beginPath(); g.moveTo(0, -L*0.4); g.lineTo(0, L*0.3); g.stroke();
+      g.beginPath(); g.moveTo(-L*0.22, -L*0.2); g.lineTo(L*0.22, -L*0.2); g.stroke();
+      g.beginPath(); g.moveTo(-L*0.3, L*0.06); g.quadraticCurveTo(0, L*0.5, L*0.3, L*0.06); g.stroke();
+      g.lineWidth = Math.max(1, L*0.03);
+      g.beginPath(); g.arc(0, -L*0.42, L*0.08, 0, 6.284); g.stroke();
+      break; }
+    case 'epave': {
+      g.save(); g.rotate(-0.22);
+      /* mât brisé */
+      g.strokeStyle = '#4A3A2A'; g.lineWidth = Math.max(1.6, L*0.045);
+      g.beginPath(); g.moveTo(-L*0.02, -L*0.12); g.lineTo(L*0.04, -L*0.52); g.stroke();
+      g.strokeStyle = 'rgba(180,190,190,.35)'; g.lineWidth = Math.max(1, L*0.02);
+      g.beginPath(); g.moveTo(L*0.03, -L*0.46); g.quadraticCurveTo(L*0.22, -L*0.3, L*0.16, -L*0.1); g.stroke();
+      /* coque */
+      const gr = g.createLinearGradient(0, -L*0.14, 0, L*0.3);
+      gr.addColorStop(0, '#6E5A42'); gr.addColorStop(1, '#33281C');
+      g.fillStyle = gr;
+      g.beginPath();
+      g.moveTo(-L*0.5, -L*0.14);
+      g.lineTo(L*0.46, -L*0.14);
+      g.quadraticCurveTo(L*0.34, L*0.3, -L*0.16, L*0.3);
+      g.quadraticCurveTo(-L*0.44, L*0.26, -L*0.5, -L*0.14);
+      g.closePath(); g.fill();
+      /* bordé et hublots */
+      g.strokeStyle = 'rgba(30,24,16,.55)'; g.lineWidth = Math.max(.8, L*0.012);
+      for(let i = 1; i <= 2; i++){
+        g.beginPath(); g.moveTo(-L*0.48, -L*0.14 + i*L*0.13);
+        g.quadraticCurveTo(0, -L*0.08 + i*L*0.15, L*0.44, -L*0.14 + i*L*0.13); g.stroke();
+      }
+      g.fillStyle = '#1A2A32';
+      for(let i = 0; i < 4; i++){
+        g.beginPath(); g.arc(-L*0.3 + i*L*0.2, -L*0.03, L*0.035, 0, 6.284); g.fill();
+      }
+      g.fillStyle = 'rgba(70,110,70,.4)';
+      g.beginPath(); g.ellipse(-L*0.2, L*0.22, L*0.16, L*0.06, 0, 0, 6.284); g.fill();
+      g.restore();
+      break; }
+    case 'mine': {
+      g.fillStyle = '#2A3038';
+      for(let i = 0; i < 10; i++){
+        const a = i/10*6.284;
+        g.save(); g.translate(Math.cos(a)*L*0.3, Math.sin(a)*L*0.3); g.rotate(a);
+        g.fillRect(0, -L*0.035, L*0.14, L*0.07);
+        g.restore();
+      }
+      const gr = g.createRadialGradient(-L*0.1, -L*0.1, L*0.05, 0, 0, L*0.32);
+      gr.addColorStop(0, '#4A525C'); gr.addColorStop(1, '#1E242A');
+      g.fillStyle = gr;
+      g.beginPath(); g.arc(0, 0, L*0.32, 0, 6.284); g.fill();
+      break; }
+    default:
+      g.fillStyle = '#6E7A82';
+      g.beginPath(); g.arc(0, 0, L*0.32, 0, 6.284); g.fill();
+  }
+}
+
+/* vignette pour l'interface (collection, bilan) */
+const vignettes = {};
+function vignette(esp, obstacle){
+  const cle = (obstacle ? 'o:' : 'p:') + esp.n;
+  if(vignettes[cle]) return vignettes[cle];
+  const T = 96, dpr = 2;
+  const c = document.createElement('canvas');
+  c.width = T*dpr; c.height = T*dpr;
+  const g = c.getContext('2d');
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.translate(T/2, T/2);
+  if(obstacle) dessinObstacle(g, esp, T*0.8); else dessinEspece(g, esp, T*0.82);
+  const url = c.toDataURL();
+  vignettes[cle] = url;
+  return url;
+}
 
 
 /* ================= stockage ================= */
@@ -530,7 +1515,7 @@ function terminer(){
     Object.values(compte).forEach(({p, n}) => {
       const d = document.createElement('div');
       d.className = 'prise';
-      d.innerHTML = '<span class="em">' + p.e + '</span>'
+      d.innerHTML = '<img class="em" src="' + vignette(p) + '" alt="">'
         + '<span class="nom">' + p.n + (n > 1 ? ' ×' + n : '')
         + '<small>' + p.kg + ' kg' + (p.v ? '' : ' · protégé, relâché') + '</small></span>'
         + '<span class="val">' + (p.v * n) + ' ₣</span>';
@@ -702,12 +1687,12 @@ function dessiner(){
   G.entites.forEach(e => {
     if(e.pris) return;
     const y = hy + (e.prof - G.prof) * PX_M + Math.sin(e.phase) * 3;
-    if(y < -40 || y > H + 40) return;
+    if(y < -60 || y > H + 60) return;
     ctx.save();
     ctx.translate(e.x, y);
-    if(e.vx > 0) ctx.scale(-1, 1);
-    ctx.font = e.taille + 'px serif';
-    ctx.fillText(e.m.e, 0, 0);
+    if(e.poisson && e.vx > 0) ctx.scale(-1, 1);
+    if(e.poisson) dessinEspece(ctx, e.m, e.taille * 1.5);
+    else dessinObstacle(ctx, e.m, e.taille * 1.25);
     ctx.restore();
   });
 
@@ -723,18 +1708,21 @@ function dessiner(){
   /* prises accrochées à la ligne */
   G.prises.forEach((p, i) => {
     ctx.save();
-    ctx.translate(hx + (i % 2 ? 15 : -15), hy - 20 - i * 15);
-    ctx.font = '17px serif';
-    ctx.globalAlpha = .92;
-    ctx.fillText(p.e, 0, 0);
+    ctx.translate(hx + (i % 2 ? 16 : -16), hy - 22 - i * 16);
+    ctx.globalAlpha = .95;
+    dessinEspece(ctx, p, 26);
     ctx.restore();
   });
+  ctx.globalAlpha = 1;
 
   ctx.save();
   ctx.translate(hx, hy);
   if(G.invuln > 0 && Math.floor(G.invuln * 14) % 2) ctx.globalAlpha = .35;
-  ctx.font = '30px serif';
-  ctx.fillText('🪝', 0, 0);
+  ctx.strokeStyle = '#D8E2E8'; ctx.lineWidth = 3.5; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(0, 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(-5, 2, 7, -0.25, Math.PI + 0.5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(2, 0); ctx.lineTo(4, -7); ctx.stroke();
+  ctx.lineCap = 'butt';
   ctx.restore();
   ctx.globalAlpha = 1;
 
@@ -820,11 +1808,11 @@ function dessinerCollection(){
     const pris = collection[p.n];
     const d = document.createElement('div');
     d.className = 'fiche ' + (pris ? 'pris' : 'inconnu');
-    d.innerHTML = '<div class="em">' + (pris ? p.e : '❔') + '</div>'
+    d.innerHTML = (pris ? '<img class="em" src="' + vignette(p) + '" alt="">' : '<div class="em inconnue">?</div>')
       + '<div class="n">' + (pris ? p.n : '???') + '</div>'
       + (pris ? '<div class="nb">×' + pris + '</div>' : '');
     if(pris) d.addEventListener('click', () => {
-      $('c-em').textContent = p.e;
+      $('c-em').innerHTML = '<img src="' + vignette(p) + '" alt="" style="width:82px;height:82px">';
       $('c-nom').textContent = p.n;
       $('c-meta').textContent = p.min + ' à ' + p.max + ' m · ' + p.kg + ' kg · ' + (p.v ? p.v + ' ₣' : 'protégé');
       $('c-txt').textContent = p.f;
