@@ -250,16 +250,24 @@ const ZONES = [
 const POISSONS = [
   // ---- lac (eau douce) ----
   {n:"Gardon",       e:"🐟", min:0,   max:45,  p:100, v:2,    kg:1, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
+  {n:"Écrevisse",    e:"🦞", min:2,   max:50,  p:60,  v:8,    kg:1, f:"Elle marche à reculons quand elle est surprise et repousse ses pinces perdues."},
+  {n:"Grenouille",   e:"🐸", min:0,   max:30,  p:52,  v:6,    kg:1, f:"Elle respire aussi par la peau, à condition qu'elle reste humide."},
+  {n:"Têtard",       e:"🥚", min:0,   max:22,  p:75,  v:3,    kg:1, f:"Il perd sa queue en grandissant : elle est absorbée par son propre corps."},
   {n:"Perche",       e:"🐠", min:5,   max:55,  p:70,  v:5,    kg:1, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
   {n:"Truite",       e:"🐟", min:8,   max:60,  p:45,  v:12,   kg:2, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
   {n:"Carpe",        e:"🐡", min:12,  max:70,  p:30,  v:22,   kg:3, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
   {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
+  {n:"Tanche",       e:"🐟", min:14,  max:75,  p:34,  v:26,   kg:2, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
+  {n:"Moule d\'eau douce", e:"🦪", min:6,  max:66, p:44, v:14, kg:1, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
   {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
   // ---- estuaire ----
   {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
   {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
   {n:"Bar",          e:"🐠", min:55,  max:150, p:32,  v:55,   kg:3, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
   {n:"Saumon",       e:"🐟", min:60,  max:160, p:20,  v:95,   kg:4, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
+  {n:"Crevette grise", e:"🦐", min:38, max:118, p:66, v:14, kg:1, f:"Transparente, elle se camoufle dans le sable en quelques secondes."},
+  {n:"Crabe vert",   e:"🦀", min:42,  max:130, p:58,  v:20,   kg:1, f:"Il marche de côté car ses pattes ne se plient que dans un sens."},
+  {n:"Étoile de mer",e:"⭐", min:50,  max:145, p:38,  v:34,   kg:1, f:"Elle n'a pas de cerveau et fait repousser un bras entier s'il est arraché."},
   {n:"Sole",         e:"🐟", min:70,  max:170, p:24,  v:70,   kg:2, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
   // ---- mer ----
   {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
@@ -267,6 +275,11 @@ const POISSONS = [
   {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
   {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
   {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
+  {n:"Coquille Saint-Jacques", e:"🐚", min:96, max:195, p:36, v:75, kg:1, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
+  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
+  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
+  {n:"Oursin",       e:"🌰", min:98,  max:190, p:42,  v:48,   kg:1, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
+  {n:"Anémone",      e:"🌸", min:108, max:215, p:30,  v:64,   kg:1, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
   {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, f:"Elle nage en ondulant ses nageoires comme des ailes."},
   {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, f:"Il possède trois cœurs et un sang bleu."},
   {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
@@ -278,6 +291,10 @@ const POISSONS = [
   {n:"Cœlacanthe",   e:"🦴", min:300, max:520, p:2,   v:3000, kg:9, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
   {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
   {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
+  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
+  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
+  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
+  {n:"Crevette abyssale", e:"🦐", min:255, max:460, p:20, v:520, kg:1, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
   {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
 ];
 
