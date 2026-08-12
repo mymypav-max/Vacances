@@ -260,7 +260,7 @@ const POISSONS = [
   {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, d:{f:"allonge",dos:"#5A6E3E",ventre:"#CFCF96",creux:.2,machoire:"courte",motif:"points",motifC:"rgba(220,220,170,.45)"}, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
   {n:"Tanche",       e:"🐟", min:14,  max:75,  p:34,  v:26,   kg:2, d:{f:"fuseau",dos:"#4E5E32",ventre:"#9AA45E",creux:.4}, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
   {n:"Moule d\'eau douce", e:"🦪", min:6,  max:66, p:44, v:14, kg:1, d:{f:"coquille",forme:"moule"}, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
-  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, d:{f:"allonge",dos:"#3E3A2E",ventre:"#9A9078",creux:.24,barbillons:true}, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
+  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, rare:0.7, d:{f:"allonge",dos:"#3E3A2E",ventre:"#9A9078",creux:.24,barbillons:true}, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
   // ---- estuaire ----
   {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, d:{f:"anguille",dos:"#3A4A3E"}, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
   {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, d:{f:"fuseau",dos:"#6E7E8A",ventre:"#DDE4E8",creux:.32,motif:"ligne",motifC:"rgba(70,90,105,.4)"}, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
@@ -273,30 +273,30 @@ const POISSONS = [
   // ---- mer ----
   {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, d:{f:"fuseau",dos:"#2E5E7E",ventre:"#E4EAEE",creux:.28,motif:"ondes",motifC:"rgba(15,30,45,.6)",queue:1}, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
   {n:"Dorade",       e:"🐠", min:110, max:215, p:28,  v:110,  kg:3, d:{f:"fuseau",dos:"#8A96A2",ventre:"#EAEEF0",creux:.46,dorsaleH:1.2,motif:"ligne",motifC:"rgba(215,180,70,.5)"}, f:"Elle porte un croissant doré entre les yeux."},
-  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, d:{f:"fuseau",dos:"#5E4A38",ventre:"#B49A72",creux:.42,motif:"points",motifC:"rgba(240,235,215,.4)",dorsaleH:1.1}, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
-  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, d:{f:"fuseau",dos:"#2A4A6E",ventre:"#DCE4EA",creux:.34,queue:1.15}, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
-  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, d:{f:"espadon"}, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
+  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, rare:0.4, d:{f:"fuseau",dos:"#5E4A38",ventre:"#B49A72",creux:.42,motif:"points",motifC:"rgba(240,235,215,.4)",dorsaleH:1.1}, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
+  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, rare:0.55, d:{f:"fuseau",dos:"#2A4A6E",ventre:"#DCE4EA",creux:.34,queue:1.15}, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
+  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, rare:0.4, d:{f:"espadon"}, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
   {n:"Coquille Saint-Jacques", e:"🐚", min:96, max:195, p:36, v:75, kg:1, d:{f:"coquille",forme:"stjacques"}, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
-  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, d:{f:"hippocampe"}, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
-  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, d:{f:"homard",dos:"#2E4A6E"}, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
+  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, rare:0.38, d:{f:"hippocampe"}, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
+  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, rare:0.5, d:{f:"homard",dos:"#2E4A6E"}, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
   {n:"Oursin",       e:"🌰", min:98,  max:190, p:42,  v:48,   kg:1, d:{f:"oursin"}, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
   {n:"Anémone",      e:"🌸", min:108, max:215, p:30,  v:64,   kg:1, d:{f:"anemone"}, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
   {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, d:{f:"raie"}, f:"Elle nage en ondulant ses nageoires comme des ailes."},
   {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, d:{f:"poulpe",dos:"#A85E4A"}, f:"Il possède trois cœurs et un sang bleu."},
-  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, d:{f:"tortue"}, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
+  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, rare:0.45, d:{f:"tortue"}, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
   // ---- abysses ----
-  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, d:{f:"calamar",dos:"#C4544A"}, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
-  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10, d:{f:"requin"}, f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
-  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, d:{f:"requin"}, d:{f:"baudroie"}, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
-  {n:"Poisson-lune", e:"🌝", min:260, max:450, p:5,   v:1400, kg:12, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
-  {n:"Cœlacanthe",   e:"🦴", min:300, max:520, p:2,   v:3000, kg:9, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, d:{f:"coelacanthe"}, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
+  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, rare:0.42, d:{f:"calamar",dos:"#C4544A"}, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
+  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10, rare:0.45, d:{f:"requin"}, f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
+  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, rare:0.4, d:{f:"baudroie"}, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
+  {n:"Poisson-lune", e:"🌝", min:245, max:470, p:5,   v:1400, kg:12, rare:0.34, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
+  {n:"Cœlacanthe",   e:"🦴", min:270, max:520, p:5,   v:3000, kg:9, rare:0.4, d:{f:"coelacanthe"}, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
   {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, d:{f:"disque",dos:"#B8A05E",piquants:true,queueCourte:true,aplati:.9}, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
   {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, d:{f:"meduse"}, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
-  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, d:{f:"crabe",dos:"#B4744A",longuesPattes:true}, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
-  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, d:{f:"corail"}, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
-  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, d:{f:"vipere"}, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
+  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, rare:0.5, d:{f:"crabe",dos:"#B4744A",longuesPattes:true}, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
+  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, rare:0.55, d:{f:"corail"}, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
+  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, rare:0.38, d:{f:"vipere"}, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
   {n:"Crevette abyssale", e:"🦐", min:255, max:460, p:20, v:520, kg:1, d:{f:"crevette",dos:"#C4463A"}, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
-  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, d:{f:"coquille",forme:"nautile"}, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
+  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, rare:0.3, d:{f:"coquille",forme:"nautile"}, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
 ];
 
 // -------- OBSTACLES --------
@@ -1374,7 +1374,7 @@ const G = {
   chocs:0,
   prises:[],
   masse:0,
-  entites:[],            /* poissons et obstacles à l'écran */
+  entites:[], vus:{},    /* poissons et obstacles à l'écran */
   bulles:[],
   flottants:[],          /* textes qui montent */
   raf:0, tPrec:0, invuln:0, plusBas:0
@@ -1413,23 +1413,51 @@ function melangeCouleur(a, b, t){
 }
 
 /* ================= apparition ================= */
-function tirageParPoids(liste){
-  const tot = liste.reduce((s,x) => s + x.p, 0);
+/* Poids effectif d'une espèce à une profondeur donnée.
+   Une espèce n'est vraiment abondante qu'au cœur de sa tranche d'eau :
+   aux bords de sa plage, elle devient beaucoup plus rare. */
+function poidsEffectif(x, prof){
+  if(prof === undefined) return x.p;
+  const centre = (x.min + x.max) / 2;
+  const demi = (x.max - x.min) / 2 || 1;
+  const ecart = Math.abs(prof - centre) / demi;      /* 0 au centre, 1 aux bords */
+  return x.p * Math.max(0.12, 1 - ecart * ecart * 0.85);
+}
+
+function tirageParPoids(liste, prof){
+  const poids = liste.map(x => poidsEffectif(x, prof));
+  const tot = poids.reduce((s, v) => s + v, 0);
+  if(tot <= 0) return null;
   let r = Math.random() * tot;
-  for(const x of liste){ r -= x.p; if(r <= 0) return x; }
-  return liste[liste.length-1];
+  for(let i = 0; i < liste.length; i++){
+    r -= poids[i];
+    if(r <= 0){
+      const x = liste[i];
+      /* les espèces exceptionnelles doivent encore passer un jet de chance,
+         et ne se montrent qu'une fois par sortie */
+      if(x.rare){
+        if(G.vus && G.vus[x.n]) return null;
+        if(Math.random() > x.rare) return null;
+        if(G.vus) G.vus[x.n] = 1;
+      }
+      return x;
+    }
+  }
+  return null;
 }
 
 function engendrer(profBas){
   const dispoP = POISSONS.filter(p => profBas >= p.min && profBas <= p.max);
   const dispoO = OBSTACLES.filter(o => profBas >= o.min && profBas <= o.max);
-  /* plus on descend, plus c'est encombré */
-  const densite = Math.min(.62, .2 + profBas / 900);
+  /* comme dans la réalité, la vie se raréfie avec la profondeur */
+  const partPoisson = Math.max(.16, .78 - profBas / 620);
+  const densite = Math.min(.64, .34 + profBas / 1400);
   if(Math.random() > densite) return;
-  const poisson = Math.random() < .58 && dispoP.length;
+  const poisson = Math.random() < partPoisson && dispoP.length;
   const src = poisson ? dispoP : dispoO;
   if(!src.length) return;
-  const modele = tirageParPoids(src);
+  const modele = tirageParPoids(src, profBas);
+  if(!modele) return;
   const taille = poisson ? 26 + modele.kg * 2.4 : 28;
   G.entites.push({
     poisson, m:modele,
@@ -1445,7 +1473,7 @@ function lancer(){
   audio();
   G.phase = 'descente';
   G.x = 0.5; G.chocs = 0; G.prises = []; G.masse = 0;
-  G.entites = []; G.bulles = []; G.flottants = [];
+  G.entites = []; G.bulles = []; G.flottants = []; G.vus = {};
   G.prof = palier('depart');
   G.plusBas = G.prof;
   G.invuln = 0.6;
@@ -1476,8 +1504,11 @@ function attraper(e){
   G.masse += e.m.kg;
   collection[e.m.n] = (collection[e.m.n] || 0) + 1;
   const premier = collection[e.m.n] === 1;
-  flottant((premier ? '★ ' : '') + e.m.n + (e.m.v ? ' +' + e.m.v : ''), premier ? '#F0B429' : '#EAF2F7');
-  if(premier) sNouveau(); else sPrise();
+  const legende = e.m.rare && e.m.rare <= 0.2;
+  flottant((legende ? '✦ ' : premier ? '★ ' : '') + e.m.n + (e.m.v ? ' +' + e.m.v : ''),
+           (premier || legende) ? '#F0B429' : '#EAF2F7');
+  if(premier || legende) sNouveau(); else sPrise();
+  if(legende) setTimeout(() => flottant('Prise exceptionnelle !', '#F0B429'), 520);
   if(dernier){
     setTimeout(() => flottant('Panier plein — on remonte !', '#F0B429'), 420);
     setTimeout(sVente, 300);
