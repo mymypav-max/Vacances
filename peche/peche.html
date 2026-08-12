@@ -178,7 +178,7 @@
   <section class="ecran centre" id="e-accueil">
     <h1>Grande<br>Pêche</h1>
     <p class="solde-accueil"><span id="solde3">0 ₣</span> en caisse</p>
-    <p class="sous">Lance la ligne et descends le plus profond possible. Évite tout ce qui traîne : au bout de quelques chocs, l'hameçon remonte. C'est en remontant qu'on attrape les poissons.</p>
+    <p class="sous">Lance la ligne et descends le plus profond possible. Évite tout ce qui traîne : au bout de quelques chocs, l'hameçon remonte. C'est en remontant qu'on attrape les poissons. Le plomb fixe jusqu'où tu peux plonger, et sous 450 m il fait nuit noire : sans lampe, on ne voit plus rien venir.</p>
     <button class="btn" id="b-jouer">Pêcher</button>
     <button class="btn sec" id="b-boutique">Atelier</button>
     <button class="btn sec" id="b-collection">Collection</button>
@@ -241,91 +241,93 @@
 // [nom, profondeur de debut, couleur haute, couleur basse]
 const ZONES = [
   ["Le lac",       0,   "#2E8FBE", "#1B6E96"],
-  ["L'estuaire",   40,  "#1B6E96", "#134F73"],
-  ["La mer",       110, "#134F73", "#0A2E4A"],
-  ["Les abysses",  230, "#0A2E4A", "#04101C"]
+  ["L'estuaire",   70,  "#1B6E96", "#134F73"],
+  ["La mer",       200, "#134F73", "#0A2E4A"],
+  ["Les abysses",  450, "#0A2E4A", "#02080F"]
 ];
 
 // -------- ESPECES --------
 // n: nom, e: emoji, min/max: profondeur, p: poids relatif (rarete), v: valeur, kg: masse, f: fiche
 const POISSONS = [
   // ---- lac (eau douce) ----
-  {n:"Gardon",       e:"🐟", min:0,   max:45,  p:100, v:2,    kg:1, d:{f:"fuseau",dos:"#7E8C93",ventre:"#D8DEE2",creux:.36,motif:"ligne",motifC:"rgba(200,80,60,.35)"}, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
-  {n:"Écrevisse",    e:"🦞", min:2,   max:50,  p:60,  v:8,    kg:1, d:{f:"homard",dos:"#8C4B33"}, f:"Elle marche à reculons quand elle est surprise et repousse ses pinces perdues."},
-  {n:"Grenouille",   e:"🐸", min:0,   max:30,  p:52,  v:6,    kg:1, d:{f:"grenouille"}, f:"Elle respire aussi par la peau, à condition qu'elle reste humide."},
-  {n:"Têtard",       e:"🥚", min:0,   max:22,  p:75,  v:3,    kg:1, d:{f:"tetard"}, f:"Il perd sa queue en grandissant : elle est absorbée par son propre corps."},
-  {n:"Perche",       e:"🐠", min:5,   max:55,  p:70,  v:5,    kg:1, d:{f:"fuseau",dos:"#5E7A3A",ventre:"#D9C88A",creux:.38,motif:"barres",motifC:"rgba(30,45,20,.5)",dorsaleH:1.35}, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
-  {n:"Truite",       e:"🐟", min:8,   max:60,  p:45,  v:12,   kg:2, d:{f:"fuseau",dos:"#6E7A4E",ventre:"#E2D2A8",creux:.33,motif:"points",motifC:"rgba(180,60,50,.55)"}, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
-  {n:"Carpe",        e:"🐡", min:12,  max:70,  p:30,  v:22,   kg:3, d:{f:"fuseau",dos:"#8A6E3A",ventre:"#D6C48A",creux:.42,dorsaleH:1.3}, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
-  {n:"Brochet",      e:"🐊", min:20,  max:85,  p:16,  v:48,   kg:4, d:{f:"allonge",dos:"#5A6E3E",ventre:"#CFCF96",creux:.2,machoire:"courte",motif:"points",motifC:"rgba(220,220,170,.45)"}, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
-  {n:"Tanche",       e:"🐟", min:14,  max:75,  p:34,  v:26,   kg:2, d:{f:"fuseau",dos:"#4E5E32",ventre:"#9AA45E",creux:.4}, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
-  {n:"Moule d\'eau douce", e:"🦪", min:6,  max:66, p:44, v:14, kg:1, d:{f:"coquille",forme:"moule"}, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
-  {n:"Silure",       e:"🐋", min:35,  max:105, p:7,   v:120,  kg:7, rare:0.7, d:{f:"allonge",dos:"#3E3A2E",ventre:"#9A9078",creux:.24,barbillons:true}, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
+  {n:"Gardon",       e:"🐟", min:0,   max:79,  p:100, v:13,    kg:1, d:{f:"fuseau",dos:"#7E8C93",ventre:"#D8DEE2",creux:.36,motif:"ligne",motifC:"rgba(200,80,60,.35)"}, f:"Le poisson le plus commun de nos rivières. Il se déplace en bancs serrés."},
+  {n:"Écrevisse",    e:"🦞", min:4,   max:89,  p:60,  v:30,    kg:1, d:{f:"homard",dos:"#8C4B33"}, f:"Elle marche à reculons quand elle est surprise et repousse ses pinces perdues."},
+  {n:"Grenouille",   e:"🐸", min:0,   max:52,  p:52,  v:24,    kg:1, d:{f:"grenouille"}, f:"Elle respire aussi par la peau, à condition qu'elle reste humide."},
+  {n:"Têtard",       e:"🥚", min:0,   max:38,  p:75,  v:16,    kg:1, d:{f:"tetard"}, f:"Il perd sa queue en grandissant : elle est absorbée par son propre corps."},
+  {n:"Perche",       e:"🐠", min:9,   max:98,  p:70,  v:22,    kg:1, d:{f:"fuseau",dos:"#5E7A3A",ventre:"#D9C88A",creux:.38,motif:"barres",motifC:"rgba(30,45,20,.5)",dorsaleH:1.35}, f:"Rayée de noir, elle chasse à l'affût près des herbiers."},
+  {n:"Truite",       e:"🐟", min:14,   max:107,  p:45,  v:40,   kg:2, d:{f:"fuseau",dos:"#6E7A4E",ventre:"#E2D2A8",creux:.33,motif:"points",motifC:"rgba(180,60,50,.55)"}, f:"Elle a besoin d'une eau froide et bien oxygénée pour vivre."},
+  {n:"Carpe",        e:"🐡", min:21,  max:126,  p:30,  v:67,   kg:3, d:{f:"fuseau",dos:"#8A6E3A",ventre:"#D6C48A",creux:.42,dorsaleH:1.3}, f:"Elle peut vivre plus de 40 ans et fouille la vase avec ses barbillons."},
+  {n:"Brochet",      e:"🐊", min:35,  max:154,  p:16,  v:138,   kg:4, d:{f:"allonge",dos:"#5A6E3E",ventre:"#CFCF96",creux:.2,machoire:"courte",motif:"points",motifC:"rgba(220,220,170,.45)"}, f:"Le grand prédateur des lacs, avec près de 700 dents dirigées vers l'arrière."},
+  {n:"Tanche",       e:"🐟", min:24,  max:135,  p:34,  v:78,   kg:2, d:{f:"fuseau",dos:"#4E5E32",ventre:"#9AA45E",creux:.4}, f:"On la surnomme le médecin des poissons à cause du mucus qui couvre ses écailles."},
+  {n:"Moule d\'eau douce", e:"🦪", min:10,  max:118, p:44, v:46, kg:1, d:{f:"coquille",forme:"moule"}, f:"Elle filtre jusqu'à 40 litres d'eau par jour et nettoie la rivière."},
+  {n:"Silure",       e:"🐋", min:61,  max:191, p:7,   v:190,  kg:7, rare:0.7, d:{f:"allonge",dos:"#3E3A2E",ventre:"#9A9078",creux:.24,barbillons:true}, f:"Le plus gros poisson d'eau douce d'Europe : il dépasse parfois 2,50 m."},
   // ---- estuaire ----
-  {n:"Anguille",     e:"🐍", min:40,  max:120, p:40,  v:30,   kg:2, d:{f:"anguille",dos:"#3A4A3E"}, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
-  {n:"Mulet",        e:"🐟", min:45,  max:125, p:55,  v:18,   kg:2, d:{f:"fuseau",dos:"#6E7E8A",ventre:"#DDE4E8",creux:.32,motif:"ligne",motifC:"rgba(70,90,105,.4)"}, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
-  {n:"Bar",          e:"🐠", min:55,  max:150, p:32,  v:55,   kg:3, d:{f:"fuseau",dos:"#5E7284",ventre:"#E8EEF2",creux:.31,motif:"ligne",motifC:"rgba(60,80,95,.35)"}, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
-  {n:"Saumon",       e:"🐟", min:60,  max:160, p:20,  v:95,   kg:4, d:{f:"fuseau",dos:"#5A6E7E",ventre:"#E8B49A",creux:.32,motif:"points",motifC:"rgba(40,55,65,.4)"}, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
-  {n:"Crevette grise", e:"🦐", min:38, max:118, p:66, v:14, kg:1, d:{f:"crevette",dos:"#A89880"}, f:"Transparente, elle se camoufle dans le sable en quelques secondes."},
-  {n:"Crabe vert",   e:"🦀", min:42,  max:130, p:58,  v:20,   kg:1, d:{f:"crabe",dos:"#4E6E3E"}, f:"Il marche de côté car ses pattes ne se plient que dans un sens."},
-  {n:"Étoile de mer",e:"⭐", min:50,  max:145, p:38,  v:34,   kg:1, d:{f:"etoile"}, f:"Elle n'a pas de cerveau et fait repousser un bras entier s'il est arraché."},
-  {n:"Sole",         e:"🐟", min:70,  max:170, p:24,  v:70,   kg:2, d:{f:"plat",dos:"#8A7452"}, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
+  {n:"Anguille",     e:"🐍", min:70,  max:221, p:40,  v:89,   kg:2, d:{f:"anguille",dos:"#3A4A3E"}, f:"Née dans la mer des Sargasses, elle traverse l'Atlantique pour rejoindre nos rivières."},
+  {n:"Mulet",        e:"🐟", min:79,  max:231, p:55,  v:57,   kg:2, d:{f:"fuseau",dos:"#6E7E8A",ventre:"#DDE4E8",creux:.32,motif:"ligne",motifC:"rgba(70,90,105,.4)"}, f:"Il supporte aussi bien l'eau douce que l'eau salée."},
+  {n:"Bar",          e:"🐠", min:98,  max:283, p:32,  v:156,   kg:3, d:{f:"fuseau",dos:"#5E7284",ventre:"#E8EEF2",creux:.31,motif:"ligne",motifC:"rgba(60,80,95,.35)"}, f:"Aussi appelé loup en Méditerranée. Il chasse dans les vagues."},
+  {n:"Saumon",       e:"🐟", min:107,  max:304, p:20,  v:152,   kg:4, d:{f:"fuseau",dos:"#5A6E7E",ventre:"#E8B49A",creux:.32,motif:"points",motifC:"rgba(40,55,65,.4)"}, f:"Il remonte les rivières en sautant les cascades pour pondre là où il est né."},
+  {n:"Crevette grise", e:"🦐", min:66, max:217, p:66, v:46, kg:1, d:{f:"crevette",dos:"#A89880"}, f:"Transparente, elle se camoufle dans le sable en quelques secondes."},
+  {n:"Crabe vert",   e:"🦀", min:74,  max:242, p:58,  v:62,   kg:1, d:{f:"crabe",dos:"#4E6E3E"}, f:"Il marche de côté car ses pattes ne se plient que dans un sens."},
+  {n:"Étoile de mer",e:"⭐", min:89,  max:273, p:38,  v:100,   kg:1, d:{f:"etoile"}, f:"Elle n'a pas de cerveau et fait repousser un bras entier s'il est arraché."},
+  {n:"Sole",         e:"🐟", min:126,  max:325, p:24,  v:115,   kg:2, d:{f:"plat",dos:"#8A7452"}, f:"Née symétrique, son œil gauche migre du côté droit en grandissant."},
   // ---- mer ----
-  {n:"Maquereau",    e:"🐟", min:100, max:200, p:45,  v:40,   kg:2, d:{f:"fuseau",dos:"#2E5E7E",ventre:"#E4EAEE",creux:.28,motif:"ondes",motifC:"rgba(15,30,45,.6)",queue:1}, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
-  {n:"Dorade",       e:"🐠", min:110, max:215, p:28,  v:110,  kg:3, d:{f:"fuseau",dos:"#8A96A2",ventre:"#EAEEF0",creux:.46,dorsaleH:1.2,motif:"ligne",motifC:"rgba(215,180,70,.5)"}, f:"Elle porte un croissant doré entre les yeux."},
-  {n:"Mérou",        e:"🐡", min:125, max:240, p:15,  v:210,  kg:6, rare:0.4, d:{f:"fuseau",dos:"#5E4A38",ventre:"#B49A72",creux:.42,motif:"points",motifC:"rgba(240,235,215,.4)",dorsaleH:1.1}, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
-  {n:"Thon rouge",   e:"🐟", min:140, max:265, p:9,   v:380,  kg:8, rare:0.55, d:{f:"fuseau",dos:"#2A4A6E",ventre:"#DCE4EA",creux:.34,queue:1.15}, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
-  {n:"Espadon",      e:"🗡️", min:160, max:290, p:6,   v:520,  kg:9, rare:0.4, d:{f:"espadon"}, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
-  {n:"Coquille Saint-Jacques", e:"🐚", min:96, max:195, p:36, v:75, kg:1, d:{f:"coquille",forme:"stjacques"}, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
-  {n:"Hippocampe",   e:"🐴", min:102, max:205, p:20,  v:190,  kg:1, rare:0.38, d:{f:"hippocampe"}, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
-  {n:"Homard",       e:"🦞", min:115, max:235, p:19,  v:230,  kg:3, rare:0.5, d:{f:"homard",dos:"#2E4A6E"}, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
-  {n:"Oursin",       e:"🌰", min:98,  max:190, p:42,  v:48,   kg:1, d:{f:"oursin"}, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
-  {n:"Anémone",      e:"🌸", min:108, max:215, p:30,  v:64,   kg:1, d:{f:"anemone"}, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
-  {n:"Raie",         e:"🥏", min:130, max:250, p:18,  v:160,  kg:5, d:{f:"raie"}, f:"Elle nage en ondulant ses nageoires comme des ailes."},
-  {n:"Poulpe",       e:"🐙", min:120, max:245, p:22,  v:140,  kg:3, d:{f:"poulpe",dos:"#A85E4A"}, f:"Il possède trois cœurs et un sang bleu."},
-  {n:"Tortue",       e:"🐢", min:105, max:210, p:12,  v:0,    kg:5, rare:0.45, d:{f:"tortue"}, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
+  {n:"Maquereau",    e:"🐟", min:181, max:388, p:45,  v:116,   kg:2, d:{f:"fuseau",dos:"#2E5E7E",ventre:"#E4EAEE",creux:.28,motif:"ondes",motifC:"rgba(15,30,45,.6)",queue:1}, f:"Son dos est zébré de bleu métallique. Il nage sans jamais s'arrêter."},
+  {n:"Dorade",       e:"🐠", min:200, max:419, p:28,  v:175,  kg:3, d:{f:"fuseau",dos:"#8A96A2",ventre:"#EAEEF0",creux:.46,dorsaleH:1.2,motif:"ligne",motifC:"rgba(215,180,70,.5)"}, f:"Elle porte un croissant doré entre les yeux."},
+  {n:"Mérou",        e:"🐡", min:231, max:466, p:15,  v:210,  kg:6, rare:0.4, d:{f:"fuseau",dos:"#5E4A38",ventre:"#B49A72",creux:.42,motif:"points",motifC:"rgba(240,235,215,.4)",dorsaleH:1.1}, f:"Il change de sexe au cours de sa vie : femelle d'abord, mâle ensuite."},
+  {n:"Thon rouge",   e:"🐟", min:262, max:504, p:9,   v:380,  kg:8, rare:0.55, d:{f:"fuseau",dos:"#2A4A6E",ventre:"#DCE4EA",creux:.34,queue:1.15}, f:"Il atteint 70 km/h et traverse l'Atlantique entier."},
+  {n:"Espadon",      e:"🗡️", min:304, max:543, p:6,   v:520,  kg:9, rare:0.4, d:{f:"espadon"}, f:"Son rostre pointu peut mesurer un tiers de sa longueur totale."},
+  {n:"Coquille Saint-Jacques", e:"🐚", min:174, max:377, p:36, v:122, kg:1, d:{f:"coquille",forme:"stjacques"}, f:"Elle nage en claquant ses deux valves et possède une soixantaine de petits yeux bleus."},
+  {n:"Hippocampe",   e:"🐴", min:185, max:398, p:20,  v:190,  kg:1, rare:0.38, d:{f:"hippocampe"}, f:"C'est le mâle qui porte les œufs dans sa poche et met les petits au monde."},
+  {n:"Homard",       e:"🦞", min:210, max:458, p:19,  v:230,  kg:3, rare:0.5, d:{f:"homard",dos:"#2E4A6E"}, f:"Son sang est bleu et il peut vivre plus de cinquante ans."},
+  {n:"Oursin",       e:"🌰", min:178,  max:367, p:42,  v:138,   kg:1, d:{f:"oursin"}, f:"Il se déplace sur des centaines de petits pieds tubulaires cachés entre ses piquants."},
+  {n:"Anémone",      e:"🌸", min:196, max:419, p:30,  v:106,   kg:1, d:{f:"anemone"}, f:"C'est un animal, pas une fleur : ses tentacules urticants attrapent les proies."},
+  {n:"Raie",         e:"🥏", min:242, max:481, p:18,  v:160,  kg:5, d:{f:"raie"}, f:"Elle nage en ondulant ses nageoires comme des ailes."},
+  {n:"Poulpe",       e:"🐙", min:221, max:473, p:22,  v:220,  kg:3, d:{f:"poulpe",dos:"#A85E4A"}, f:"Il possède trois cœurs et un sang bleu."},
+  {n:"Tortue",       e:"🐢", min:191, max:408, p:12,  v:0,    kg:5, rare:0.45, d:{f:"tortue"}, f:"Protégée : elle est relâchée aussitôt. Aucun gain, mais un beau geste."},
   // ---- abysses ----
-  {n:"Calamar géant",e:"🦑", min:225, max:400, p:14,  v:600,  kg:8, rare:0.42, d:{f:"calamar",dos:"#C4544A"}, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
-  {n:"Requin",       e:"🦈", min:230, max:420, p:10,  v:750,  kg:10, rare:0.45, d:{f:"requin"}, f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
-  {n:"Baudroie",     e:"🎣", min:250, max:440, p:8,   v:900,  kg:7, rare:0.4, d:{f:"baudroie"}, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
-  {n:"Poisson-lune", e:"🌝", min:245, max:470, p:5,   v:1400, kg:12, rare:0.34, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
-  {n:"Cœlacanthe",   e:"🦴", min:270, max:520, p:5,   v:3000, kg:9, rare:0.4, d:{f:"coelacanthe"}, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
-  {n:"Poisson-globe",e:"🐡", min:240, max:430, p:16,  v:420,  kg:3, d:{f:"disque",dos:"#B8A05E",piquants:true,queueCourte:true,aplati:.9}, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
-  {n:"Méduse",       e:"🎐", min:200, max:380, p:26,  v:60,   kg:1, d:{f:"meduse"}, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
-  {n:"Crabe des neiges", e:"🦀", min:210, max:395, p:24, v:340, kg:4, rare:0.5, d:{f:"crabe",dos:"#B4744A",longuesPattes:true}, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
-  {n:"Corail",       e:"🪸", min:205, max:360, p:28,  v:280,  kg:2, rare:0.55, d:{f:"corail"}, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
-  {n:"Poisson-vipère", e:"🦷", min:280, max:490, p:9, v:1250, kg:2, rare:0.38, d:{f:"vipere"}, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
-  {n:"Crevette abyssale", e:"🦐", min:255, max:460, p:20, v:520, kg:1, d:{f:"crevette",dos:"#C4463A"}, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
-  {n:"Nautile",      e:"🐚", min:270, max:470, p:6,   v:1100, kg:2, rare:0.3, d:{f:"coquille",forme:"nautile"}, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
+  {n:"Calamar géant",e:"🦑", min:440, max:714, p:14,  v:600,  kg:8, rare:0.42, d:{f:"calamar",dos:"#C4544A"}, f:"Son œil, grand comme une assiette, est le plus gros du règne animal."},
+  {n:"Requin",       e:"🦈", min:450, max:745, p:10,  v:750,  kg:10, rare:0.45, d:{f:"requin"}, f:"Les requins existaient déjà 200 millions d'années avant les dinosaures."},
+  {n:"Baudroie",     e:"🎣", min:481, max:776, p:8,   v:900,  kg:7, rare:0.4, d:{f:"baudroie"}, f:"Elle attire ses proies avec une lanterne vivante posée sur son front."},
+  {n:"Poisson-lune", e:"🌝", min:473, max:822, p:5,   v:1400, kg:12, rare:0.34, d:{f:"disque",dos:"#8A9098",nageoiresHV:true,aplati:1}, f:"Le plus lourd des poissons osseux : jusqu'à 2 tonnes."},
+  {n:"Cœlacanthe",   e:"🦴", min:512, max:900, p:5,   v:3000, kg:9, rare:0.4, d:{f:"coelacanthe"}, f:"On le croyait disparu depuis 65 millions d'années, jusqu'à sa redécouverte en 1938."},
+  {n:"Poisson-globe",e:"🐡", min:466, max:760, p:16,  v:420,  kg:3, d:{f:"disque",dos:"#B8A05E",piquants:true,queueCourte:true,aplati:.9}, f:"Il se gonfle d'eau pour tripler de volume face à un danger."},
+  {n:"Méduse",       e:"🎐", min:388, max:683, p:26,  v:100,   kg:1, d:{f:"meduse"}, f:"Sans cerveau, sans cœur, sans os : elle est faite à 95 % d'eau."},
+  {n:"Crabe des neiges", e:"🦀", min:408, max:706, p:24, v:340, kg:4, rare:0.5, d:{f:"crabe",dos:"#B4744A",longuesPattes:true}, f:"Il vit dans des eaux à peine au-dessus de zéro degré."},
+  {n:"Corail",       e:"🪸", min:398, max:652, p:28,  v:280,  kg:2, rare:0.55, d:{f:"corail"}, f:"Chaque branche est bâtie par des milliers d'animaux minuscules vivant ensemble."},
+  {n:"Poisson-vipère", e:"🦷", min:528, max:853, p:9, v:1250, kg:2, rare:0.38, d:{f:"vipere"}, f:"Ses dents sont si longues qu'elles ne rentrent pas dans sa bouche fermée."},
+  {n:"Crevette abyssale", e:"🦐", min:489, max:807, p:20, v:520, kg:1, d:{f:"crevette",dos:"#C4463A"}, f:"Elle crache un nuage lumineux pour aveugler ses prédateurs."},
+  {n:"Nautile",      e:"🐚", min:512, max:822, p:6,   v:1100, kg:2, rare:0.3, d:{f:"coquille",forme:"nautile"}, f:"Sa coquille en spirale suit presque exactement le nombre d'or."}
 ];
 
 // -------- OBSTACLES --------
 // d: degats (chocs), plus le fond est profond, plus ils sont denses
 const OBSTACLES = [
-  {n:"Bouteille",  e:"🍾", min:0,   max:200, p:40, d:"bouteille", dg:1},
-  {n:"Botte",      e:"🥾", min:0,   max:160, p:32, d:"botte", dg:1},
-  {n:"Boîte",      e:"🥫", min:0,   max:220, p:34, d:"boite", dg:1},
-  {n:"Pneu",       e:"🛞", min:10,  max:260, p:26, d:"pneu", dg:1},
-  {n:"Bois flotté",e:"🪵", min:0,   max:180, p:28, d:"bois", dg:1},
-  {n:"Algues",     e:"🌿", min:5,   max:300, p:36, d:"algues", dg:1},
-  {n:"Filet",      e:"🕸️", min:60,  max:520, p:22, d:"filet", dg:2},
-  {n:"Ancre",      e:"⚓", min:90,  max:520, p:18, d:"ancre", dg:2},
-  {n:"Épave",      e:"🚢", min:150, max:520, p:12, d:"epave", dg:2},
-  {n:"Mine",       e:"💣", min:200, max:520, p:9,  d:"mine", dg:3}
+  {n:"Bouteille",  e:"🍾", min:0,   max:388, p:40, d:"bouteille", dg:1},
+  {n:"Botte",      e:"🥾", min:0,   max:304, p:32, d:"botte", dg:1},
+  {n:"Boîte",      e:"🥫", min:0,   max:429, p:34, d:"boite", dg:1},
+  {n:"Pneu",       e:"🛞", min:18,  max:497, p:26, d:"pneu", dg:1},
+  {n:"Bois flotté",e:"🪵", min:0,   max:346, p:28, d:"bois", dg:1},
+  {n:"Algues",     e:"🌿", min:9,   max:559, p:36, d:"algues", dg:1},
+  {n:"Filet",      e:"🕸️", min:107,  max:900, p:22, d:"filet", dg:2},
+  {n:"Ancre",      e:"⚓", min:163,  max:900, p:18, d:"ancre", dg:2},
+  {n:"Épave",      e:"🚢", min:283, max:900, p:12, d:"epave", dg:2},
+  {n:"Mine",       e:"💣", min:388, max:900, p:9,  d:"mine", dg:3}
 ];
 
 // -------- AMELIORATIONS --------
 // prix[i] : cout pour passer au palier i+1
 const AMELIORATIONS = [
-  { id:"place",  n:"Panier",     ic:"🧺", desc:"Nombre de prises transportables",
-    paliers:[2,3,4,5,6,8,10], prix:[60,180,420,900,1800,3600] },
-  { id:"solide", n:"Hameçon",    ic:"🪝", desc:"Chocs encaissés avant de remonter",
-    paliers:[2,3,4,5,6],      prix:[120,400,1100,2600] },
-  { id:"depart", n:"Canne",      ic:"🎣", desc:"Profondeur de départ",
-    paliers:[0,25,60,110,170,240], prix:[150,450,1000,2200,4500] },
-  { id:"treuil", n:"Treuil",     ic:"⚙️", desc:"Vitesse de remontée",
+  { id:"place",  n:"Panier",  ic:"🧺", desc:"Nombre de prises transportables",
+    paliers:[2,3,4,5,6,8,10], prix:[45,150,380,850,1750,3500] },
+  { id:"solide", n:"Hameçon", ic:"🪝", desc:"Chocs encaissés avant de remonter",
+    paliers:[2,3,5,7,9,12],   prix:[120,400,1100,2600,5400] },
+  { id:"plomb",  n:"Plomb",   ic:"⚫", desc:"Profondeur maximale de descente",
+    paliers:[100,180,300,450,620,900], prix:[90,330,950,2300,5100] },
+  { id:"lampe",  n:"Lampe",   ic:"🔦", desc:"Portée de vision dans le noir",
+    paliers:[0,150,215,290,380], prix:[300,900,2200,4800] },
+  { id:"treuil", n:"Treuil",  ic:"⚙️", desc:"Vitesse de remontée",
     paliers:[1,1.25,1.5,1.8,2.2], prix:[100,320,850,2000] },
-  { id:"appat",  n:"Appât",      ic:"🪱", desc:"Attire les poissons proches",
+  { id:"appat",  n:"Appât",   ic:"🪱", desc:"Attire les poissons proches",
     paliers:[0,26,46,68],     prix:[220,700,1900] }
 ];
 
@@ -1397,7 +1399,8 @@ try{ new ResizeObserver(() => resize()).observe($('jeu')); }catch(e){}
 
 /* ================= géométrie ================= */
 const PX_M = 6;                       /* pixels par mètre */
-const FOND = 520;                     /* profondeur maximale de la fosse */
+const FOND = 900;                     /* profondeur maximale de la fosse */
+const NUIT = 450;                     /* au-delà, l'obscurité gagne */
 const yHame = () => H * 0.42;         /* l'hameçon reste à hauteur fixe, le décor défile */
 const xHame = () => G.x * (W - 60) + 30;
 
@@ -1450,8 +1453,8 @@ function engendrer(profBas){
   const dispoP = POISSONS.filter(p => profBas >= p.min && profBas <= p.max);
   const dispoO = OBSTACLES.filter(o => profBas >= o.min && profBas <= o.max);
   /* comme dans la réalité, la vie se raréfie avec la profondeur */
-  const partPoisson = Math.max(.16, .78 - profBas / 620);
-  const densite = Math.min(.64, .34 + profBas / 1400);
+  const partPoisson = Math.max(.24, .78 - profBas / 1100);
+  const densite = Math.min(.5, .30 + profBas / 2600);
   if(Math.random() > densite) return;
   const poisson = Math.random() < partPoisson && dispoP.length;
   const src = poisson ? dispoP : dispoO;
@@ -1474,7 +1477,7 @@ function lancer(){
   G.phase = 'descente';
   G.x = 0.5; G.chocs = 0; G.prises = []; G.masse = 0;
   G.entites = []; G.bulles = []; G.flottants = []; G.vus = {};
-  G.prof = palier('depart');
+  G.prof = 0;
   G.plusBas = G.prof;
   G.invuln = 0.6;
   ecran(null);
@@ -1482,7 +1485,7 @@ function lancer(){
   majHud();
   sPlouf();
   /* on peuple la colonne d'eau sous l'hameçon */
-  for(let d = G.prof; d < G.prof + 120; d += 6) engendrer(d);
+  for(let d = 0; d < 130; d += 6) engendrer(d);
   G.tPrec = performance.now();
   cancelAnimationFrame(G.raf);
   G.raf = requestAnimationFrame(boucle);
@@ -1580,11 +1583,12 @@ function maj(dt){
   if(dirig) G.x = Math.max(0, Math.min(1, G.x + dirig * dt * 0.85));
 
   if(G.phase === 'descente'){
-    G.prof += 26 * dt;
+    G.prof += (26 + Math.min(20, G.prof / 34)) * dt;   /* l'hameçon prend de la vitesse */
     G.plusBas = Math.max(G.plusBas, G.prof);
-    if(G.prof >= FOND){        /* on touche le fond : la ligne repart vers le haut */
-      G.prof = FOND;
-      flottant('Le fond !', '#F0B429');
+    const limite = Math.min(FOND, palier('plomb'));
+    if(G.prof >= limite){
+      G.prof = limite;
+      flottant(limite >= FOND ? 'Le fond !' : 'Plomb trop léger', '#F0B429');
       passerEnRemontee();
     }
     /* on peuple devant */
@@ -1757,6 +1761,29 @@ function dessiner(){
   ctx.restore();
   ctx.globalAlpha = 1;
 
+  /* obscurité des abysses : au-delà de NUIT, seule la lampe éclaire */
+  if(G.prof + (H - hy)/PX_M > NUIT){
+    const noir = Math.max(0, Math.min(0.94, (G.prof - NUIT) / 260));
+    if(noir > 0.01){
+      const portee = palier('lampe');
+      const halo = portee ? portee : 78;
+      const lum = ctx.createRadialGradient(hx, hy, halo*0.30, hx, hy, halo*1.5);
+      lum.addColorStop(0, 'rgba(2,8,15,0)');
+      lum.addColorStop(0.55, 'rgba(2,8,15,' + (noir*0.55) + ')');
+      lum.addColorStop(1, 'rgba(2,8,15,' + noir + ')');
+      ctx.fillStyle = lum;
+      ctx.fillRect(0, 0, W, H);
+      /* faisceau de la lampe */
+      if(portee){
+        const f = ctx.createRadialGradient(hx, hy, 0, hx, hy, halo);
+        f.addColorStop(0, 'rgba(215,240,255,.16)');
+        f.addColorStop(1, 'rgba(215,240,255,0)');
+        ctx.fillStyle = f;
+        ctx.beginPath(); ctx.arc(hx, hy, halo, 0, 6.284); ctx.fill();
+      }
+    }
+  }
+
   /* textes flottants */
   G.flottants.forEach(f => {
     ctx.globalAlpha = Math.max(0, Math.min(1, f.vie));
@@ -1775,7 +1802,9 @@ function majSolde(){
 function majHud(){
   majSolde();
   $('prof').textContent = Math.round(G.prof);
-  $('zone').textContent = zoneDe(G.prof)[0].toUpperCase();
+  const lim = Math.min(FOND, palier('plomb'));
+  $('zone').textContent = zoneDe(G.prof)[0].toUpperCase()
+    + (G.phase === 'descente' ? ' · MAX ' + lim + ' M' : '');
   $('argent').textContent = argent + ' ₣';
   const vies = palier('solide') - G.chocs;
   $('coeurs').innerHTML = '<span style="color:#C33B2C">' + '●'.repeat(Math.max(0,vies)) + '</span>'

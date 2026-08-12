@@ -1,5 +1,5 @@
 /* Service worker de Grande Peche, portee limitee a son dossier */
-const CACHE = 'peche-v6';
+const CACHE = 'peche-v8';
 const FICHIERS = ['./', './peche.html', './peche.webmanifest', './icon-peche.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(FICHIERS.map(f => c.add(f).catch(()=>{})))).then(() => self.skipWaiting()));
